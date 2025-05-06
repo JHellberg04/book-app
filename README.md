@@ -1,4 +1,3 @@
-
 # 📚 Book App
 
 Group project for building a secure Book API with user authentication, admin roles, and review handling. Built during the API course at **Medieinstitutet**.
