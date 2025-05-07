@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser'
 // === ROUTES ===
 import authRoutes from './routes/auth.routes.js'
 import usersRoutes from './routes/users.routes.js'
+import bookRoutes from './routes/books.routes.js'
 
 // === CONFIG ===
 dotenv.config()
@@ -24,6 +25,7 @@ app.use(cookieParser())
 // === ROUTES ===
 app.use('/auth', authRoutes)
 app.use('/users', usersRoutes)
+app.use('/books', bookRoutes)
 
 // === ROOT TEST ===
 app.get('/', (_req: Request, res: Response) => {
