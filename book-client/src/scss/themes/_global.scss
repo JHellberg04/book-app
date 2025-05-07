@@ -1,0 +1,10 @@
+// @themes/_global.scss
+
+// === IMPORTS ===
+@use '@abstracts' as *;
+
+html {
+  background-color: var(--color-background);
+  color: var(--color-text-dark);
+  font-family: var(--font-primary);
+}
