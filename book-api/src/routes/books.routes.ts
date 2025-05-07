@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllBooks, getBookById, createBook } from '../controllers/book.controlers.js';
+import { getAllBooks, getBookById, createBook } from '../controllers/book.controllers.js';
 import { verifyAccessToken } from '../middleware/verifyToken.js';
 
 const router = express.Router();
