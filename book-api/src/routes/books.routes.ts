@@ -14,7 +14,7 @@ router.get('/', getAllBooks);
 router.get('/:id', getBookById);
 
 router.post('/', verifyAccessToken, createBook);
-router.post('/:id', verifyAccessToken, updateBook);
+router.patch('/:id', verifyAccessToken, updateBook);
 router.delete('/:id', verifyAccessToken, deleteBook);
 
 export default router;
