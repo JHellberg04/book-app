@@ -64,3 +64,30 @@ export const createBook = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Server error creating book' });
   }
 }
+
+export const updateBook = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400).json({ message: 'Invalid book ID' });
+    return;
+  }
+
+  try {
+    const updatedBook = await Book.findByIdAndUpdate(
+      id,
+      { $set: req.body },
+      { new: true }
+    );
+
+    if (!updatedBook) {
+      res.status(404).json({ message: 'Book not found'});
+      return;
+    }
+
+    res.status(200).json({ message: 'Book succesfully updated', updatedBook });
+  } catch (error) {
+    console.error('❌ Error updating book:', error);
+    res.status(500).json({ error: 'Server error updating book' });
+  }
+}
