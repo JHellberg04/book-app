@@ -1,9 +1,12 @@
 import express from 'express';
-import { getAllBooks, getBookById } from '../controllers/book.controlers.js';
+import { getAllBooks, getBookById, createBook } from '../controllers/book.controlers.js';
+import { verifyAccessToken } from '../middleware/verifyToken.js';
 
 const router = express.Router();
 
 router.get('/', getAllBooks);
 router.get('/:id', getBookById);
+
+router.post('/', verifyAccessToken, createBook);
 
 export default router;

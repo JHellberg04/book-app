@@ -34,3 +34,33 @@ export const getBookById = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Server error fetching book' });
   }
 }
+
+export const createBook = async (req: Request, res: Response) => {
+  try {
+    const {
+      title,
+      description,
+      author,
+      genres,
+      image,
+      published_year
+    } = req.body;
+
+    const newBook = new Book({
+      title,
+      description,
+      author,
+      genres,
+      image,
+      published_year,
+      reviews: []
+    });
+
+    const savedBook = await newBook.save();
+
+    res.status(201).json({message: 'Book created!', savedBook});
+  } catch (error) {
+    console.error('❌ Error creating book:', error);
+    res.status(500).json({ error: 'Server error creating book' });
+  }
+}
