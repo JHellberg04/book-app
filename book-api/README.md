@@ -46,7 +46,7 @@ Create a `.env` file in the root of `book-api/`:
 
 ```env
 PORT=3000
-MONGO_URI=mongodb+srv://<username>:<password>@your-cluster.mongodb.net/
+MONGO_URI="mongodb+srv://api_grupp_11:apigrupp11@cluster0.jpnmzuy.mongodb.net/book_db"
 JWT_SECRET=yourSuperSecretKey
 ```
 
