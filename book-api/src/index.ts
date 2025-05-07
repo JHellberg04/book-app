@@ -10,11 +10,15 @@ import cookieParser from 'cookie-parser'
 // === ROUTES ===
 import authRoutes from './routes/auth.routes.js'
 import usersRoutes from './routes/users.routes.js'
+import reviewRoutes from './routes/review.routes.js'
 
 // === CONFIG ===
 dotenv.config()
 const app = express()
 const PORT = process.env.PORT
+
+console.log('Mongo URI:', process.env.MONGO_URI)
+
 
 // === MIDDLEWARE ===
 app.use(cors())
@@ -24,6 +28,7 @@ app.use(cookieParser())
 // === ROUTES ===
 app.use('/auth', authRoutes)
 app.use('/users', usersRoutes)
+app.use('/reviews', reviewRoutes)
 
 // === ROOT TEST ===
 app.get('/', (_req: Request, res: Response) => {
