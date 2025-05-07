@@ -12,7 +12,8 @@ const BookSchema: Schema = new Schema({
   published_year: { type: Number },
   reviews: [{ type: Schema.Types.ObjectId, ref: "reviews" }]
 }, {
-  timestamps: true
+  timestamps: true,
+  optimisticConcurrency: true
 });
 
 export default mongoose.model<IBookModel>("Book", BookSchema);
