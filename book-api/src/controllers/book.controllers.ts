@@ -74,16 +74,16 @@ export const updateBook = async (req: Request, res: Response) => {
   }
 
   try {
-    const updatedBook = await Book.findByIdAndUpdate(
-      id,
-      { $set: req.body },
-      { new: true }
-    );
+    const book = await Book.findById(id);
 
-    if (!updatedBook) {
+    if (!book) {
       res.status(404).json({ message: 'Book not found'});
       return;
     }
+
+    Object.assign(book, req.body);
+
+    const updatedBook = await book.save();
 
     res.status(200).json({ message: 'Book succesfully updated', updatedBook });
   } catch (error) {
