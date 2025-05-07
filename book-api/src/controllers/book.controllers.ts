@@ -91,3 +91,25 @@ export const updateBook = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Server error updating book' });
   }
 }
+
+export const deleteBook = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  if(!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400).json({ message: 'Invalid Book ID'});
+    return;
+  }
+
+  try {
+    const deletedBook = await Book.findByIdAndDelete(id);
+
+    if (!deletedBook) {
+      res.status(404).json({ message: 'Book not found' });
+      return;
+    }
+    res.status(200).json({ message: 'Book succesfully deleted'});
+  } catch (error) {
+    console.error('❌ Error deleting book:', error);
+    res.status(500).json({ error: 'Server error deleting book' });
+  }
+}
