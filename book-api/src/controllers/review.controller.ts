@@ -1,6 +1,9 @@
 // === IMPORTS ===
 import { Request, Response } from 'express'
 import { Review } from '../models/review.js'
+import { IReview } from '../types/IReview.js'
+import { Document } from 'mongoose'
+
 
 
 /** === GET ALL REVIEWS === */
@@ -31,23 +34,25 @@ export async function getReviewById(req: Request, res: Response) {
   }
 }
 
+
 /** === CREATE NEW REVIEW === */
 export async function createReview(req: Request, res: Response) {
-  const { name, content, rating } = req.body
+  const { name, content, rating } = req.body;
 
   try {
-    const newReview = new Review({
+    // Skapa en ny review och typisera den som ett Mongoose-dokument med IReview
+    const newReview: Document & IReview = new Review({
       name,
       content,
       rating,
-      created_at: new Date()
-    })
+      created_at: new Date(),
+    });
 
-    await newReview.save()
-    res.status(201).json(newReview)
+    await newReview.save();  // save kommer nu att fungera
+    res.status(201).json(newReview);
   } catch (error) {
-    console.error('❌ Error creating review:', error)
-    res.status(400).json({ error: 'Invalid review data' })
+    console.error('❌ Error creating review:', error);
+    res.status(400).json({ error: 'Invalid review data' });
   }
 }
 
