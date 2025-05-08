@@ -45,7 +45,8 @@ pnpm install
 Create a `.env` file in the root of `book-api/`:
 
 ```env
-PORT=3000MONGO_URI=mongodb+srv://<username>:<password>@your-cluster.mongodb.net/
+PORT=3000
+MONGO_URI=mongodb+srv://<username>:<password>@your-cluster.mongodb.net/
 JWT_SECRET=yourSuperSecretKey
 ```
 
