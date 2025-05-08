@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser'
 // === ROUTES ===
 import authRoutes from './routes/auth.routes.js'
 import usersRoutes from './routes/users.routes.js'
+import bookRoutes from './routes/books.routes.js'
 import reviewRoutes from './routes/review.routes.js'
 
 // === CONFIG ===
@@ -28,6 +29,7 @@ app.use(cookieParser())
 // === ROUTES ===
 app.use('/auth', authRoutes)
 app.use('/users', usersRoutes)
+app.use('/books', bookRoutes)
 app.use('/reviews', reviewRoutes)
 
 // === ROOT TEST ===
