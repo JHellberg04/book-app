@@ -1,0 +1,10 @@
+// @base/_base.scss
+
+@use '@abstracts' as *;
+
+#app {
+  width: 100%;
+  min-height: 100dvh;
+  position: relative;
+  @include mix-flex-center();
+}

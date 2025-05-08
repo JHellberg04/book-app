@@ -1,0 +1,69 @@
+// @variables/_colors.scss
+
+// === 🎨 SCSS COLOR VARIABLES ===
+
+// === Base Colors ===
+$color-mineshaft: #3c3c3c; // Dark base (used as black)
+$color-soapstone: #fffcfa; // Light base (used as white)
+$color-seashellpeach: #fff8f3; // Background
+$color-bulgarianrose: #471505; // Text on light background
+$color-millbrook: #5c4033; // Header background
+
+// === Primary Theme: Peach Palette ===
+$color-rosebud: #fab89e; // Light button default
+$color-watusi: #ffdfd1; // Light button hover
+$color-geraldine: #f6a283; // Light button focus
+
+$color-kenyancopper: #792706; // Dark button default
+$color-oregon: #992f00; // Dark button hover
+$color-brownbramble: #5f1f07; // Dark button focus
+
+// === Feedback Colors ===
+$color-alto: #e0e0e0; // Disabled state
+$color-sunglo: #e57373; // Invalid (focus ring)
+$color-azaela: #f5cbcb; // Invalid info background
+$color-moccaccino: #6c1414; // Invalid text
+$color-summergreen: #8cbfa4; // Valid feedback
+$color-forgetmenot: #fff1eb; // Info box / tooltip
+
+// === Accent ===
+$color-pomegranate: #f4470f; // Logo / highlight
+
+// === 🌐 CSS CUSTOM PROPERTIES ===
+
+:root {
+  // === Base ===
+  --color-black: #{$color-mineshaft};
+  --color-white: #{$color-soapstone};
+  --color-text-dark: #{$color-bulgarianrose};
+  --color-text-light: #{$color-soapstone};
+  --color-background: #{$color-seashellpeach};
+  --color-header: #{$color-millbrook};
+
+  // === Buttons (Light Theme) ===
+  --color-button-default-light: #{$color-rosebud};
+  --color-button-active-light: #{$color-rosebud};
+  --color-button-hover-light: #{$color-watusi};
+  --color-button-focus-light: #{$color-geraldine};
+
+  // === Buttons (Dark Theme) ===
+  --color-button-default-dark: #{$color-kenyancopper};
+  --color-button-active-dark: #{$color-kenyancopper};
+  --color-button-hover-dark: #{$color-oregon};
+  --color-button-focus-dark: #{$color-brownbramble};
+
+  // === Buttons (Shared) ===
+  --color-button-disabled: #{$color-alto};
+
+  // === Feedback ===
+  --color-feedback-info: #{$color-forgetmenot};
+  --color-feedback-valid: #{$color-summergreen};
+  --color-feedback-invalid-info: #{$color-azaela};
+  --color-feedback-invalid-text: #{$color-moccaccino};
+  --color-feedback-invalid-focus: #{$color-sunglo};
+
+  // === Icons & Logo ===
+  --color-icons-light: #{$color-soapstone};
+  --color-logo-light: #{$color-soapstone};
+  --color-logo-orange: #{$color-pomegranate};
+}
