@@ -10,7 +10,7 @@ const BookSchema: Schema = new Schema({
   genres: [{ type: String }],
   image: { type: String },
   published_year: { type: Number },
-  reviews: [{ type: Schema.Types.ObjectId, ref: "reviews" }]
+  reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }]
 }, {
   timestamps: true,
   optimisticConcurrency: true
