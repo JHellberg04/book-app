@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import { Review } from '../models/review.js'
 import { IReview } from '../types/IReview.js'
 import { Document } from 'mongoose'
+import Book from '../models/book.js'
 
 
 
@@ -37,16 +38,26 @@ export async function getReviewById(req: Request, res: Response) {
 
 /** === CREATE NEW REVIEW === */
 export async function createReview(req: Request, res: Response) {
-  const { name, content, rating } = req.body;
+  const { name, content, rating, book } = req.body;
 
   try {
+    // Validate that the book exists
+    const bookExists = await Book.findById(book);
+    if (!bookExists) {
+      res.status(404).json({ error: 'Book not found' });
+      return;
+    }
     // Skapa en ny review och typisera den som ett Mongoose-dokument med IReview
     const newReview: Document & IReview = new Review({
       name,
       content,
       rating,
+      book,
       created_at: new Date(),
     });
+
+    bookExists.reviews.push(newReview._id as any);
+    await bookExists.save();
 
     await newReview.save();  // save kommer nu att fungera
     res.status(201).json(newReview);
