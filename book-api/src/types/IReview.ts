@@ -1,4 +1,4 @@
-
+import { Types } from "mongoose";
 
 // This file defines the IReview interface, which represents a book review.
 export interface IReview {
@@ -6,4 +6,5 @@ export interface IReview {
   content: string;
   rating: number;
   created_at: Date;
+  book: Types.ObjectId[];
 }
