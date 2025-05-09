@@ -1,6 +1,6 @@
 <template>
   <div class="review-page">
-    <!-- Visa laddningsindikator tills bokdata är hämtad -->
+
     <div v-if="loading">Laddar...</div>
 
     <BookHeader v-if="book.title" :image="book.image" :title="book.title" :genre="book.genre" />
@@ -14,16 +14,16 @@
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-// 👇 Importera komponenterna
+// Import components
 import BookHeader from '@/components/reviews/BookHeader.vue'
 import BookInfo from '@/components/reviews/BookInfo.vue'
 import ReviewForm from '@/components/reviews/ReviewForm.vue'
 import ReviewList from '@/components/reviews/ReviewList.vue'
 
-// Hämta bok-ID från ruttens parameter
+// Get the route parameters
 const route = useRoute()
 const bookId = route.params.id
-
+// Define the book object
 const book = ref({
   _id: '',
   title: '',
@@ -34,9 +34,10 @@ const book = ref({
   rating: 0,
 })
 
-const loading = ref(true)  // För att visa en laddningsindikator
+const loading = ref(true)
 
-// 👇 Hämta bokdata från din backend
+// Fetch the book data from the API
+// using the bookId from the route parameters
 onMounted(async () => {
   try {
     const res = await fetch(`http://localhost:3000/books/${bookId}`)
@@ -44,9 +45,9 @@ onMounted(async () => {
     book.value = await res.json()
   } catch (error) {
     console.error('Error:', error)
-    // Här kan du lägga till logik för att visa felmeddelande till användaren
+
   } finally {
-    loading.value = false  // Sluta visa laddningsindikator när datan är klar
+    loading.value = false
   }
 })
 </script>

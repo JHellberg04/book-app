@@ -26,12 +26,11 @@ const submitReview = async () => {
       body: JSON.stringify(review),
     })
 
-    // Rensa formuläret
     name.value = ''
     content.value = ''
     rating.value = ''
 
-    // Uppdatera sidan
+
     router.go(0)
   } catch (error) {
     console.error('Error:', error)
