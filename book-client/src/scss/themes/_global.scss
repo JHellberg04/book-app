@@ -1,10 +1,30 @@
 // @themes/_global.scss
 
 // === IMPORTS ===
-@use '@abstracts' as *;
+@use '@abstracts/variables/colors' as *;
 
-html {
-  background-color: var(--color-background);
-  color: var(--color-text-dark);
-  font-family: var(--font-primary);
+:root {
+  // === Base Colors ===
+  --color-black: #{$color-mineshaft};
+  --color-white: #{$color-soapstone};
+
+  // === Text Colors ===
+  --color-text-dark: #{$color-bulgarianrose}; // Main text on light background
+  --color-text-light: #{$color-soapstone}; // Text on dark background
+  --color-text-muted: #{$color-bulgarianrose-75}; // Placeholder or secondary text
+
+  // === Backgrounds ===
+  --color-background: #{$color-seashellpeach}; // Default page background
+  --color-surface: #{$color-soapstone}; // Component surfaces
+  --color-surface-dark: #{$color-mineshaft}; // Dark surfaces (e.g. dark mode)
+
+  // === Header ===
+  --color-header-bg: #{$color-millbrook}; // Header background
+  --color-header-text: #{$color-soapstone}; // Header text
+
+  // === Logo & Icons ===
+  --color-logo: #{$color-pomegranate}; // Brand accent
+  --color-logo-light: #{$color-soapstone}; // Light version of logo
+  --color-logo-subtle: #{$color-geraldine}; // Subtle highlight color
+  --color-icons-light: #{$color-soapstone}; // Light icons on dark background
 }

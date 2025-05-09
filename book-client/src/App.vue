@@ -16,4 +16,10 @@ import { RouterView } from 'vue-router'
   </footer>
 </template>
 
-<style scoped></style>
+<style lang="scss">
+html {
+  background-color: var(--color-background);
+  color: var(--color-text-dark);
+  font-family: var(--font-primary);
+}
+</style>
