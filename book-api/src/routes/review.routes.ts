@@ -9,7 +9,8 @@ import {
   getReviewById,
   createReview,
   updateReviewById,
-  deleteReviewById
+  deleteReviewById,
+  getReviewsByBookId
 } from '../controllers/review.controller.js'
 
 // == Create router ==
@@ -17,6 +18,7 @@ const router = Router()
 
 // === Routes ===
 router.get('/', getAllReviews)
+router.get('/book/:bookId', getReviewsByBookId)
 router.get('/:id', getReviewById)
 router.post('/', createReview)
 router.patch('/:id', verifyAccessToken, updateReviewById)
