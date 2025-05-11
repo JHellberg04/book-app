@@ -3,8 +3,8 @@
 
     <div v-if="loading">Laddar...</div>
 
-    <BookHeader v-if="book.title" :image="book.image" :title="book.title" :genre="book.genre" />
-    <BookInfo v-if="book.title" :title="book.title" :author="book.author" :rating="book.rating" :description="book.description" />
+    <BookHeader v-if="book.title" :image="book.image" :title="book.title" :genres="book.genres" />
+    <BookInfo v-if="book.title" :title="book.title" :author="book.author" :published_year="book.published_year" :rating="book.averageRating ?? 0" :description="book.description" />
     <ReviewForm v-if="book._id" :bookId="book._id" />
     <ReviewList v-if="book._id" :bookId="book._id" />
   </div>
