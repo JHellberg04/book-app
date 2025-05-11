@@ -5,6 +5,22 @@ import { IReview } from '../types/IReview.js'
 import { Document, Types } from 'mongoose'
 import Book from '../models/book.js'
 
+
+// === HJÄLPFUNKTION FÖR ATT UPPDATERA SNITTBETYGET ===
+async function updateBookAverageRating(bookId: string) {
+  const reviews = await Review.find({ book: bookId })
+
+  if (reviews.length === 0) {
+    await Book.findByIdAndUpdate(bookId, { rating: 0 })
+    return
+  }
+
+  const total = reviews.reduce((sum, review) => sum + review.rating, 0)
+  const average = total / reviews.length
+
+  await Book.findByIdAndUpdate(bookId, { rating: average })
+}
+
 /** === GET ALL REVIEWS === */
 export async function getAllReviews(_req: Request, res: Response) {
   try {
@@ -106,7 +122,6 @@ export async function deleteReviewById(req: Request, res: Response) {
 
     // Ta bort recensionen
     await Review.findByIdAndDelete(id)
-
     res.status(200).json({ message: 'Review deleted successfully' })
   } catch (error) {
     console.error('❌ Error deleting review:', error)
