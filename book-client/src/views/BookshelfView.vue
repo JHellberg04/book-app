@@ -49,5 +49,23 @@ onMounted(async () => {
 })
 </script>
 
-<style>
+<style scoped lang="scss">
+.bookshelf {
+  width: 95%;
+
+  h1 {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: fn-rem(36);
+    margin-bottom: 1rem;
+    border-bottom: fn-rem(2) solid var(--color-action-primary);
+    padding-bottom: 1.5rem;
+  }
+
+  .books-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
 </style>
