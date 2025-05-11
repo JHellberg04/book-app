@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import Book from '../models/book.js';
+import { Review } from '../models/review.js';
 
 export const getAllBooks = async (req: Request, res: Response) => {
   try {
@@ -28,7 +29,17 @@ export const getBookById = async (req: Request, res: Response) => {
       return;
     }
 
-    res.status(200).json(book);
+    const reviews = await Review.find({ book: id });
+    const ratings = reviews.map(r => r.rating);
+    const averageRating = ratings.length > 0
+      ? ratings.reduce((a, b) => a + b, 0) / ratings.length
+      : null;
+
+    res.status(200).json({
+      ...book.toObject(),
+      averageRating
+    });
+
   } catch (error) {
     console.error('❌ Error fetching book:', error);
     res.status(500).json({ error: 'Server error fetching book' });
