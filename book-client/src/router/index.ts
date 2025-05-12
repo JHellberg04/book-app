@@ -1,9 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth.js'
 import HomeView from '@/views/HomeView.vue'
-import ReviewPage from '@/views/ReviewPage.vue'
 
-// Create the router instance with history mode
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -42,18 +40,13 @@ const router = createRouter({
     {
       path: '/bookshelf',
       name: 'bookshelf',
-      component: () => import('@/views/BooksView.vue'),
+      component: () => import('@/views/BookshelfView.vue'),
     },
-    // Placeholder view for /review (might be restructured)
+    // Route: Book review page for a specific book
     {
-      path: '/review',
-      component: () => import('@/views/ReviewView.vue'),
-    },
-    // Dynamic route for a specific book with reviews
-    {
-      path: '/bookshelf/:id',
-      name: 'review',
-      component: ReviewPage,
+      path: '/bookshelf/bookreview/:id',
+      name: 'book-review',
+      component: () => import('@/views/BookReviewsView.vue'),
       props: true,
     },
   ],

@@ -25,9 +25,12 @@
   // === Nav ===
   --color-nav-dark: #{$color-millbrook};
   --color-nav-light: #{$color-soapstone};
+
   // === Logo & Icons ===
   --color-logo: #{$color-pomegranate}; // Brand accent
   --color-logo-light: #{$color-soapstone}; // Light version of logo
   --color-logo-subtle: #{$color-geraldine}; // Subtle highlight color
   --color-icons-light: #{$color-soapstone}; // Light icons on dark background
+  --color-ratingstar-filled: #{$color-pomegranate};
+  --color-ratingstar-empty:#{$color-mineshaft-85};
 }

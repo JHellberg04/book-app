@@ -26,7 +26,11 @@ const { handleLogout, loading } = useLogout()
     <NavLink v-if="isAdmin" class="pagenav__link" to="/account/admin/users" label="Users" />
 
     <!-- All logged-in users -->
-    <NavLink class="pagenav__link" to="/review" label="Reviews" />
+    <NavLink
+      class="pagenav__link"
+      :to="`/bookshelf/bookreview/682076ca38fc6ba7a9b29c19`"
+      label="Reviews"
+    />
     <NavLink class="pagenav__link" to="/bookshelf" label="Books" />
 
     <!-- Logout button -->
