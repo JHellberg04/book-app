@@ -100,6 +100,11 @@ const isRouterLink = props.as === 'router-link'
   }
 
   // Interaction states
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+  }
+
   &:hover span,
   &:focus span {
     transform: scale(1.1);
