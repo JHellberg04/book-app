@@ -16,18 +16,27 @@ const props = defineProps<{
 <style scoped lang="scss">
 .listitem {
   display: flex;
-  align-items: center;
-  gap: fn-rem(8); // 0.5rem = 8px
+  align-items: start;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+
+  @include mix-media(mobile) {
+    margin-bottom: 0.5rem;
+  }
+
+  @include mix-media(tablet) {
+    margin-bottom: 0.75;
+  }
 
   &__text {
-    font-size: fn-rem(16);
+    font-size: fn-rem(15);
 
-    @include mix-media(tablet) {
-      font-size: fn-rem(18);
+    @include mix-media(mobile) {
+      font-size: fn-rem(16);
     }
 
-    @include mix-media(laptop) {
-      font-size: fn-rem(20);
+    @include mix-media(tablet) {
+      font-size: fn-rem(17);
     }
   }
 
