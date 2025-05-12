@@ -102,14 +102,14 @@ const props = defineProps<{
       align-items:  center;
 
       .star {
-        color: #ccc;
+        color: var(--color-ratingstar-empty);
 
         &.filled {
-          color: gold;
+          color: var(--color-ratingstar-filled);
         }
 
         &.half {
-          color: linear-gradient(to right, gold 50%, #ccc 50%);
+          color: linear-gradient(to right, var(--color-ratingstar-filled), var(--color-ratingstar-empty));
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
