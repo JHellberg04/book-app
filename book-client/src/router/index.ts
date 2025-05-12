@@ -41,6 +41,7 @@ const router = createRouter({
     // Public route: Book list
     {
       path: '/bookshelf',
+      name: 'bookshelf',
       component: () => import('@/views/BooksView.vue'),
     },
     // Placeholder view for /review (might be restructured)
@@ -50,7 +51,7 @@ const router = createRouter({
     },
     // Dynamic route for a specific book with reviews
     {
-      path: '/book/:id',
+      path: '/bookshelf/:id',
       name: 'review',
       component: ReviewPage,
       props: true,
