@@ -30,7 +30,6 @@ const submitReview = async () => {
     content.value = ''
     rating.value = ''
 
-
     router.go(0)
   } catch (error) {
     console.error('Error:', error)

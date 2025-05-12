@@ -1,12 +1,10 @@
 <template>
   <div class="book-header">
-    <button @click="$router.back()" > ⬅ </button>
+    <button @click="$router.back()">⬅</button>
     <img :src="image" alt="Book Cover" class="book-cover" />
     <p>{{ genre }}</p>
   </div>
 </template>
-
-
 
 <script setup>
 defineProps({
@@ -14,7 +12,6 @@ defineProps({
   genre: String,
 })
 </script>
-
 
 <style scoped lang="scss">
 .book-header {

@@ -1,10 +1,15 @@
 <template>
   <div class="review-page">
-
     <div v-if="loading">Laddar...</div>
 
     <BookHeader v-if="book.title" :image="book.image" :title="book.title" :genre="book.genre" />
-    <BookInfo v-if="book.title" :title="book.title" :author="book.author" :rating="book.rating" :description="book.description" />
+    <BookInfo
+      v-if="book.title"
+      :title="book.title"
+      :author="book.author"
+      :rating="book.rating"
+      :description="book.description"
+    />
     <ReviewForm v-if="book._id" :bookId="book._id" />
     <ReviewList v-if="book._id" :bookId="book._id" />
   </div>
@@ -45,7 +50,6 @@ onMounted(async () => {
     book.value = await res.json()
   } catch (error) {
     console.error('Error:', error)
-
   } finally {
     loading.value = false
   }
