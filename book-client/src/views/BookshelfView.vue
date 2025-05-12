@@ -52,6 +52,14 @@ onMounted(async () => {
 <style scoped lang="scss">
 .bookshelf {
   width: 95%;
+  @include mix-media(laptop) {
+      max-width: 85%;
+  }
+  @include mix-media(desktop) {
+      max-width: 90%;
+  }
+
+  @include mix-flex-center(column);
 
   h1 {
     text-transform: uppercase;
@@ -66,6 +74,18 @@ onMounted(async () => {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
+    max-width: fn-rem(600);
+
+    @include mix-media(laptop) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mix-media(desktop) {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 }
 </style>
