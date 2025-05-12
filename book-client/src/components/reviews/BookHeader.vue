@@ -2,19 +2,28 @@
   <div class="book-header">
     <button @click="$router.back()">⬅</button>
     <img :src="image" alt="Book Cover" class="book-cover" />
-    <p>{{ genre }}</p>
   </div>
 </template>
 
-<script setup>
-defineProps({
-  image: String,
-  genre: String,
-})
+<script setup lang="ts">
+const props = defineProps<{
+  image: string
+}>()
 </script>
 
 <style scoped lang="scss">
 .book-header {
-  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book-cover {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  max-height: 600px;
+  object-fit: contain;
+  border-radius: 8px;
 }
 </style>

@@ -2,16 +2,26 @@
   <div class="review-page">
     <div v-if="loading">Laddar...</div>
 
-    <BookHeader v-if="book.title" :image="book.image" :title="book.title" :genre="book.genre" />
-    <BookInfo
-      v-if="book.title"
-      :title="book.title"
-      :author="book.author"
-      :rating="book.rating"
-      :description="book.description"
-    />
-    <ReviewForm v-if="book._id" :bookId="book._id" />
-    <ReviewList v-if="book._id" :bookId="book._id" />
+    <div class="header-bar">
+      <button @click="$router.back()" class="back-button">⬅ Back</button>
+      <p class="genre">{{ book.genres?.join(', ') || 'Genre not available' }}</p>
+    </div>
+
+    <div v-if="book.title" class="book-layout">
+      <BookHeader :image="book.image" :title="book.title" :genres="book.genres" />
+      <BookInfo
+        :title="book.title"
+        :author="book.author"
+        :published_year="book.published_year"
+        :rating="book.averageRating ?? 0"
+        :description="book.description"
+      />
+    </div>
+
+    <div class="review-layout" v-if="book._id">
+      <ReviewForm :bookId="book._id" />
+      <ReviewList :bookId="book._id" />
+    </div>
   </div>
 </template>
 
@@ -58,6 +68,62 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .review-page {
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.back-button {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #000;
+}
+
+.genre {
+  font-size: 18px;
+  color: #000;
+}
+
+.book-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    align-items: flex-start;
+
+    > * {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+}
+
+.review-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    align-items: stretch;
+
+    > * {
+      flex: 1;
+      min-width: 0;
+    }
+  }
 }
 </style>

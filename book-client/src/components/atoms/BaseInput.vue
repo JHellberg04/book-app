@@ -23,6 +23,8 @@ const props = defineProps<{
   min?: string | number
   max?: string | number
   step?: string | number
+  rows?: number
+  centerLabel?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -75,14 +77,18 @@ const onBlur = () => {
       isValid: status === 'success',
     }"
   >
-    <label class="inputfield__label" :for="id">{{ name }}</label>
+    <label class="inputfield__label" :class="{ 'is-centered': props.centerLabel }" :for="id">
+      {{ name }}
+    </label>
+
     <p class="inputfield__feedback">{{ feedback }}</p>
 
-    <input
+    <component
+      :is="type === 'textarea' ? 'textarea' : 'input'"
       class="inputfield__field"
       :id="id"
       :name="name"
-      :type="type || 'text'"
+      :type="type !== 'textarea' ? type : undefined"
       :placeholder="placeholder"
       :required="required"
       :autocomplete="autocomplete"
@@ -90,6 +96,7 @@ const onBlur = () => {
       :min="min"
       :max="max"
       :step="step"
+      :rows="type === 'textarea' ? rows || 3 : undefined"
       @focus="onFocus"
       @input="onInput"
       @blur="onBlur"
@@ -191,5 +198,9 @@ const onBlur = () => {
     padding: 0.25rem;
     background-color: var(--color-feedback-bg-info);
   }
+}
+
+.inputfield__label.is-centered {
+  text-align: center;
 }
 </style>
