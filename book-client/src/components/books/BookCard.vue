@@ -1,6 +1,6 @@
 <template>
   <article class="book-card">
-    <img :src="book.image" :alt="'Book cover for ' + book.title"/>
+    <img :src="book.image" :alt="'Book cover for ' + book.title" />
 
     <div class="book-info-container">
       <div class="book-info">
@@ -9,7 +9,7 @@
         <p class="book-author">By {{ book.author }}</p>
         <p class="book-genres">
           <span v-for="(genre, index) in book.genres" :key="genre" class="genre">
-        {{ genre }}<span v-if="index < book.genres.length - 1">, </span>
+            {{ genre }}<span v-if="index < book.genres.length - 1">, </span>
           </span>
         </p>
       </div>
@@ -21,20 +21,20 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps } from 'vue'
 
 interface Book {
-  _id: string;
-  title: string;
-  author: string;
-  published_year: number;
-  genres: string[];
-  image: string;
+  _id: string
+  title: string
+  author: string
+  published_year: number
+  genres: string[]
+  image: string
 }
 
 const props = defineProps<{
-  book: Book;
-}>();
+  book: Book
+}>()
 </script>
 
 <style scoped lang="scss">
@@ -63,7 +63,6 @@ const props = defineProps<{
     width: 100%;
     justify-content: space-between;
     .book-info {
-
       .book-title {
         font-size: fn-rem(20);
         font-weight: bold;

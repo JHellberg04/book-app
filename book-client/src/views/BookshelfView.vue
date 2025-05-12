@@ -6,45 +6,41 @@
     <div v-else-if="books.length === 0">Bookshelf is empty.</div>
 
     <div v-else class="books-grid">
-      <BookCard
-        v-for="book in books"
-        :key="book._id"
-        :book="book"
-      />
+      <BookCard v-for="book in books" :key="book._id" :book="book" />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import BookCard from '@/components/books/BookCard.vue';
+import { ref, onMounted } from 'vue'
+import BookCard from '@/components/books/BookCard.vue'
 
 export interface Book {
-  _id: string;
-  title: string;
-  author: string;
-  genres: string[];
-  image: string;
-  published_year: number;
+  _id: string
+  title: string
+  author: string
+  genres: string[]
+  image: string
+  published_year: number
 }
 
-const books = ref<Book[]>([]);
-const loading = ref(true);
+const books = ref<Book[]>([])
+const loading = ref(true)
 
 onMounted(async () => {
   try {
-    const res = await fetch('http://localhost:3000/books');
+    const res = await fetch('http://localhost:3000/books')
 
     if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      throw new Error(`HTTP error! status: ${res.status}`)
     }
-    const data = await res.json(); // Convert response to json
-    books.value = data; // Update reactive book list
-    console.log(books);
+    const data = await res.json() // Convert response to json
+    books.value = data // Update reactive book list
+    console.log(books)
   } catch (error) {
-    console.error('Error detching books:', error);
+    console.error('Error detching books:', error)
   } finally {
-    loading.value = false;
+    loading.value = false
   }
 })
 </script>
@@ -53,10 +49,10 @@ onMounted(async () => {
 .bookshelf {
   width: 95%;
   @include mix-media(laptop) {
-      max-width: 85%;
+    max-width: 85%;
   }
   @include mix-media(desktop) {
-      max-width: 90%;
+    max-width: 90%;
   }
 
   @include mix-flex-center(column);
@@ -70,10 +66,10 @@ onMounted(async () => {
     padding-bottom: 1.5rem;
     width: 100%;
 
-     @include mix-media(laptop) {
+    @include mix-media(laptop) {
       font-size: fn-rem(48);
     }
-     @include mix-media(desktop) {
+    @include mix-media(desktop) {
       font-size: fn-rem(64);
     }
   }
