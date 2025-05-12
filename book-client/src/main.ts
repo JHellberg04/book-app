@@ -15,16 +15,16 @@ import { useAuthStore } from '@/stores/auth'
 // Create the Vue application instance
 const app = createApp(App)
 
-// Create and use Pinia (state management)
+// Create and use Pinia
 const pinia = createPinia()
 app.use(pinia)
 
-// Use the Vue Router
+// Use the router
 app.use(router)
 
-// Restore auth session from localStorage if token exists
+// Restore session
 const auth = useAuthStore()
 auth.restoreSession()
 
-// Mount the app to the DOM
+// Mount app
 app.mount('#app')
