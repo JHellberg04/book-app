@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ListItem from './MoleculeListItem.vue'
+import ListItem from '@/components/auth/MoleculeListItem.vue'
 
 const listData = [
   'Build your virtual bookshelf',
@@ -11,7 +11,7 @@ const listData = [
 
 <template>
   <article class="homeinfo">
-    <h3 class="homeinfo__title">About Peach Pages</h3>
+    <h2 class="homeinfo__title">About Peach Pages</h2>
 
     <p class="homeinfo__text">
       Explore bookshelves, rate stories, and discover new reads through a cozy review community.
@@ -32,27 +32,38 @@ const listData = [
   @include mix-media(mobile) {
     max-width: fn-rem(450);
     padding: 1rem;
-    gap: 1.5rem;
   }
+
   @include mix-media(tablet) {
     max-width: fn-rem(500);
     padding: 1.5rem;
-    gap: 2rem;
   }
+
   &__title {
     @include mix-visually-hidden();
   }
 
   &__text {
     font-size: fn-rem(17);
+    padding-bottom: 0.5rem;
 
     @include mix-media(mobile) {
       font-size: fn-rem(18);
     }
+
     @include mix-media(tablet) {
       font-size: fn-rem(19);
     }
+
+    @include mix-media(laptop) {
+      font-size: fn-rem(19);
+    }
+
+    @include mix-media(desktop) {
+      font-size: fn-rem(19);
+    }
   }
+
   &__list {
     align-self: center;
     max-width: 85%;
