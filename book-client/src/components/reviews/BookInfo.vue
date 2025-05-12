@@ -107,4 +107,12 @@ const { title, author, published_year, rating, description } = defineProps<{
     }
   }
 }
+
+.filled{
+  color: var(--color-ratingstar-filled);
+}
+
+.empty{
+   color: var(--color-ratingstar-empty);
+}
 </style>
