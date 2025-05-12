@@ -1,5 +1,6 @@
 <template>
   <div class="book-header">
+    <button @click="$router.back()">⬅</button>
     <img :src="image" alt="Book Cover" class="book-cover" />
   </div>
 </template>
