@@ -6,7 +6,7 @@ import OragnismHomeInfo from '@/components/auth/OragnismHomeInfo.vue'
 
 <template>
   <section class="home">
-    <h1 class='home__title'>Welcome to Peach Pages</h1>
+    <h1 class="home__title">Welcome to Peach Pages</h1>
     <AtomHeroLogo />
     <OragnismHomeInfo />
     <LandingCTA
@@ -24,7 +24,7 @@ import OragnismHomeInfo from '@/components/auth/OragnismHomeInfo.vue'
   height: 100%;
   @include mix-flex-center(column);
 
-  &__title{
+  &__title {
     @include mix-flex-center();
   }
 }

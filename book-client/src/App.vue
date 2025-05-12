@@ -36,7 +36,13 @@ html {
   width: 100%;
   height: 100%;
   max-width: fn-rem(1440);
-  padding-top: fn-rem(145); // Push content below sticky header
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  position: relative;
+  @include mix-flex-center(column);
 }
 
 .footer {
