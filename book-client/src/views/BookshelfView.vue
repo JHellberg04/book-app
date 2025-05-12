@@ -22,6 +22,8 @@ export interface Book {
   genres: string[]
   image: string
   published_year: number
+  averageRating: number
+  reviews: Array<any>
 }
 
 const books = ref<Book[]>([])
@@ -36,7 +38,6 @@ onMounted(async () => {
     }
     const data = await res.json() // Convert response to json
     books.value = data // Update reactive book list
-    console.log(books)
   } catch (error) {
     console.error('Error detching books:', error)
   } finally {
