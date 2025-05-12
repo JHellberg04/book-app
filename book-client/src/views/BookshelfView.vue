@@ -68,6 +68,14 @@ onMounted(async () => {
     margin-bottom: 1rem;
     border-bottom: fn-rem(2) solid var(--color-action-primary);
     padding-bottom: 1.5rem;
+    width: 100%;
+
+     @include mix-media(laptop) {
+      font-size: fn-rem(48);
+    }
+     @include mix-media(desktop) {
+      font-size: fn-rem(64);
+    }
   }
 
   .books-grid {
@@ -80,6 +88,7 @@ onMounted(async () => {
     @include mix-media(laptop) {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      max-width: 100%;
     }
 
     @include mix-media(desktop) {
