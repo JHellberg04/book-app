@@ -10,11 +10,7 @@ import lightLogo from '@/assets/logotype/logotype-small-dark.svg'
   <!-- Clickable logo that routes to the homepage -->
   <div class="logo">
     <RouterLink class="logo__link" to="/" aria-label="Gå till startsidan">
-      <img
-        :src="lightLogo"
-        alt="Peach pages text with an open book"
-        class="logo__link-img"
-      />
+      <img :src="lightLogo" alt="Peach pages text with an open book" class="logo__link-img" />
     </RouterLink>
   </div>
 </template>

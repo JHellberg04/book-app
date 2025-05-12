@@ -16,7 +16,6 @@ import HeaderNav from '@/components/fixtures/header/OrganismHeaderNav.vue'
   </div>
 </template>
 
-
 <style scoped lang="scss">
 .header-content {
   width: 100%;
