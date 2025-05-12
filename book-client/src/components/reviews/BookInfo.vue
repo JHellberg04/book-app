@@ -1,6 +1,4 @@
 <script setup lang="ts">
-
-
 const { title, author, published_year, rating, description } = defineProps<{
   title: string
   author: string
@@ -8,41 +6,60 @@ const { title, author, published_year, rating, description } = defineProps<{
   rating: number
   description: string
 }>()
-
 </script>
-
 
 <template>
   <div class="book-info">
     <h1>{{ title }}</h1>
     <p class="author-published">
       <span>Author: {{ author }}</span>
-      <span>First Published: {{ published_year }}</span>
+      <span>Published: {{ published_year }}</span>
     </p>
     <div class="rating">
-  <template v-for="i in 5" :key="i">
-    <span
-      class="star"
-      :class="{
-        filled: i <= Math.floor(rating),
-        half: i > Math.floor(rating) && i - 0.5 <= rating
-      }"
-    >★</span>
-  </template>
-</div>
+      <template v-for="i in 5" :key="i">
+        <span
+          class="star"
+          :class="{
+            filled: i <= Math.floor(rating),
+            half: i > Math.floor(rating) && i - 0.5 <= rating,
+          }"
+          >★</span
+        >
+      </template>
+    </div>
     <p class="description">{{ description }}</p>
   </div>
 </template>
 
 <style scoped lang="scss">
 .book-info {
+  width: 100%;
   margin: 0;
-  text-align: center; /* Center everything */
+  text-align: center;
+  padding: 1rem;
+
+  @media (min-width: 1024px) {
+    width: 50%;
+    padding: 0 2rem;
+    text-align: left;
+  }
 }
 
 h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
+
+  @media (min-width: 481px) and (max-width: 768px) {
+    font-size: 1.8rem;
+  }
+
+  @media (min-width: 1200px) {
+    font-size: 2.2rem;
+  }
 }
 
 .author-published {
@@ -61,78 +78,48 @@ h1 {
   margin-bottom: 1rem;
 
   .star {
-    color: #ccc; /* grå som standard */
+    color: #ccc;
     cursor: pointer;
     transition: color 0.3s ease;
+
+    &.filled {
+      color: #ffd700;
+    }
   }
 
-  .star.filled {
-    color: #ffd700; /* guld för fyllda */
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
+
+  @media (min-width: 481px) and (max-width: 768px) {
+    font-size: 1.4rem;
+  }
+
+  @media (min-width: 1200px) {
+    font-size: 1.6rem;
   }
 }
 
 .description {
-  max-width: 90%;
-  margin: 0 auto;
   font-size: 1rem;
   line-height: 1.5;
   color: #333;
   text-align: justify;
-}
+  max-width: 90%;
+  margin: 0 auto;
 
-@media (max-width: 480px) { /* Mobile */
-  h1 {
-    font-size: 1.5rem;
-  }
-
-  .rating {
-    font-size: 1.2rem;
-  }
-
-  .description {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 768px) { /* Tablet */
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  .rating {
-    font-size: 1.4rem;
-  }
-
-  .description {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 1024px) { /* Laptop */
-  h1 {
-    font-size: 2rem;
-  }
-
-  .rating {
-    font-size: 1.5rem;
-  }
-
-  .description {
+  @media (min-width: 1024px) {
+    max-width: none;
+    margin: 0;
     font-size: 1.1rem;
   }
-}
 
-@media (max-width: 1200px) { /* Desktop */
-  h1 {
-    font-size: 2.2rem;
-  }
-
-  .rating {
-    font-size: 1.6rem;
-  }
-
-  .description {
+  @media (min-width: 1200px) {
     font-size: 1.2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
   }
 }
 </style>
