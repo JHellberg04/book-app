@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import LandingCTA from '@/components/auth/AtomButtonCta.vue'
-import AtomHeroLogo from '@/components/auth/AtomHeroLogo.vue'
-import OragnismHomeInfo from '@/components/auth/OragnismHomeInfo.vue'
+import HomeCTA from '@/components/organism/ButtonCta.vue'
+import AtomHeroLogo from '@/components/home/AtomHeroLogo.vue'
+import OragnismHomeInfo from '@/components/home/OragnismHomeInfo.vue'
 </script>
 
 <template>
@@ -9,8 +9,7 @@ import OragnismHomeInfo from '@/components/auth/OragnismHomeInfo.vue'
     <h1 class="home__title">Welcome to Peach Pages</h1>
     <AtomHeroLogo />
     <OragnismHomeInfo />
-    <LandingCTA
-      class="home__cta"
+    <HomeCTA
       heading="Ready to start building your shelf?"
       to="/account/register"
       label="Create Account"
@@ -25,7 +24,7 @@ import OragnismHomeInfo from '@/components/auth/OragnismHomeInfo.vue'
   @include mix-flex-center(column);
 
   &__title {
-    @include mix-flex-center();
+    @include mix-visually-hidden();
   }
 }
 </style>

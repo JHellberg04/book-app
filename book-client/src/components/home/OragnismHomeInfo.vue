@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ListItem from '@/components/auth/MoleculeListItem.vue'
+import ListItem from '@/components/home/MoleculeListItem.vue'
 
 const listData = [
   'Build your virtual bookshelf',
