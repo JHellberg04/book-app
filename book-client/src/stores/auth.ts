@@ -5,32 +5,16 @@ import { defineStore } from 'pinia'
  * Handles login, logout, session persistence and role decoding.
  */
 export const useAuthStore = defineStore('authStore', {
-  // State holds reactive data
   state: () => ({
-    /** JWT token for the logged-in user, null when logged out */
     token: null as string | null,
-
-    /** Whether the user is an admin, derived from the JWT token */
     isAdmin: false,
   }),
 
-  // Getters are like computed properties
   getters: {
-    /**
-     * Checks if the user is currently logged in.
-     * @returns {boolean} true if token exists
-     */
     isLoggedIn: (state) => !!state.token,
   },
 
-  // Actions handle logic and can be async
   actions: {
-    /**
-     * Logs in the user and sets token and role.
-     * @param username - User's username
-     * @param password - User's password
-     * @throws Error if login fails
-     */
     async login(username: string, password: string) {
       try {
         const response = await fetch('http://localhost:3000/auth/login', {
@@ -53,10 +37,6 @@ export const useAuthStore = defineStore('authStore', {
       }
     },
 
-    /**
-     * Logs out the current user by clearing token and role.
-     * Also notifies the backend to clear session cookie.
-     */
     logout() {
       fetch('http://localhost:3000/auth/logout', {
         method: 'POST',
@@ -68,11 +48,6 @@ export const useAuthStore = defineStore('authStore', {
       localStorage.removeItem('token')
     },
 
-    /**
-     * Decodes the JWT token and checks for admin status.
-     * @param token - The JWT token string
-     * @returns {boolean} true if user is admin
-     */
     decodeIsAdminFromToken(token: string): boolean {
       try {
         const payload = JSON.parse(atob(token.split('.')[1]))
@@ -83,16 +58,22 @@ export const useAuthStore = defineStore('authStore', {
       }
     },
 
-    /**
-     * Restores session state from localStorage.
-     * Should be called once on app startup.
-     */
     restoreSession() {
       const storedToken = localStorage.getItem('token')
       if (storedToken) {
         this.token = storedToken
         this.isAdmin = this.decodeIsAdminFromToken(storedToken)
       }
+    },
+
+    /**
+     * Fake login for development.
+     * @param asAdmin - true for admin role, false for regular user
+     */
+    fakeLogin(asAdmin: boolean) {
+      this.token = 'mock.token.value'
+      this.isAdmin = asAdmin
+      localStorage.setItem('token', this.token)
     },
   },
 })
