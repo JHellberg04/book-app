@@ -14,7 +14,9 @@
         </p>
       </div>
       <div class="link-container">
-        <router-link :to="`/bookshelf/${book._id}`" class="book-link">READ MORE</router-link>
+        <router-link :to="`/bookshelf/bookreview/${book._id}`" class="book-link"
+          >READ MORE</router-link
+        >
       </div>
     </div>
   </article>
