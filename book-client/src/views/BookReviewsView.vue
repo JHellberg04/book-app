@@ -1,30 +1,3 @@
-<template>
-  <div class="review-page">
-    <div v-if="loading">Laddar...</div>
-
-    <div class="header-bar">
-      <BackButton @click="$router.push('/bookshelf')" />
-      <p class="genre">{{ book.genres?.join(', ') || 'Genre not available' }}</p>
-    </div>
-
-    <div v-if="book.title" class="book-layout">
-      <BookHeader :image="book.image" :title="book.title" :genres="book.genres" />
-      <BookInfo
-        :title="book.title"
-        :author="book.author"
-        :published_year="book.published_year"
-        :rating="book.averageRating ?? 0"
-        :description="book.description"
-      />
-    </div>
-
-    <div class="review-layout" v-if="book._id">
-      <ReviewForm :bookId="book._id" />
-      <ReviewList :bookId="book._id" />
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -39,7 +12,7 @@ import BackButton from '@/components/atoms/BackButton.vue'
 // Get the route parameters
 const route = useRoute()
 const bookId = route.params.id
-// Define the book object
+
 const book = ref({
   _id: '',
   title: '',
@@ -52,8 +25,6 @@ const book = ref({
 
 const loading = ref(true)
 
-// Fetch the book data from the API
-// using the bookId from the route parameters
 onMounted(async () => {
   try {
     const res = await fetch(`http://localhost:3000/books/${bookId}`)
@@ -67,55 +38,105 @@ onMounted(async () => {
 })
 </script>
 
+<template>
+  <div class="review-page">
+    <div v-if="loading">Laddar...</div>
+
+    <div class="review-page__header">
+      <BackButton @click="$router.push('/bookshelf')" />
+      <p class="review-page__genre">{{ book.genres?.join(', ') || 'Genre not available' }}</p>
+    </div>
+
+    <div v-if="book.title" class="review-page__book">
+      <BookHeader :image="book.image" :title="book.title" :genres="book.genres" />
+      <BookInfo
+        :title="book.title"
+        :author="book.author"
+        :published_year="book.published_year"
+        :rating="book.averageRating ?? 0"
+        :description="book.description"
+      />
+    </div>
+
+    <div v-if="book._id" class="review-page__review">
+      <ReviewForm :bookId="book._id" />
+      <ReviewList :bookId="book._id" />
+    </div>
+  </div>
+</template>
+
 <style scoped lang="scss">
 .review-page {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding: 1rem;
-}
 
-.header-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 
-.genre {
-  font-size: 18px;
-  color: #000;
-}
+  &__genre {
+    font-weight: 500;
+    margin: auto 0;
+  }
 
-.book-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  &__book {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 
-  @media (min-width: 1024px) {
-    flex-direction: row;
-    align-items: flex-start;
+    @include mix-media(laptop) {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 3rem;
+      align-items: start;
 
-    > * {
-      flex: 1;
-      min-width: 0;
+      > :first-child {
+        grid-column: 1 / span 3;
+      }
+
+      > :nth-child(2) {
+        grid-column: 4 / span 4;
+      }
     }
   }
-}
 
-.review-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  &__review {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 
-  @media (min-width: 1024px) {
-    flex-direction: row;
-    align-items: stretch;
+    @include mix-media(desktop) {
+      display: grid;
+      grid-template-columns: repeat(14, 1fr);
+      gap: 3rem;
+      align-items: start;
 
-    > * {
-      flex: 1;
-      min-width: 0;
+      > :first-child {
+        grid-column: 2 / span 4;
+      }
+
+      > :nth-child(2) {
+        grid-column: 7 / span 6;
+      }
+    }
+
+    @include mix-media(laptop) {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 3rem;
+      align-items: start;
+
+      > :first-child {
+        grid-column: 1 / span 3;
+      }
+
+      > :nth-child(2) {
+        grid-column: 4 / span 4;
+      }
     }
   }
 }
