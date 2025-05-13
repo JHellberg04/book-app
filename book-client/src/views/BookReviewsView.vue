@@ -3,7 +3,7 @@
     <div v-if="loading">Laddar...</div>
 
     <div class="header-bar">
-      <button @click="$router.back()" class="back-button">⬅ Back</button>
+      <BackButton @click="$router.push('/bookshelf')" />
       <p class="genre">{{ book.genres?.join(', ') || 'Genre not available' }}</p>
     </div>
 
@@ -34,6 +34,7 @@ import BookHeader from '@/components/reviews/BookHeader.vue'
 import BookInfo from '@/components/reviews/BookInfo.vue'
 import ReviewForm from '@/components/reviews/ReviewForm.vue'
 import ReviewList from '@/components/reviews/ReviewList.vue'
+import BackButton from '@/components/atoms/BackButton.vue'
 
 // Get the route parameters
 const route = useRoute()
@@ -80,14 +81,6 @@ onMounted(async () => {
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
-}
-
-.back-button {
-  background: transparent;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  color: #000;
 }
 
 .genre {

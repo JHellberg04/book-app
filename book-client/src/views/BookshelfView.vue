@@ -1,5 +1,6 @@
 <template>
   <section class="bookshelf">
+    <BackButton @click="$router.back()" />
     <h1>Bookshelf</h1>
 
     <div v-if="loading">Loading books...</div>
@@ -14,6 +15,18 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import BookCard from '@/components/books/BookCard.vue'
+import BackButton from '@/components/atoms/BackButton.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goBack = () => {
+  if (window.history.length > 1) {
+    router.back()
+  } else {
+    router.push('/') // Fallback to the homepage or another route
+  }
+}
 
 export interface Book {
   _id: string
@@ -22,6 +35,8 @@ export interface Book {
   genres: string[]
   image: string
   published_year: number
+  averageRating: number
+  reviews: Array<any>
 }
 
 const books = ref<Book[]>([])
@@ -36,7 +51,6 @@ onMounted(async () => {
     }
     const data = await res.json() // Convert response to json
     books.value = data // Update reactive book list
-    console.log(books)
   } catch (error) {
     console.error('Error detching books:', error)
   } finally {
@@ -46,6 +60,9 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
+.back-button {
+  margin-right: auto;
+}
 .bookshelf {
   width: 95%;
   @include mix-media(laptop) {

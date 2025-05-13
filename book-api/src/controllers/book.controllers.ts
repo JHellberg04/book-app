@@ -6,10 +6,28 @@ import { Review } from '../models/review.js';
 export const getAllBooks = async (req: Request, res: Response) => {
   try {
     const books = await Book.find();
-    res.status(200).json(books);
+
+    // Calculate averageRating for each book
+    const booksWithRatings = await Promise.all(
+      books.map(async (book) => {
+        const reviews = await Review.find({ book: book._id });
+        const ratings = reviews.map((r) => r.rating);
+        const averageRating =
+          ratings.length > 0
+            ? ratings.reduce((a, b) => a + b, 0) / ratings.length
+            : null;
+
+        return {
+          ...book.toObject(),
+          averageRating,
+        };
+      })
+    );
+
+    res.status(200).json(booksWithRatings);
   } catch (error) {
-    console.error('❌ Error finding books:', error)
-    res.status(500).json({ error: 'Server error finding all books' })
+    console.error('❌ Error finding books:', error);
+    res.status(500).json({ error: 'Server error finding all books' });
   }
 };
 

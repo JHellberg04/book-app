@@ -12,6 +12,16 @@
             {{ genre }}<span v-if="index < book.genres.length - 1">, </span>
           </span>
         </p>
+        <div class="book-rating">
+          <span
+            v-for="i in 5"
+            :key="i"
+            class="star"
+            :class="{ filled: i <= Math.floor(book.averageRating) }"
+          >★</span>
+          <span v-if="book.reviews.length === 1" class="review-amount"> - {{ book.reviews.length }} review</span>
+          <span v-else class="review-amount"> - {{ book.reviews.length }} reviews</span>
+        </div>
       </div>
       <div class="link-container">
         <router-link :to="`/bookshelf/bookreview/${book._id}`" class="book-link"
@@ -32,6 +42,8 @@ interface Book {
   published_year: number
   genres: string[]
   image: string
+  averageRating: number
+  reviews: Array<any>
 }
 
 const props = defineProps<{
@@ -64,6 +76,7 @@ const props = defineProps<{
     flex-direction: column;
     width: 100%;
     justify-content: space-between;
+
     .book-info {
       .book-title {
         font-size: fn-rem(20);
@@ -78,6 +91,35 @@ const props = defineProps<{
       .book-genres {
         font-weight: 550;
       }
+    }
+
+    .book-rating {
+      display: flex;
+      gap: 2px;
+      font-size: 1.5rem;
+      display: flex;
+      flex-direction: row;
+      align-items:  center;
+
+      .star {
+        color: var(--color-ratingstar-empty);
+
+        &.filled {
+          color: var(--color-ratingstar-filled);
+        }
+
+        &.half {
+          color: linear-gradient(to right, var(--color-ratingstar-filled), var(--color-ratingstar-empty));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+
+      .review-amount {
+        font-size: 1rem;
+        text-align: center;
+        font-style: italic;
+        }
     }
 
     .link-container {
