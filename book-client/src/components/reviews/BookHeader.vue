@@ -6,13 +6,12 @@ const props = defineProps<{
 
 <template>
   <div class="bookheader">
-    <button @click="$router.back()">⬅</button>
     <img :src="image" alt="Book Cover" class="bookheader__cover" />
   </div>
 </template>
 
 <style scoped lang="scss">
-.book-header {
+.bookheader {
   @include mix-flex-center();
 
   &__cover {
