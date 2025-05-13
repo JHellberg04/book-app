@@ -36,7 +36,7 @@ html {
   width: 100%;
   height: 100%;
   max-width: fn-rem(1440);
-  padding-top: fn-rem(145); // Push content below sticky header
+  padding-top: fn-rem(80); // Push content below sticky header
 }
 
 .footer {
