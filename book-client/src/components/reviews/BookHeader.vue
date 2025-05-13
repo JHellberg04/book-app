@@ -10,17 +10,18 @@ const props = defineProps<{
   </div>
 </template>
 
+
 <style scoped lang="scss">
 .bookheader {
   @include mix-flex-center();
 
   &__cover {
-    width: 100%;
-    max-width: fn-rem(600);
-    height: auto;
-    max-height: fn-rem(600);
-    object-fit: contain;
-    border-radius: fn-rem(8);
+  width: auto;
+  max-width: fn-rem(350);
+  height: auto;
+  max-height: fn-rem(350);
+  object-fit: contain;
+
   }
 }
 </style>
