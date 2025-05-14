@@ -27,12 +27,7 @@ const formatDate = (dateStr) => {
     <div class="review__list" role="list" :aria-labelledby="'reviews-title'">
       <div v-if="reviews.length === 0" class="review__empty">No reviews</div>
 
-      <div
-        v-for="review in reviews"
-        :key="review._id"
-        class="review__card"
-        role="listitem"
-      >
+      <div v-for="review in reviews" :key="review._id" class="review__card" role="listitem">
         <div class="review__header">
           <StarRating :rating="review.rating" />
           <time class="review__date" :datetime="review.created_at">

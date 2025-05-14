@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import UsersTable from '@/components/admin/UsersTable.vue'
+import LogoutUser from '@/components/auth/LogoutUser.vue'
 </script>
 
 <template>
   <section class="home">
-    <h1>HomeSection</h1>
-
-    <UsersTable />
+    <LogoutUser />
   </section>
 </template>
 

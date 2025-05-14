@@ -141,7 +141,6 @@ onMounted(async () => {
     margin: 0 auto;
     padding: fn-rem(48) fn-rem(16);
 
-
     @include mix-media(desktop) {
       display: grid;
       grid-template-columns: repeat(14, 1fr);
