@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue'
 import { defineProps } from 'vue'
 import StarRating from '@/components/reviews/StarRating.vue'
 
-
 const props = defineProps({
   bookId: String,
 })
@@ -21,86 +20,88 @@ const formatDate = (dateStr) => {
 }
 </script>
 
-
 <template>
- <div class="review">
-  <h2 class="review__title">Reviews from readers</h2>
+  <div class="review">
+    <h2 id="reviews-title" class="review__title">Reviews from readers</h2>
 
-  <div class="review__list">
-    <div v-if="reviews.length === 0" class="review__empty">No reviews</div>
+    <div class="review__list" role="list" :aria-labelledby="'reviews-title'">
+      <div v-if="reviews.length === 0" class="review__empty">No reviews</div>
 
-    <div
-      v-for="review in reviews"
-      :key="review._id"
-      class="review__card"
-    >
-      <div class="review__header">
-        <StarRating :rating="review.rating" />
-        <small class="review__date">{{ formatDate(review.created_at) }}</small>
+      <div
+        v-for="review in reviews"
+        :key="review._id"
+        class="review__card"
+        role="listitem"
+      >
+        <div class="review__header">
+          <StarRating :rating="review.rating" />
+          <time class="review__date" :datetime="review.created_at">
+            {{ formatDate(review.created_at) }}
+          </time>
+        </div>
+
+        <strong class="review__name">{{ review.name }}</strong>
+        <p class="review__content">{{ review.content }}</p>
       </div>
-
-      <strong class="review__name">{{ review.name }}</strong>
-      <p class="review__content">{{ review.content }}</p>
     </div>
   </div>
-</div>
-
 </template>
-
 
 <style scoped lang="scss">
 .review {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: center;
   width: 100%;
 
-  @include mix-media(desktop) {
-    width: 80%;
-  }
-
   &__title {
-    font-size: 2rem;
-    margin: 20px 0;
+    font-size: fn-rem(32);
+    margin: fn-rem(20) 0;
     text-align: center;
   }
 
   &__list {
-    margin-top: 2rem;
+    margin-top: fn-rem(32);
+    width: 100%;
+    max-width: fn-rem(600);
   }
 
   &__empty {
     text-align: center;
     font-style: italic;
-    padding: 2rem 0;
+    padding: fn-rem(32) 0;
   }
 
   &__card {
-    padding: 1rem 0;
+    padding: fn-rem(24) fn-rem(16);
+    margin-bottom: fn-rem(24);
+    border-radius: fn-rem(8);
+    text-align: left;
   }
 
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
+    gap: fn-rem(24);
+    margin-bottom: fn-rem(8);
   }
 
   &__date {
-    font-size: 0.8rem;
+    font-size: fn-rem(12.8);
+    white-space: nowrap;
   }
 
   &__name {
     display: block;
     font-weight: bold;
-    margin-bottom: 0.25rem;
+    margin-bottom: fn-rem(4);
   }
 
   &__content {
     margin: 0;
-    font-size: 1rem;
+    font-size: fn-rem(16);
     line-height: 1.4;
   }
 }
-
 </style>

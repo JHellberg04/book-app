@@ -26,11 +26,11 @@ const setRating = (value: number) => {
 </script>
 
 <template>
-  <div class="star-rating">
+  <div class="starrating">
     <span
       v-for="n in 5"
       :key="n"
-      class="star-rating__star"
+      class="starrating__star"
       :class="{
         filled: n <= Math.floor(hoverRating || rating),
         half: n > Math.floor(hoverRating || rating) && n - 0.5 <= (hoverRating || rating),
@@ -38,6 +38,7 @@ const setRating = (value: number) => {
       @click="setRating(n)"
       @mouseover="setHover(n)"
       @mouseleave="clearHover"
+      :aria-label="`${n} out of 5 stars`"
     >
       ★
     </span>
@@ -45,10 +46,10 @@ const setRating = (value: number) => {
 </template>
 
 <style scoped lang="scss">
-.star-rating {
+.starrating {
   display: flex;
-  gap: 5px;
-  font-size: 1.5rem;
+  gap: fn-rem(5);
+  font-size: fn-rem(24);
   justify-content: center;
   cursor: default;
 
@@ -67,8 +68,9 @@ const setRating = (value: number) => {
   }
 
   // If interactive mode, enable pointer cursor
-  :deep(.star-rating__star) {
+  :deep(.starrating__star) {
     cursor: pointer;
   }
 }
+
 </style>

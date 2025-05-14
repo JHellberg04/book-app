@@ -5,7 +5,6 @@ import BaseInput from '@/components/atoms/BaseInput.vue'
 import BaseAction from '@/components/atoms/BaseAction.vue'
 import StarRating from '@/components/reviews/StarRating.vue'
 
-
 const props = defineProps<{
   bookId: string
 }>()
@@ -55,71 +54,69 @@ const submitReview = async () => {
 </script>
 
 <template>
-<div class="review-form">
-  <h2 class="review-form__title">Reviews & rating</h2>
+  <div class="reviewform">
+    <h2 class="reviewform__title" id="review-title">Reviews & rating</h2>
 
-  <form @submit.prevent="submitReview" class="review-form__form">
-    <BaseInput
-      id="name"
-      name="Name"
-      v-model="name"
-      placeholder="Your name"
-      info="Enter your name"
-      :center-label="true"
-      :validate="(val) => (val.length < 2 ? 'Name too short' : null)"
-    />
+    <form @submit.prevent="submitReview" class="reviewform__form" aria-labelledby="review-title">
+      <BaseInput
+        id="name"
+        name="Name"
+        v-model="name"
+        placeholder="Your name"
+        info="Enter your name"
+        :center-label="true"
+        :validate="(val) => (val.length < 2 ? 'Name too short' : null)"
+      />
 
-    <BaseInput
-      id="content"
-      name="Review"
-      v-model="content"
-      type="textarea"
-      placeholder="Write your review"
-      info="At least 2 characters"
-      :center-label="true"
-      :validate="(val) => (val.length < 2 ? 'Review too short' : null)"
-    />
+      <BaseInput
+        id="content"
+        name="Review"
+        v-model="content"
+        type="textarea"
+        placeholder="Write your review"
+        info="At least 2 characters"
+        :center-label="true"
+        :validate="(val) => (val.length < 2 ? 'Review too short' : null)"
+      />
 
-    <div class="review-form__label">Your rating:</div>
-    <div class="review-form__stars">
-      <StarRating v-model:rating="rating" :interactive="true" />
+      <div class="reviewform__label" id="rating-label">Your rating:</div>
+      <div class="reviewform__stars" role="radiogroup" :aria-labelledby="'rating-label'">
+        <StarRating v-model:rating="rating" :interactive="true" />
+      </div>
 
-    </div>
-
-    <BaseAction label="Send" variant="primary" type="submit" />
-  </form>
-</div>
-
+      <BaseAction label="Send" variant="primary" type="submit" />
+    </form>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.review-form {
+.reviewform {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
 
   &__title {
-    font-size: 2rem;
-    margin: 20px 0 80px 0;
+    font-size: fn-rem(32);
+    margin: fn-rem(20) 0 fn-rem(70);
     text-align: center;
   }
 
   &__form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: fn-rem(24);
     width: 100%;
     align-items: center;
 
     @include mix-media(desktop) {
       max-width: 100%;
-      padding-right: 2rem;
+      padding: 0 fn-rem(32);
     }
 
     .inputfield {
       width: 100%;
-      max-width: 400px;
+      max-width: fn-rem(350);
     }
 
     .inputfield__field {
@@ -128,12 +125,23 @@ const submitReview = async () => {
 
     button,
     .base-action {
-      max-width: 200px;
+      max-width: fn-rem(200);
       width: 100%;
       align-self: center;
+      margin-bottom: fn-rem(20);
     }
   }
 
-}
+  &__label {
+    font-size: fn-rem(18);
+    font-weight: 600;
+    text-align: center;
+  }
 
+  &__stars {
+    display: flex;
+    justify-content: center;
+    gap: fn-rem(8);
+  }
+}
 </style>
