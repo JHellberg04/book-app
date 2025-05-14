@@ -9,22 +9,32 @@ import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs' // For hashing and comparing passwords
 import jwt from 'jsonwebtoken' // For generating JSON Web Tokens
 
+// == Utils ==
+import { validateCredentials } from '../utils/validate.auth.js'
+
 // == Database model ==
 import User from '../models/user.js'
 
 /** === REGISTER NEW USER ===
  *
  * - Takes `username` and `password` from request body
+ * - Validates credentials using shared validation rules
  * - Checks if the username is already taken
  * - Hashes the password using bcrypt
  * - Creates and saves a new user in the database
  *
  * @param req - Express request object
  * @param res - Express response object
- * @returns 201 on success, 409 if username exists, 500 on server error
+ * @returns 201 on success, 400 on validation error, 409 if username exists, 500 on server error
  */
 export async function registerNewUser(req: Request, res: Response) {
   const { username, password } = req.body
+
+  const validationError = validateCredentials(username, password)
+  if (validationError) {
+    res.status(400).json({ error: validationError })
+    return
+  }
 
   try {
     const existingUser = await User.findOne({ username })
@@ -34,7 +44,6 @@ export async function registerNewUser(req: Request, res: Response) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
-
     const newUser = new User({ username, password: hashedPassword })
     await newUser.save()
 
@@ -48,7 +57,7 @@ export async function registerNewUser(req: Request, res: Response) {
 /** === LOG IN USER ===
  *
  * - Takes `username` and `password` from request body
- * - Validates input
+ * - Validates credentials using shared validation rules
  * - Looks up user in MongoDB
  * - Verifies hashed password using bcrypt
  * - Generates JWT token valid for 1 hour
@@ -56,19 +65,19 @@ export async function registerNewUser(req: Request, res: Response) {
  *
  * @param req - Express request object
  * @param res - Express response object
- * @returns 200 on success, 401 on failure
+ * @returns 200 on success, 400 on validation error, 401/409 on auth failure, 500 on server error
  */
 export async function loginUser(req: Request, res: Response) {
   const { username, password } = req.body
 
-  if (!username || !password) {
-    res.status(400).json({ message: 'Username and password are required' })
+  const validationError = validateCredentials(username, password)
+  if (validationError) {
+    res.status(400).json({ error: validationError })
     return
   }
 
   try {
     const user = await User.findOne({ username })
-
     if (!user) {
       res.status(409).json({ error: 'No user with this username exists' })
       return
@@ -109,7 +118,7 @@ export async function loginUser(req: Request, res: Response) {
 
 /** === LOG OUT USER ===
  *
- * - Clears the accessToken cookie to log out the user
+ * - Clears the access token cookie to log the user out
  *
  * @param req - Express request object
  * @param res - Express response object
