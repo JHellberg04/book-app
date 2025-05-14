@@ -1,30 +1,7 @@
-<template>
-  <div class="review-column">
-    <h2 class="section-title">Reviews from readers</h2>
-
-    <div class="review-list">
-      <div v-if="reviews.length === 0">No reviews</div>
-
-      <div v-for="review in reviews" :key="review._id" class="review-card">
-        <div class="review-header">
-          <div class="star-display">
-            <span v-for="n in 5" :key="n" :class="{ star: true, filled: n <= review.rating }"
-              >★</span
-            >
-          </div>
-          <small class="review-date">{{ formatDate(review.created_at) }}</small>
-        </div>
-
-        <strong class="review-name">{{ review.name }}</strong>
-        <p class="review-content">{{ review.content }}</p>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref, onMounted } from 'vue'
 import { defineProps } from 'vue'
+import StarRating from '@/components/reviews/StarRating.vue'
 
 const props = defineProps({
   bookId: String,
@@ -43,63 +20,88 @@ const formatDate = (dateStr) => {
 }
 </script>
 
+<template>
+  <div class="review">
+    <h2 id="reviews-title" class="review__title">Reviews from readers</h2>
+
+    <div class="review__list" role="list" :aria-labelledby="'reviews-title'">
+      <div v-if="reviews.length === 0" class="review__empty">No reviews</div>
+
+      <div
+        v-for="review in reviews"
+        :key="review._id"
+        class="review__card"
+        role="listitem"
+      >
+        <div class="review__header">
+          <StarRating :rating="review.rating" />
+          <time class="review__date" :datetime="review.created_at">
+            {{ formatDate(review.created_at) }}
+          </time>
+        </div>
+
+        <strong class="review__name">{{ review.name }}</strong>
+        <p class="review__content">{{ review.content }}</p>
+      </div>
+    </div>
+  </div>
+</template>
+
 <style scoped lang="scss">
-h2.section-title {
-  font-size: 2rem;
-  margin: 20px 0;
-  text-align: center;
-}
-.review-column {
+.review {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-}
-
-.review-list {
-  margin-top: 2rem;
-}
-
-.review-card {
-  border-bottom: 1px solid #ddd;
-  padding: 1rem 0;
-}
-
-.review-header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
-}
+  width: 100%;
 
-.review-date {
-  font-size: 0.8rem;
-  color: #888;
-}
+  &__title {
+    font-size: fn-rem(32);
+    margin: fn-rem(20) 0;
+    text-align: center;
+  }
 
-.star-display {
-  display: flex;
-  gap: 2px;
-}
+  &__list {
+    margin-top: fn-rem(32);
+    width: 100%;
+    max-width: fn-rem(600);
+  }
 
-.star {
-  font-size: 1.2rem;
-  color: #ccc;
-}
+  &__empty {
+    text-align: center;
+    font-style: italic;
+    padding: fn-rem(32) 0;
+  }
 
-.star.filled {
-  color: gold;
-}
+  &__card {
+    padding: fn-rem(24) fn-rem(16);
+    margin-bottom: fn-rem(24);
+    border-radius: fn-rem(8);
+    text-align: left;
+  }
 
-.review-name {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.25rem;
-}
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: fn-rem(24);
+    margin-bottom: fn-rem(8);
+  }
 
-.review-content {
-  margin: 0;
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.4;
+  &__date {
+    font-size: fn-rem(12.8);
+    white-space: nowrap;
+  }
+
+  &__name {
+    display: block;
+    font-weight: bold;
+    margin-bottom: fn-rem(4);
+  }
+
+  &__content {
+    margin: 0;
+    font-size: fn-rem(16);
+    line-height: 1.4;
+  }
 }
 </style>
