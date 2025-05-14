@@ -17,7 +17,10 @@
   line-height: fn-rem(40);
   height: fn-rem(40);
 
-  transition: font-size 0.2s ease, background-color 0.2s ease, border-radius 0.2s ease;
+  transition:
+    font-size 0.2s ease,
+    background-color 0.2s ease,
+    border-radius 0.2s ease;
 
   &:hover {
     border-radius: 0.5rem;
