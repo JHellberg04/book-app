@@ -1,6 +1,9 @@
 // src/types/IUser.ts
 
-// Type definition for a User document
+/**
+ * Raw User document type used in backend (e.g. from MongoDB).
+ * Matches the schema used in the Mongoose model.
+ */
 export interface IUser {
   username: string
   password: string
