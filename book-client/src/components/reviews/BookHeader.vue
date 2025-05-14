@@ -1,27 +1,29 @@
 <script setup lang="ts">
 const props = defineProps<{
   image: string
+  title: string
 }>()
 </script>
 
 <template>
   <div class="bookheader">
-    <button @click="$router.back()">⬅</button>
-    <img :src="image" alt="Book Cover" class="bookheader__cover" />
+    <img :src="image" :alt="`Cover of the book ${title}`" class="bookheader__cover" />
   </div>
 </template>
 
 <style scoped lang="scss">
-.book-header {
+.bookheader {
   @include mix-flex-center();
+  width: 90%;
+  max-width: 300px;
+  margin: 0 auto;
 
   &__cover {
-    width: 100%;
-    max-width: fn-rem(600);
+    width: 90%;
     height: auto;
-    max-height: fn-rem(600);
     object-fit: contain;
-    border-radius: fn-rem(8);
+    aspect-ratio: 2 / 3;
+    margin-bottom: fn-rem(48); 
   }
 }
 </style>
