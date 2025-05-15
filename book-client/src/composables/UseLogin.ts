@@ -1,54 +1,62 @@
 // @/composables/useLogin.ts
-import { ref } from 'vue'
+
+import { reactive } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 
 /**
- * Composable function for managing the login process.
- * Exposes state variables and a handler function.
+ * useLogin
+ *
+ * Handles user login using a reactive state object.
+ * - Calls the auth store to perform login
+ * - Tracks loading, error, and success state
+ *
+ * @returns Reactive state and login function
  */
 export function useLogin() {
-  /** The username input model */
-  const username = ref('')
-
-  /** The password input model */
-  const password = ref('')
-
-  /** Error message shown to the user, if any */
-  const error = ref('')
-
-  /** True if login was successful */
-  const success = ref(false)
-
-  /** True while login request is in progress */
-  const loading = ref(false)
-
   const authStore = useAuthStore()
 
+  // Reactive state for login process
+  const state = reactive({
+    error: '',
+    success: false,
+    loading: false,
+  })
+
   /**
-   * Attempts to log in the user using credentials.
-   * Updates success, error, and loading states.
+   * loginWithCredentials
+   *
+   * Submits the given credentials to the auth store for login.
+   * Updates the reactive state based on the outcome.
+   *
+   * @param username - The username to log in with
+   * @param password - The password to log in with
    */
-  async function handleLogin() {
-    error.value = ''
-    success.value = false
-    loading.value = true
+  async function loginWithCredentials(username: string, password: string) {
+    state.error = ''
+    state.success = false
+    state.loading = true
 
     try {
-      await authStore.login(username.value, password.value)
-      success.value = true
-    } catch (err: any) {
-      error.value = err.message || 'Something went wrong'
+      await authStore.login(username, password)
+      console.log('➡️ Sending to API:', { username, password }) // ⚠️ DEBUG ONLY
+      state.success = true
+    } catch (error: unknown) {
+      if (typeof error === 'string') {
+        state.error = error
+      } else if (error instanceof Error) {
+        state.error = error.message
+      } else if (typeof error === 'object' && error !== null && 'message' in error) {
+        state.error = String((error as any).message)
+      } else {
+        state.error = 'An unexpected error occurred during login.'
+      }
     } finally {
-      loading.value = false
+      state.loading = false
     }
   }
 
   return {
-    username,
-    password,
-    error,
-    success,
-    loading,
-    handleLogin,
+    ...state,
+    loginWithCredentials,
   }
 }

@@ -1,27 +1,35 @@
+<!-- src/views/LoginView.vue -->
+
 <script setup lang="ts">
-import { ref } from 'vue'
+/**
+ * LoginView.vue
+ *
+ * View for user login:
+ * - Shows title and description
+ * - Renders LoginForm for credentials input
+ * - Includes a CTA to navigate to the register page
+ *
+ * @view
+ */
 
-const authFormRef = ref()
-
-import AuthForm from '@/components/auth/AuthForm.vue'
-import LoginButton from '@/components/auth/LoginButton.vue'
+import LoginForm from '@/components/auth/LoginForm.vue'
 import RegisterCTA from '@/components/organism/ButtonCta.vue'
-import DevtoolsPanel from '@/devtools/DevtoolsPanel.vue'
 </script>
 
 <template>
   <section class="login">
+    <!-- Page heading -->
     <h1 class="login__title">Log in to your account</h1>
+
+    <!-- Description under heading -->
     <p class="login__subtitle">Log in to explore your bookshelf and leave reviews.</p>
 
+    <!-- Login form -->
     <div class="login__form">
-      <AuthForm ref="authFormRef">
-        <template #authaction>
-          <LoginButton class="login__button" :formRef="authFormRef" />
-        </template>
-      </AuthForm>
+      <LoginForm />
     </div>
 
+    <!-- CTA link to register page -->
     <RegisterCTA
       class="login__cta"
       heading="Don’t have an account?"
@@ -30,10 +38,6 @@ import DevtoolsPanel from '@/devtools/DevtoolsPanel.vue'
       message1="Start exploring your favorite books"
       message2="and share your thoughts with other members"
     />
-  </section>
-  <section>
-    <h1>Log In</h1>
-    <DevtoolsPanel />
   </section>
 </template>
 
@@ -59,10 +63,6 @@ import DevtoolsPanel from '@/devtools/DevtoolsPanel.vue'
 
   &__form {
     width: 85%;
-  }
-
-  &__button {
-    margin-top: 1rem;
   }
 
   &__cta {

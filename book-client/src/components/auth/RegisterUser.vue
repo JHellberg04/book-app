@@ -1,26 +1,35 @@
+<!-- src/views/RegisterView.vue -->
+
 <script setup lang="ts">
-import { ref } from 'vue'
+/**
+ * RegisterView.vue
+ *
+ * View for user registration:
+ * - Displays a heading and subheading
+ * - Renders the RegisterForm component for creating a new user
+ * - Includes a call-to-action (CTA) to navigate to the login page
+ *
+ * @view
+ */
 
-const authFormRef = ref()
-
-import AuthForm from '@/components/auth/AuthForm.vue'
-import RegisterButton from '@/components/auth/RegisterButton.vue'
+import RegisterForm from '@/components/auth/RegisterForm.vue'
 import LoginCTA from '@/components/organism/ButtonCta.vue'
 </script>
 
 <template>
   <section class="register">
+    <!-- Page title -->
     <h1 class="register__title">Create your account</h1>
+
+    <!-- Page description -->
     <p class="register__subtitle">Sign up to start exploring your bookshelf and writing reviews.</p>
 
+    <!-- Form component -->
     <div class="register__form">
-      <AuthForm ref="authFormRef">
-        <template #authaction>
-          <RegisterButton class="register__button" :formRef="authFormRef" />
-        </template>
-      </AuthForm>
+      <RegisterForm />
     </div>
 
+    <!-- Link to login page -->
     <LoginCTA
       class="register__cta"
       heading="Already have an account?"
@@ -54,10 +63,6 @@ import LoginCTA from '@/components/organism/ButtonCta.vue'
 
   &__form {
     width: 85%;
-  }
-
-  &__button {
-    margin-top: 1rem;
   }
 
   &__cta {

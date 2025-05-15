@@ -1,45 +1,76 @@
 // @/composables/useRegister.ts
-import { ref } from 'vue'
+
+import { reactive } from 'vue'
+
+const API_URL = import.meta.env.VITE_API_URL
 
 /**
- * Composable function for handling registration process.
+ * useRegister
+ *
+ * Handles user registration using a reactive state object.
+ * - Sends POST request to `${VITE_API_URL}/auth/register`
+ * - Tracks loading, error, and success state
+ *
+ * @returns Reactive state and registration function
  */
 export function useRegister() {
-  const username = ref('')
-  const password = ref('')
-  const error = ref('')
-  const success = ref(false)
-  const loading = ref(false)
+  const state = reactive({
+    error: '',
+    success: false,
+    loading: false,
+  })
 
-  async function handleRegister() {
-    error.value = ''
-    success.value = false
-    loading.value = true
+  /**
+   * registerWithCredentials
+   *
+   * Sends username and password to the registration endpoint.
+   * Updates the reactive state based on the result.
+   *
+   * @param username - The desired username (must be validated before calling)
+   * @param password - The desired password (must be validated before calling)
+   */
+  async function registerWithCredentials(username: string, password: string) {
+    state.error = ''
+    state.success = false
+    state.loading = true
 
     try {
-      const res = await fetch('http://localhost:3000/auth/register', {
+      const res = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: username.value, password: password.value }),
+        body: JSON.stringify({ username, password }),
       })
+      console.log('➡️ Sending to API:', { username, password }) // ⚠️ DEBUG ONLY
 
       const data = await res.json()
-      if (!res.ok) throw new Error(data?.error || 'Registration failed')
 
-      success.value = true
-    } catch (err: any) {
-      error.value = err.message || 'Something went wrong'
+      if (res.status === 409) {
+        state.error = data?.error || 'Username already exists.'
+        return
+      }
+
+      if (!res.ok) {
+        throw new Error(data?.error || 'Registration failed.')
+      }
+
+      state.success = true
+    } catch (error: unknown) {
+      if (typeof error === 'string') {
+        state.error = error
+      } else if (error instanceof Error) {
+        state.error = error.message
+      } else if (typeof error === 'object' && error !== null && 'message' in error) {
+        state.error = String((error as any).message)
+      } else {
+        state.error = 'An unexpected error occurred during registration.'
+      }
     } finally {
-      loading.value = false
+      state.loading = false
     }
   }
 
   return {
-    username,
-    password,
-    error,
-    success,
-    loading,
-    handleRegister,
+    ...state,
+    registerWithCredentials,
   }
 }
