@@ -1,30 +1,3 @@
-<template>
-  <div class="review-page">
-    <div v-if="loading">Laddar...</div>
-
-    <div class="header-bar">
-      <BackButton @click="$router.push('/bookshelf')" />
-      <p class="genre">{{ book.genres?.join(', ') || 'Genre not available' }}</p>
-    </div>
-
-    <div v-if="book.title" class="book-layout">
-      <BookHeader :image="book.image" :title="book.title" :genres="book.genres" />
-      <BookInfo
-        :title="book.title"
-        :author="book.author"
-        :published_year="book.published_year"
-        :rating="book.averageRating ?? 0"
-        :description="book.description"
-      />
-    </div>
-
-    <div class="review-layout" v-if="book._id">
-      <ReviewForm :bookId="book._id" />
-      <ReviewList :bookId="book._id" />
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -39,7 +12,7 @@ import BackButton from '@/components/atoms/BackButton.vue'
 // Get the route parameters
 const route = useRoute()
 const bookId = route.params.id
-// Define the book object
+
 const book = ref({
   _id: '',
   title: '',
@@ -52,8 +25,6 @@ const book = ref({
 
 const loading = ref(true)
 
-// Fetch the book data from the API
-// using the bookId from the route parameters
 onMounted(async () => {
   try {
     const res = await fetch(`http://localhost:3000/books/${bookId}`)
@@ -67,55 +38,138 @@ onMounted(async () => {
 })
 </script>
 
+<template>
+  <div class="reviewpage">
+    <div v-if="loading">Laddar...</div>
+
+    <div class="reviewpage__header">
+      <div class="reviewpage__header-inner">
+        <BackButton @click="$router.push('/bookshelf')" />
+        <p class="reviewpage__genre">{{ book.genres?.join(', ') || 'Genre not available' }}</p>
+      </div>
+    </div>
+
+    <div v-if="book.title" class="reviewpage__book">
+      <BookHeader :image="book.image" :title="book.title" :genres="book.genres" />
+      <BookInfo
+        :title="book.title"
+        :author="book.author"
+        :published_year="book.published_year"
+        :rating="book.averageRating ?? 0"
+        :description="book.description"
+      />
+    </div>
+
+    <div v-if="book._id" class="reviewpage__review">
+      <ReviewForm :bookId="book._id" />
+      <ReviewList :bookId="book._id" />
+    </div>
+  </div>
+</template>
+
 <style scoped lang="scss">
-.review-page {
+.reviewpage {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 1rem;
-}
+  gap: fn-rem(32);
+  width: 100%;
 
-.header-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 fn-rem(16);
+    max-width: fn-rem(1440);
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-.genre {
-  font-size: 18px;
-  color: #000;
-}
+  &__header-inner {
+    max-width: fn-rem(1100);
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-left: fn-rem(16);
+    padding-right: fn-rem(16);
+    box-sizing: border-box;
+  }
 
-.book-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  &__genre {
+    font-weight: 500;
+    margin: auto 0;
+  }
 
-  @media (min-width: 1024px) {
-    flex-direction: row;
-    align-items: flex-start;
+  &__book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: fn-rem(48);
+    max-width: fn-rem(1100);
+    width: 100%;
+    margin: 0 auto;
+    padding-left: fn-rem(16);
+    padding-right: fn-rem(16);
 
-    > * {
-      flex: 1;
-      min-width: 0;
+    @include mix-media(laptop) {
+      display: grid;
+      text-align: left;
+      grid-template-columns: repeat(8, 1fr);
+      gap: fn-rem(48);
+      align-items: start;
+
+      > :first-child {
+        grid-column: 1 / span 3;
+      }
+
+      > :nth-child(2) {
+        grid-column: 4 / span 4;
+      }
     }
   }
-}
 
-.review-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  &__review {
+    display: flex;
+    flex-direction: column;
+    gap: fn-rem(32);
+    max-width: fn-rem(1100);
+    width: 100%;
+    margin: 0 auto;
+    padding: fn-rem(48) fn-rem(16);
 
-  @media (min-width: 1024px) {
-    flex-direction: row;
-    align-items: stretch;
 
-    > * {
-      flex: 1;
-      min-width: 0;
+    @include mix-media(desktop) {
+      display: grid;
+      grid-template-columns: repeat(14, 1fr);
+      gap: fn-rem(48);
+      align-items: start;
+
+      > :first-child {
+        grid-column: 2 / span 4;
+      }
+
+      > :nth-child(2) {
+        grid-column: 7 / span 6;
+      }
+    }
+
+    @include mix-media(laptop) {
+      display: grid;
+      grid-template-columns: repeat(14, 1fr);
+      gap: fn-rem(48);
+      align-items: start;
+
+      > :first-child {
+        grid-column: 2 / span 4;
+      }
+
+      > :nth-child(2) {
+        grid-column: 7 / span 6;
+      }
     }
   }
 }

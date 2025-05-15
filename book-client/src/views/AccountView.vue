@@ -6,7 +6,6 @@ import LoginUser from '@/components/auth/LoginUser.vue'
 <template>
   <section class="account">
     <h1>Account</h1>
-    <LoginUser />
   </section>
 </template>
 

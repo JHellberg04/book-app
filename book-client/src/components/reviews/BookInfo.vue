@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import StarRating from '@/components/reviews/StarRating.vue'
+
 const { title, author, published_year, rating, description } = defineProps<{
   title: string
   author: string
@@ -16,17 +18,9 @@ const { title, author, published_year, rating, description } = defineProps<{
       <span>Published: {{ published_year }}</span>
     </p>
     <div class="info__rating">
-      <template v-for="i in 5" :key="i">
-        <span
-          class="info__rating-star"
-          :class="{
-            filled: i <= Math.floor(rating),
-            half: i > Math.floor(rating) && i - 0.5 <= rating,
-          }"
-          >★</span
-        >
-      </template>
+      <StarRating :rating="rating" />
     </div>
+
     <p class="info__description">{{ description }}</p>
   </div>
 </template>
@@ -36,83 +30,50 @@ const { title, author, published_year, rating, description } = defineProps<{
   width: 100%;
   margin: 0;
   text-align: center;
-  padding: 1rem;
 
-  @include mix-media(tablet) {
-    width: 50%;
-    padding: 0 2rem;
-    text-align: left;
+  &__rating {
+    padding-bottom: fn-rem(32);
   }
 
   &__title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: fn-rem(24);
+    margin-bottom: fn-rem(16);
 
     @include mix-media(tablet) {
-      font-size: 1.8rem;
+      font-size: fn-rem(28.8);
     }
 
     @include mix-media(laptop) {
-      font-size: 2.2rem;
+      font-size: fn-rem(35.2);
     }
   }
 
   &__author-published {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
+    font-size: fn-rem(14.4);
+    margin-bottom: fn-rem(16);
     color: var(--color-black);
+
     span {
       display: block;
-      margin-bottom: 0.5rem;
-    }
-  }
-
-  &__rating {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-
-    &-star {
-      color: var(--color-ratingstar-empty);
-      cursor: pointer;
-      transition: color 0.3s ease;
-
-      &.filled {
-        color: var(--color-ratingstar-filled);
-      }
-    }
-    @include mix-media(tablet) {
-      font-size: 1.4rem;
-    }
-
-    @include mix-media(laptop) {
-      font-size: 1.6rem;
+      margin-bottom: fn-rem(8);
     }
   }
 
   &__description {
-    font-size: 1rem;
-    line-height: 1.5;
-    text-align: justify;
-    max-width: 90%;
-    margin: 0 auto;
+    font-size: fn-rem(16);
+    line-height: 1.6;
+    text-align: center;
+    max-width: 65ch;
+    margin: 0 auto fn-rem(24);
+    hyphens: auto;
+    word-break: break-word;
 
     @include mix-media(tablet) {
-      max-width: none;
-      margin: 0;
-      font-size: 1.1rem;
+      font-size: fn-rem(17.6);
     }
 
     @include mix-media(laptop) {
-      font-size: 1.2rem;
+      font-size: fn-rem(19.2);
     }
   }
-}
-
-.filled{
-  color: var(--color-ratingstar-filled);
-}
-
-.empty{
-   color: var(--color-ratingstar-empty);
-}
-</style>
+}</style>

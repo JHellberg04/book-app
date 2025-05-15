@@ -18,8 +18,11 @@
             :key="i"
             class="star"
             :class="{ filled: i <= Math.floor(book.averageRating) }"
-          >★</span>
-          <span v-if="book.reviews.length === 1" class="review-amount"> - {{ book.reviews.length }} review</span>
+            >★</span
+          >
+          <span v-if="book.reviews.length === 1" class="review-amount">
+            - {{ book.reviews.length }} review</span
+          >
           <span v-else class="review-amount"> - {{ book.reviews.length }} reviews</span>
         </div>
       </div>
@@ -99,7 +102,7 @@ const props = defineProps<{
       font-size: 1.5rem;
       display: flex;
       flex-direction: row;
-      align-items:  center;
+      align-items: center;
 
       .star {
         color: var(--color-ratingstar-empty);
@@ -109,7 +112,11 @@ const props = defineProps<{
         }
 
         &.half {
-          color: linear-gradient(to right, var(--color-ratingstar-filled), var(--color-ratingstar-empty));
+          color: linear-gradient(
+            to right,
+            var(--color-ratingstar-filled),
+            var(--color-ratingstar-empty)
+          );
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
@@ -119,7 +126,7 @@ const props = defineProps<{
         font-size: 1rem;
         text-align: center;
         font-style: italic;
-        }
+      }
     }
 
     .link-container {

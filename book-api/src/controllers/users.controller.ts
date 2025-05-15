@@ -6,22 +6,24 @@
 import { Request, Response } from 'express'
 
 // == Security libraries ==
-import bcrypt from 'bcryptjs' // For hashing and comparing passwords
+import bcrypt from 'bcryptjs'
+
+// == Utils ==
+import { formatUser } from '../utils/formatUser.js'
 
 // == Database model ==
 import User from '../models/user.js'
 
 /** === GET ALL USERS ===
  * - Fetches all users from the database
- * - Returns only selected fields (username, is_admin)
- *
- * @param res - Express response object
+ * - Returns formatted user list
  */
 export async function getAllUsers(_req: Request, res: Response) {
   try {
     const users = await User.find()
+    const formatted = users.map(formatUser)
 
-    res.status(200).json(users)
+    res.status(200).json(formatted)
   } catch (error) {
     console.error('❌ Error fetching users:', error)
     res.status(500).json({ error: 'Server failed to fetch users' })
@@ -29,26 +31,19 @@ export async function getAllUsers(_req: Request, res: Response) {
 }
 
 /** === GET USER BY ID ===
- *
- * - Extracts user ID from request params
- * - Finds a single user in the database using MongoDB's ObjectId
- * - Returns selected fields: username, is_admin, and created_at
- *
- * @param req - Express request object
- * @param res - Express response object
- * @returns 200 with user data, 404 if not found, 500 on server error
- *
+ * - Finds user by ID and returns formatted result
  */
 export async function getUserById(req: Request, res: Response) {
   const { id } = req.params
 
   try {
-    const user = await User.findById(id).select('username is_admin created_at')
+    const user = await User.findById(id)
     if (!user) {
       res.status(404).json({ error: 'User not found' })
       return
     }
-    res.status(200).json(user)
+
+    res.status(200).json(formatUser(user))
   } catch (error) {
     console.error('❌ Error fetching user by ID:', error)
     res.status(500).json({ error: 'Server error' })
@@ -56,16 +51,8 @@ export async function getUserById(req: Request, res: Response) {
 }
 
 /** === UPDATE USER BY ID ===
- *
- * - Extracts user ID from request params
- * - Validates that the user exists in the database
- * - Applies updates from the request body (e.g. username or password)
- * - If password is updated, hashes it with bcrypt before saving
- * - Returns 200 with updated user info or appropriate error code
- *
- * @param req - Express request object
- * @param res - Express response object
- * @returns 200 on success, 404 if user not found, 500 on server error
+ * - Updates username and/or password
+ * - Returns formatted updated user
  */
 export async function updateUserById(req: Request, res: Response) {
   const { id } = req.params
@@ -83,7 +70,10 @@ export async function updateUserById(req: Request, res: Response) {
 
     await user.save()
 
-    res.status(200).json({ message: 'User updated successfully', user })
+    res.status(200).json({
+      message: 'User updated successfully',
+      user: formatUser(user),
+    })
   } catch (error) {
     console.error('❌ Error updating user:', error)
     res.status(500).json({ error: 'Server error' })
@@ -91,15 +81,7 @@ export async function updateUserById(req: Request, res: Response) {
 }
 
 /** === DELETE USER BY ID ===
- *
- * - Extracts user ID from request params
- * - Looks up the user in the database to verify existence
- * - If found, deletes the user using MongoDB's ObjectId
- *
- * @param req - Express request object
- * @param res - Express response object
- * @returns 200 on success, 404 if not found, 500 on server error
- *
+ * - Deletes user by ID
  */
 export async function deleteUserById(req: Request, res: Response) {
   const { id } = req.params

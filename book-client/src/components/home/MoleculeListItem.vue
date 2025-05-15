@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AtomList from '@/components/auth/AtomListIcon.vue'
+import AtomList from '@/components/home/AtomListIcon.vue'
 
 const props = defineProps<{
   listinfo: string

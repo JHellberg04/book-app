@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import BaseInput from '@/components/atoms/BaseInput.vue'
 import BaseAction from '@/components/atoms/BaseAction.vue'
+import StarRating from '@/components/reviews/StarRating.vue'
 
 const props = defineProps<{
   bookId: string
@@ -12,9 +13,18 @@ const name = ref('')
 const content = ref('')
 const router = useRouter()
 const rating = ref(0)
+const hoverRating = ref(0)
 
 const setRating = (n: number) => {
   rating.value = n
+}
+
+const setHover = (n: number) => {
+  hoverRating.value = n
+}
+
+const clearHover = () => {
+  hoverRating.value = 0
 }
 
 const submitReview = async () => {
@@ -44,10 +54,10 @@ const submitReview = async () => {
 </script>
 
 <template>
-  <div class="review-column">
-    <h2 class="section-title">Reviews & rating</h2>
+  <div class="reviewform">
+    <h2 class="reviewform__title" id="review-title">Reviews & rating</h2>
 
-    <form @submit.prevent="submitReview" class="review-form">
+    <form @submit.prevent="submitReview" class="reviewform__form" aria-labelledby="review-title">
       <BaseInput
         id="name"
         name="Name"
@@ -69,16 +79,9 @@ const submitReview = async () => {
         :validate="(val) => (val.length < 2 ? 'Review too short' : null)"
       />
 
-      <div>Your rating:</div>
-      <div class="rating-display">
-        <span
-          v-for="n in 5"
-          :key="n"
-          :class="{ filled: n <= rating }"
-          class="star"
-          @click="setRating(n)"
-          >★</span
-        >
+      <div class="reviewform__label" id="rating-label">Your rating:</div>
+      <div class="reviewform__stars" role="radiogroup" :aria-labelledby="'rating-label'">
+        <StarRating v-model:rating="rating" :interactive="true" />
       </div>
 
       <BaseAction label="Send" variant="primary" type="submit" />
@@ -87,62 +90,58 @@ const submitReview = async () => {
 </template>
 
 <style scoped lang="scss">
-h2.section-title {
-  font-size: 2rem;
-  margin: 20px 0 80px 0;
-  text-align: center;
-}
-
-.review-column {
+.reviewform {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
-
-.review-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
   width: 100%;
-  align-items: center;
 
-  @media (min-width: 1024px) {
-    max-width: 100%;
-    padding-right: 2rem;
+  &__title {
+    font-size: fn-rem(32);
+    margin: fn-rem(20) 0 fn-rem(70);
+    text-align: center;
   }
 
-  .inputfield {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: fn-rem(24);
     width: 100%;
-    max-width: 400px;
+    align-items: center;
+
+    @include mix-media(desktop) {
+      max-width: 100%;
+      padding: 0 fn-rem(32);
+    }
+
+    .inputfield {
+      width: 100%;
+      max-width: fn-rem(350);
+    }
+
+    .inputfield__field {
+      max-width: 100%;
+    }
+
+    button,
+    .base-action {
+      max-width: fn-rem(200);
+      width: 100%;
+      align-self: center;
+      margin-bottom: fn-rem(20);
+    }
   }
 
-  .inputfield__field {
-    max-width: 100%;
+  &__label {
+    font-size: fn-rem(18);
+    font-weight: 600;
+    text-align: center;
   }
 
-  button,
-  .base-action {
-    max-width: 200px;
-    width: 100%;
-    align-self: center;
+  &__stars {
+    display: flex;
+    justify-content: center;
+    gap: fn-rem(8);
   }
-}
-
-.rating-display {
-  display: flex;
-  gap: 5px;
-  font-size: 24px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  justify-content: center;
-}
-
-.star {
-  color: #ccc;
-  transition: color 0.2s;
-}
-
-.star.filled {
-  color: gold;
 }
 </style>
