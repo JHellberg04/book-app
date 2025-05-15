@@ -45,12 +45,25 @@ pnpm install
 Create a `.env` file in the root of `book-api/`:
 
 ```env
-PORT=3000
-MONGO_URI=mongodb+srv://<username>:<password>@your-cluster.mongodb.net/book_api
-JWT_SECRET=yourSuperSecretKey
+# === SERVER CONFIGURATION ===
+PORT=3000                            # Port where the Express API will run
+NODE_ENV=development                 # Use 'production' in deployed environment
+
+# === DATABASE ===
+MONGO_URI=mongodb+srv://<username>:<password>@your-cluster.mongodb.net/book_db
+
+# === AUTH ===
+JWT_SECRET=yourSuperSecretKey        # Secret key for signing JWTs
+
+# === CORS ===
+CLIENT_URL=http://localhost:5173     # Comma-separated list of allowed frontend origins
 ```
 
-> Replace `<username>` and `<password>` with your MongoDB Atlas credentials.
+> 🔐 Replace `<username>` and `<password>` with your MongoDB Atlas credentials.
+
+> ✅ Set `NODE_ENV=development` when running locally to avoid cookie issues without HTTPS.
+
+> 🌐 Add all allowed client URLs to `CLIENT_URL`, separated by commas if needed.
 
 ### 3. Run the server
 
@@ -58,7 +71,7 @@ JWT_SECRET=yourSuperSecretKey
 pnpm dev
 ```
 
-Server runs at `http://localhost:3000`
+Server runs at: `http://localhost:3000`
 
 ---
 
