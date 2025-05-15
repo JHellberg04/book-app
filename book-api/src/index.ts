@@ -13,36 +13,57 @@ import usersRoutes from './routes/users.routes.js'
 import bookRoutes from './routes/books.routes.js'
 import reviewRoutes from './routes/review.routes.js'
 
-// === CONFIG ===
+// === LOAD ENVIRONMENT VARIABLES ===
 dotenv.config()
+
+// === APP CONFIG ===
 const app = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
+const MONGO_URI = process.env.MONGO_URI || ''
+const isProduction = process.env.NODE_ENV === 'production'
 
-console.log('Mongo URI:', process.env.MONGO_URI)
+// === ALLOWED CLIENT ORIGINS ===
+// Read comma-separated list from .env file
+const allowedOrigins = (process.env.CLIENT_URL || '').split(',')
 
+/**
+ * === CORS CONFIGURATION ===
+ *
+ * Enables cross-origin requests only from known client URLs.
+ * Includes credentials (cookies).
+ */
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error(`❌ CORS blocked for origin: ${origin}`))
+    }
+  },
+  credentials: true,
+}))
 
 // === MIDDLEWARE ===
-app.use(cors())
-app.use(express.json())
-app.use(cookieParser())
+app.use(express.json())        // Parse JSON bodies
+app.use(cookieParser())        // Enable cookie parsing
 
-// === ROUTES ===
-app.use('/auth', authRoutes)
-app.use('/users', usersRoutes)
-app.use('/books', bookRoutes)
-app.use('/reviews', reviewRoutes)
+// === API ROUTES ===
+app.use('/auth', authRoutes)      // Authentication
+app.use('/users', usersRoutes)    // User management
+app.use('/books', bookRoutes)     // Book management
+app.use('/reviews', reviewRoutes) // Book reviews
 
-// === ROOT TEST ===
-app.get('/', (_req: Request, res: Response) => {
-  res.send('Party API is running 🎉')
-})
-
-// === DATABASE CONNECTION + SERVER START ===
+/**
+ * === CONNECT TO DATABASE AND START SERVER ===
+ * If connection to MongoDB is successful, starts Express server
+ */
 mongoose
-  .connect(process.env.MONGO_URI!)
+  .connect(MONGO_URI)
   .then(() => {
     console.log('🎉 Connected to MongoDB')
-    app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`))
+    app.listen(PORT, () =>
+      console.log(`🚀 Server running at http://localhost:${PORT}`)
+    )
   })
   .catch((error) => {
     console.error('❌ MongoDB connection error:', error)
