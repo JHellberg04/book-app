@@ -1,11 +1,9 @@
-<script setup lang="ts">
-import LoginUser from '@/components/auth/LoginUser.vue'
-</script>
+<script setup lang="ts"></script>
 
 <!-- TODO: Placeholder view for account. Will be expanded or replaced based on design decisions. -->
 <template>
   <section class="account">
-    <h1>Account</h1>
+    <router-view />
   </section>
 </template>
 
@@ -13,5 +11,7 @@ import LoginUser from '@/components/auth/LoginUser.vue'
 .account {
   width: 100%;
   height: 100%;
+  min-height: 100dvh;
+  padding: 1rem;
 }
 </style>

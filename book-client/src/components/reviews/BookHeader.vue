@@ -23,7 +23,7 @@ const props = defineProps<{
     height: auto;
     object-fit: contain;
     aspect-ratio: 2 / 3;
-    margin-bottom: fn-rem(48); 
+    margin-bottom: fn-rem(48);
   }
 }
 </style>

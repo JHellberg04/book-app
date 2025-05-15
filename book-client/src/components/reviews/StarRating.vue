@@ -72,5 +72,4 @@ const setRating = (value: number) => {
     cursor: pointer;
   }
 }
-
 </style>
