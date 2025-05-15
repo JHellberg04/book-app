@@ -12,7 +12,12 @@ const formData = reactive({
   password: '',
 })
 
-// Custom validation logic for username
+// Expose to parent components
+defineExpose({
+  formData,
+})
+
+// Validation functions
 const usernameRules = (val: string) => {
   const regex = /^[a-z0-9_-]{3,20}$/
   if (!val) return 'Username is required'
@@ -20,7 +25,6 @@ const usernameRules = (val: string) => {
   return null
 }
 
-// Custom validation logic for password
 const passwordRules = (val: string) => {
   if (!val) return 'Password is required'
   if (val.length < 8 || val.length > 20) return '8–20 characters required'
@@ -29,7 +33,6 @@ const passwordRules = (val: string) => {
   return null
 }
 
-// Handles form submit with validation
 const onSubmit = () => {
   const userError = usernameRules(formData.username)
   const passError = passwordRules(formData.password)
@@ -38,7 +41,6 @@ const onSubmit = () => {
     return
   }
 
-  // Lowercase the username before submitting
   props.onSubmitHandler?.(formData.username.toLowerCase(), formData.password)
 }
 </script>
