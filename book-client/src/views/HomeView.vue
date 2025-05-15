@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import UsersTable from '@/components/admin/UsersTable.vue'
+import HomeCTA from '@/components/organism/ButtonCta.vue'
+import AtomHeroLogo from '@/components/home/AtomHeroLogo.vue'
+import OragnismHomeInfo from '@/components/home/OragnismHomeInfo.vue'
 </script>
 
 <template>
   <section class="home">
-    <h1>HomeSection</h1>
-
-    <UsersTable />
+    <h1 class="home__title">Welcome to Peach Pages</h1>
+    <AtomHeroLogo />
+    <OragnismHomeInfo />
+    <HomeCTA
+      heading="Ready to start building your shelf?"
+      to="/account/register"
+      label="Create Account"
+    />
   </section>
 </template>
 
@@ -14,5 +21,10 @@ import UsersTable from '@/components/admin/UsersTable.vue'
 .home {
   width: 100%;
   height: 100%;
+  @include mix-flex-center(column);
+
+  &__title {
+    @include mix-visually-hidden();
+  }
 }
 </style>
