@@ -24,7 +24,7 @@ A daily log of progress, task division, design and code decisions during develop
 
 ### 📅 2025-05-08 – Client Setup & Visual Identity
 
-* Alexandra and Johannes finalized the `book-api` backend, including **endpoints** and **MongoDB structure**.
+* Alexandra and Jonatan finalized the `book-api` backend, including **endpoints** and **MongoDB structure**.
 * Therese focused on client and design direction:
 
   * Created **logotype**, **brand identity**, and **slogan**
@@ -55,9 +55,9 @@ Självklart! Här är en mer komplett och engelskspråkig version, anpassad för
   * **Login** and **Register** views
   * **User dashboard ("My Pages")** in the admin panel
 
-* Johannes and Alexandra are continuing to build their respective feature areas:
+* Jonatan and Alexandra are continuing to build their respective feature areas:
 
-  * **Books** (Johannes): book list, individual book pages, and book admin views
+  * **Books** (Jonatan): book list, individual book pages, and book admin views
   * **Reviews** (Alexandra): create and list reviews tied to each book
 
 > We'll update the task division as designs are finalized and implementation progresses.
