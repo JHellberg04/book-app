@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import BaseAction from '@/components/atoms/BaseAction.vue'
+import type { RouteLocationRaw } from 'vue-router'
 
 const props = defineProps<{
+  to: RouteLocationRaw
+  label: string
   heading?: string
   message1?: string
   message2?: string
-  to: string
-  label: string
 }>()
 </script>
 

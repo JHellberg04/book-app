@@ -1,6 +1,7 @@
 // @/composables/useLogout.ts
 
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
 /**
@@ -12,22 +13,18 @@ import { useAuthStore } from '@/stores/auth'
  * @returns Object containing loading, error, success and logout function
  */
 export function useLogout() {
-  /** True while logout request is in progress */
   const loading = ref(false)
-
-  /** Error message if logout fails */
   const error = ref('')
-
-  /** True if logout was successful */
   const success = ref(false)
 
   const authStore = useAuthStore()
+  const router = useRouter()
 
   /**
    * handleLogout
    *
    * Logs out the current user by calling the auth store's logout function.
-   * Manages loading, error, and success state.
+   * Redirects to HomeView after successful logout.
    */
   async function handleLogout() {
     loading.value = true
@@ -37,6 +34,7 @@ export function useLogout() {
     try {
       await authStore.logout()
       success.value = true
+      router.push({ name: 'home' }) // 👈 Redirect to HomeView
     } catch (errorThrown: unknown) {
       if (typeof errorThrown === 'string') {
         error.value = errorThrown

@@ -1,20 +1,34 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { defineProps } from 'vue'
 import StarRating from '@/components/reviews/StarRating.vue'
 
-const props = defineProps({
-  bookId: String,
-})
+const API_URL = import.meta.env.VITE_API_URL
 
-const reviews = ref([])
+interface Review {
+  _id: string
+  rating: number
+  created_at: string
+  name: string
+  content: string
+}
+
+const props = defineProps<{
+  bookId: string
+}>()
+
+const reviews = ref<Review[]>([])
 
 onMounted(async () => {
-  const res = await fetch(`http://localhost:3000/reviews/book/${props.bookId}`)
-  reviews.value = await res.json()
+  try {
+    const res = await fetch(`${API_URL}/reviews/book/${props.bookId}`)
+    if (!res.ok) throw new Error('Failed to fetch reviews')
+    reviews.value = await res.json()
+  } catch (error) {
+    console.error('Error fetching reviews:', error)
+  }
 })
 
-const formatDate = (dateStr) => {
+const formatDate = (dateStr: string) => {
   const date = new Date(dateStr)
   return date.toLocaleDateString('sv-SE')
 }

@@ -1,6 +1,6 @@
 <template>
   <section class="bookshelf">
-    <BackButton @click="$router.back()" />
+    <BackButton @click="goBack" />
     <h1>Bookshelf</h1>
 
     <div v-if="loading">Loading books...</div>
@@ -18,13 +18,14 @@ import BookCard from '@/components/books/BookCard.vue'
 import BackButton from '@/components/atoms/BackButton.vue'
 import { useRouter } from 'vue-router'
 
+const API_URL = import.meta.env.VITE_API_URL
 const router = useRouter()
 
 const goBack = () => {
   if (window.history.length > 1) {
     router.back()
   } else {
-    router.push('/') // Fallback to the homepage or another route
+    router.push({ name: 'home' }) // Fallback using named route
   }
 }
 
@@ -44,15 +45,14 @@ const loading = ref(true)
 
 onMounted(async () => {
   try {
-    const res = await fetch('http://localhost:3000/books')
-
+    const res = await fetch(`${API_URL}/books`)
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`)
     }
-    const data = await res.json() // Convert response to json
-    books.value = data // Update reactive book list
+    const data = await res.json()
+    books.value = data
   } catch (error) {
-    console.error('Error detching books:', error)
+    console.error('Error fetching books:', error)
   } finally {
     loading.value = false
   }
@@ -63,11 +63,14 @@ onMounted(async () => {
 .back-button {
   margin-right: auto;
 }
+
 .bookshelf {
   width: 95%;
+
   @include mix-media(laptop) {
     max-width: 85%;
   }
+
   @include mix-media(desktop) {
     max-width: 90%;
   }
@@ -86,6 +89,7 @@ onMounted(async () => {
     @include mix-media(laptop) {
       font-size: fn-rem(48);
     }
+
     @include mix-media(desktop) {
       font-size: fn-rem(64);
     }

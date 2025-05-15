@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import BaseTable from './BaseTable.vue'
 import type { IUser } from '@/types/IUser'
+const API_URL = import.meta.env.VITE_API_URL
 
 /**
  * Reactive array of users retrieved from the backend API.
@@ -16,7 +17,7 @@ const users = ref<IUser[]>([])
  */
 const fetchUsers = async () => {
   try {
-    const res = await fetch('http://localhost:3000/users')
+    const res = await fetch(API_URL + '/users')
     const raw = await res.json()
     users.value = raw
   } catch (err) {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, type RouteLocationRaw } from 'vue-router'
 
 /**
  * ActionButton.vue
@@ -22,7 +22,7 @@ const props = defineProps<{
   as?: 'button' | 'a' | 'router-link'
   type?: 'button' | 'submit' | 'reset'
   href?: string
-  to?: string
+  to?: string | RouteLocationRaw
   label: string
   variant?: 'primary' | 'secondary'
   disabled?: boolean

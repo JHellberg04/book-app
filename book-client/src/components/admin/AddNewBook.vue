@@ -58,7 +58,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import BaseInput from '@/components/atoms/BaseInput.vue'
+
+const router = useRouter()
+const API_URL = import.meta.env.VITE_API_URL
 
 const form = ref({
   title: '',
@@ -76,7 +80,7 @@ const submitForm = async () => {
 
     const token = localStorage.getItem('token')
 
-    const response = await fetch('http://localhost:3000/books', {
+    const response = await fetch(`${API_URL}/books`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -98,6 +102,9 @@ const submitForm = async () => {
       image: '',
       published_year: '',
     }
+
+    // Redirect to admin books list
+    router.push({ name: 'admin_books' })
   } catch (error) {
     console.error('Error adding book:', error)
     alert('Failed to add book. Please try again.')

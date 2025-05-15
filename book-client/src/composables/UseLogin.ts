@@ -1,6 +1,7 @@
 // @/composables/useLogin.ts
 
 import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
 /**
@@ -9,28 +10,18 @@ import { useAuthStore } from '@/stores/auth'
  * Handles user login using a reactive state object.
  * - Calls the auth store to perform login
  * - Tracks loading, error, and success state
- *
- * @returns Reactive state and login function
+ * - Redirects based on user role (admin or user)
  */
 export function useLogin() {
   const authStore = useAuthStore()
+  const router = useRouter()
 
-  // Reactive state for login process
   const state = reactive({
     error: '',
     success: false,
     loading: false,
   })
 
-  /**
-   * loginWithCredentials
-   *
-   * Submits the given credentials to the auth store for login.
-   * Updates the reactive state based on the outcome.
-   *
-   * @param username - The username to log in with
-   * @param password - The password to log in with
-   */
   async function loginWithCredentials(username: string, password: string) {
     state.error = ''
     state.success = false
@@ -38,8 +29,15 @@ export function useLogin() {
 
     try {
       await authStore.login(username, password)
-      console.log('➡️ Sending to API:', { username, password }) // ⚠️ DEBUG ONLY
       state.success = true
+
+      // ➡️ Redirect based on role
+      if (authStore.isAdmin) {
+        router.push({ name: 'admin' })
+      } else {
+        router.push({ name: 'user' })
+      }
+
     } catch (error: unknown) {
       if (typeof error === 'string') {
         state.error = error
