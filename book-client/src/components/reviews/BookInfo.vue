@@ -76,5 +76,4 @@ const { title, author, published_year, rating, description } = defineProps<{
       font-size: fn-rem(19.2);
     }
   }
-}
-</style>
+}</style>
