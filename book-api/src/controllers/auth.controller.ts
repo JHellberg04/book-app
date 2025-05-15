@@ -15,17 +15,22 @@ import { validateCredentials } from '../utils/validate.auth.js'
 // == Database model ==
 import User from '../models/user.js'
 
-/** === REGISTER NEW USER ===
+// == Config ==
+const isProduction = process.env.NODE_ENV === 'production'
+
+/**
+ * === REGISTER NEW USER ===
  *
- * - Takes `username` and `password` from request body
- * - Validates credentials using shared validation rules
+ * Handles registration of a new user:
+ * - Validates input credentials
  * - Checks if the username is already taken
- * - Hashes the password using bcrypt
- * - Creates and saves a new user in the database
+ * - Hashes the password securely
+ * - Saves the user to the database
  *
- * @param req - Express request object
+ * @route POST /auth/register
+ * @param req - Express request object (expects `username` and `password`)
  * @param res - Express response object
- * @returns 201 on success, 400 on validation error, 409 if username exists, 500 on server error
+ * @returns 201 on success, 400 if validation fails, 409 if user exists, 500 on server error
  */
 export async function registerNewUser(req: Request, res: Response) {
   const { username, password } = req.body
@@ -54,18 +59,20 @@ export async function registerNewUser(req: Request, res: Response) {
   }
 }
 
-/** === LOG IN USER ===
+/**
+ * === LOG IN USER ===
  *
- * - Takes `username` and `password` from request body
- * - Validates credentials using shared validation rules
- * - Looks up user in MongoDB
- * - Verifies hashed password using bcrypt
- * - Generates JWT token valid for 1 hour
- * - Sends token as httpOnly cookie and in JSON response
+ * Authenticates a user and issues a JWT token:
+ * - Validates credentials
+ * - Verifies user exists
+ * - Compares password using bcrypt
+ * - Issues JWT token valid for 1 hour
+ * - Sends token in secure httpOnly cookie
  *
- * @param req - Express request object
+ * @route POST /auth/login
+ * @param req - Express request object (expects `username` and `password`)
  * @param res - Express response object
- * @returns 200 on success, 400 on validation error, 401/409 on auth failure, 500 on server error
+ * @returns 200 on success, 400 on validation fail, 401/409 on auth error, 500 on server error
  */
 export async function loginUser(req: Request, res: Response) {
   const { username, password } = req.body
@@ -101,9 +108,9 @@ export async function loginUser(req: Request, res: Response) {
 
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 1000,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'strict',
+      maxAge: 60 * 60 * 1000, // 1 hour
     })
 
     res.status(200).json({
@@ -116,19 +123,23 @@ export async function loginUser(req: Request, res: Response) {
   }
 }
 
-/** === LOG OUT USER ===
+/**
+ * === LOG OUT USER ===
  *
- * - Clears the access token cookie to log the user out
+ * Clears the user's authentication cookie:
+ * - Removes `accessToken` from browser
  *
- * @param req - Express request object
+ * @route POST /auth/logout
+ * @param _req - Express request object (not used)
  * @param res - Express response object
  * @returns 200 on success
  */
 export function logoutUser(_req: Request, res: Response) {
   res.clearCookie('accessToken', {
     httpOnly: true,
-    secure: false,
-    sameSite: 'strict',
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'strict',
   })
+
   res.status(200).json({ message: 'User logged out' })
 }

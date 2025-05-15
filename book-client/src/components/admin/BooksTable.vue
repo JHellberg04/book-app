@@ -33,10 +33,10 @@ const columns = [
 
 // Optionally, format genres as a comma-separated string for display
 const formattedBooks = computed(() =>
-  books.value.map(book => ({
+  books.value.map((book) => ({
     ...book,
     genres: Array.isArray(book.genres) ? book.genres.join(', ') : book.genres,
-  }))
+  })),
 )
 </script>
 
