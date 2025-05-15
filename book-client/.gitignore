@@ -46,3 +46,7 @@ cypress/videos/
 # OS
 Thumbs.db
 ehthumbs.db
+
+
+
+.env
