@@ -76,16 +76,14 @@ const form = ref({
 const submitForm = async () => {
   try {
     const genresArray = form.value.genres.split(',').map((genre) => genre.trim())
-    const payload = { ...form.value, genres: genresArray }
-
-    const token = localStorage.getItem('token')
+    const payload = { ...form.value, genres: genresArray, published_year: Number(form.value.published_year) }
 
     const response = await fetch(`${API_URL}/books`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
       },
+      credentials: 'include',
       body: JSON.stringify(payload),
     })
 
