@@ -10,7 +10,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <li class="list-item">
+  <li class="list__item">
     <img
       :src="iconSrc"
       alt=""
@@ -18,13 +18,14 @@ const props = defineProps<{
       loading="lazy"
       width="32"
       height="32"
-      class="listitem__icon"
+      class="list__icon"
     />
-    <span class="listitem__text">{{ listinfo }}</span>
+    <span class="list__text">{{ listinfo }}</span>
   </li>
 </template>
+
 <style scoped lang="scss">
-.list-item {
+.list__item {
   display: flex;
   align-items: start;
   gap: 0.5rem;
@@ -38,19 +39,7 @@ const props = defineProps<{
     margin-bottom: 0.75rem;
   }
 
-  &__text {
-    font-size: fn-rem(15);
-
-    @include mix-media(mobile) {
-      font-size: fn-rem(16);
-    }
-
-    @include mix-media(tablet) {
-      font-size: fn-rem(17);
-    }
-  }
-
-  &__icon {
+  .list__icon {
     width: fn-rem(24);
     height: fn-rem(24);
 
@@ -62,6 +51,18 @@ const props = defineProps<{
     @include mix-media(laptop) {
       width: fn-rem(28);
       height: fn-rem(28);
+    }
+  }
+
+  .list__text {
+    font-size: fn-rem(15);
+
+    @include mix-media(mobile) {
+      font-size: fn-rem(16);
+    }
+
+    @include mix-media(tablet) {
+      font-size: fn-rem(17);
     }
   }
 }

@@ -1,15 +1,4 @@
-<!-- components/organism/ButtonCta.vue -->
 <script setup lang="ts">
-/**
- * AccountCta - Call-to-action block with heading, message and a link button.
- *
- * Props:
- * - to: route to navigate to (required)
- * - label: button text (required)
- * - heading: optional heading
- * - message1: optional first message paragraph
- * - message2: optional second message paragraph
- */
 import BaseAction from '@/components/atoms/BaseAction.vue'
 import type { RouteLocationRaw } from 'vue-router'
 
@@ -51,15 +40,25 @@ const props = defineProps<{
   margin-bottom: fn-rem(64);
 
   &__heading {
-    font-size: fn-rem(20);
+    font-size: fn-rem(23);
     text-align: center;
+    margin-bottom: 0.25rem;
+
+    @include mix-media(tablet) {
+      font-size: fn-rem(26);
+      margin-bottom: 0.75rem;
+    }
   }
 
   &__message {
     text-align: center;
     word-wrap: break-word;
     max-width: 95%;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+
+    @include mix-media(tablet) {
+      margin-bottom: 2rem;
+    }
   }
 
   &__button {
