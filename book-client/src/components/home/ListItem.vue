@@ -1,9 +1,8 @@
-<!-- components/home/MoleculeListItem.vue -->
 <script setup lang="ts">
 /**
- * ListItem - Displays a single item in a list.
+ * ListItem - Displays a single item in a list, with icon and text.
  */
-import AtomList from '@/components/home/AtomListIcon.vue'
+import iconSrc from '@/assets/icon/listicon-32x32px.png'
 
 const props = defineProps<{
   listinfo: string
@@ -11,14 +10,21 @@ const props = defineProps<{
 </script>
 
 <template>
-  <li class="listitem">
-    <AtomList class="listitem__icon" />
-    <span class="list-item__text">{{ listinfo }}</span>
+  <li class="list-item">
+    <img
+      :src="iconSrc"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      width="32"
+      height="32"
+      class="listitem__icon"
+    />
+    <span class="listitem__text">{{ listinfo }}</span>
   </li>
 </template>
-
 <style scoped lang="scss">
-.listitem {
+.list-item {
   display: flex;
   align-items: start;
   gap: 0.5rem;
