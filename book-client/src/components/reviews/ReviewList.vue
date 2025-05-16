@@ -1,8 +1,13 @@
+<!-- components/reviews/ReviewList.vue -->
 <script setup lang="ts">
+/**
+ * ReviewList - Loads and displays a list of reviews for a book.
+ */
 import { ref, onMounted } from 'vue'
+import { useApi } from '@/composables/useApi'
 import StarRating from '@/components/reviews/StarRating.vue'
 
-const API_URL = import.meta.env.VITE_API_URL
+const { API_URL } = useApi()
 
 interface Review {
   _id: string
@@ -28,6 +33,9 @@ onMounted(async () => {
   }
 })
 
+/**
+ * Format date string to Swedish locale.
+ */
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr)
   return date.toLocaleDateString('sv-SE')

@@ -1,4 +1,8 @@
+<!-- components/reviews/BookInfo.vue -->
 <script setup lang="ts">
+/**
+ * BookInfo - Shows book metadata and average rating.
+ */
 import StarRating from '@/components/reviews/StarRating.vue'
 
 const { title, author, published_year, rating, description } = defineProps<{

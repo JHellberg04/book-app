@@ -1,4 +1,8 @@
+<!-- components/reviews/StarRating.vue -->
 <script setup lang="ts">
+/**
+ * StarRating - Interactive or static star-based rating component.
+ */
 import { ref } from 'vue'
 
 const props = defineProps<{
