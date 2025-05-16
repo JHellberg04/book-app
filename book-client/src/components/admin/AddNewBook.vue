@@ -1,6 +1,6 @@
 <template>
   <section class="add-new-book">
-    <h1>Add a New Book</h1>
+    <h2>Add a New Book</h2>
     <form @submit.prevent="submitForm">
       <BaseInput
         id="title"
@@ -121,7 +121,7 @@ const submitForm = async () => {
   flex-direction: column;
   gap: 1rem;
 
-  h1 {
+  h2 {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 1rem;

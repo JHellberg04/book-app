@@ -51,7 +51,6 @@ export function useRegister() {
       // ✅ Show success alert and redirect after short delay
       alert('🎉 Successfully registered! Redirecting to login...')
       router.push({ name: 'login' })
-
     } catch (error: unknown) {
       if (typeof error === 'string') {
         state.error = error

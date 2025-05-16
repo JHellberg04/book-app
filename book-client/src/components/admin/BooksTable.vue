@@ -42,14 +42,21 @@ const formattedBooks = computed(() =>
 </script>
 
 <template>
-  <div class="booktable">
+  <section class="booktable">
+    <h2>Manage books</h2>
     <BaseTable :columns="columns" :items="formattedBooks" rowKey="_id" />
-  </div>
+  </section>
 </template>
 
 <style scoped lang="scss">
 .booktable {
   min-width: 300px;
   margin: 0 auto;
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
 }
 </style>

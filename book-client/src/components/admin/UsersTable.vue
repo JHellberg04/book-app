@@ -41,15 +41,21 @@ const columns = [
 </script>
 
 <template>
-  <div class="usertable">
+  <section class="usertable">
+    <h2>Manage users</h2>
     <BaseTable :columns="columns" :items="users" rowKey="id" />
-  </div>
+  </section>
 </template>
 
 <style scoped lang="scss">
 .usertable {
-  min-width: fn-rem(300);
-  max-width: fn-rem(650);
+  min-width: 300px;
   margin: 0 auto;
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
 }
 </style>

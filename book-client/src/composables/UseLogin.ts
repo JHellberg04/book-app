@@ -37,7 +37,6 @@ export function useLogin() {
       } else {
         router.push({ name: 'user' })
       }
-
     } catch (error: unknown) {
       if (typeof error === 'string') {
         state.error = error
