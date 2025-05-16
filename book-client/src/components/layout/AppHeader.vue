@@ -31,34 +31,35 @@ const { handleLogout, loading } = useLogout()
     </div>
 
     <h1 class="header__title">Welcome to Peach Pages</h1>
+    <div class="header__nav-wrap">
+      <nav
+        class="header__nav"
+        :aria-label="
+          auth.isAdmin
+            ? 'Admin navigation'
+            : auth.isLoggedIn
+              ? 'User navigation'
+              : 'Visitor navigation'
+        "
+      >
+        <!-- Visitor nav -->
+        <template v-if="!auth.isLoggedIn">
+          <NavLink :to="{ name: 'books' }" label="Books" />
+        </template>
 
-    <nav
-      class="header__nav"
-      :aria-label="
-        auth.isAdmin
-          ? 'Admin navigation'
-          : auth.isLoggedIn
-            ? 'User navigation'
-            : 'Visitor navigation'
-      "
-    >
-      <!-- Visitor nav -->
-      <template v-if="!auth.isLoggedIn">
-        <NavLink :to="{ name: 'books' }" label="Books" />
-      </template>
+        <!-- User nav -->
+        <template v-else-if="auth.isLoggedIn && !auth.isAdmin">
+          <NavLink :to="{ name: 'books' }" label="Books" />
+          <LogoutButton :onClick="handleLogout" :loading="loading" />
+        </template>
 
-      <!-- User nav -->
-      <template v-else-if="auth.isLoggedIn && !auth.isAdmin">
-        <NavLink :to="{ name: 'books' }" label="Books" />
-        <LogoutButton :onClick="handleLogout" :loading="loading" />
-      </template>
-
-      <!-- Admin nav -->
-      <template v-else-if="auth.isLoggedIn && auth.isAdmin">
-        <NavLink :to="{ name: 'books' }" label="Books" />
-        <LogoutButton :onClick="handleLogout" :loading="loading" />
-      </template>
-    </nav>
+        <!-- Admin nav -->
+        <template v-else-if="auth.isLoggedIn && auth.isAdmin">
+          <NavLink :to="{ name: 'books' }" label="Books" />
+          <LogoutButton :onClick="handleLogout" :loading="loading" />
+        </template>
+      </nav>
+    </div>
   </header>
 </template>
 
@@ -70,28 +71,35 @@ const { handleLogout, loading } = useLogout()
   z-index: 100;
   background-color: var(--color-header-bg);
   color: var(--color-header-text);
-  padding: 0.5rem 1rem;
 
   &__app {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1150px;
+    max-width: 1100px;
     margin: 0 auto;
+    padding: 0.5rem 1rem;
   }
 
   &__title {
     @include mix-visually-hidden();
   }
 
-  &__nav {
+  &__nav-wrap {
     margin-top: 0.5rem;
-    max-width: 1150px;
+    background-color: var(--color-nav-bg);
+    color: var(--color-text-dark);
+  }
+
+  &__nav {
+    width: 100%;
+    max-width: 1100px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
+    padding: 0.5rem 1rem;
   }
 }
 </style>

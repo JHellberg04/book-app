@@ -1,6 +1,9 @@
+<!-- components/home/InfoItem.vue -->
 <script setup lang="ts">
 /**
- * ListItem - Displays a single item in a list, with icon and text.
+ * InfoItem.vue
+ *
+ * Displays a single info item in a list, with icon and text.
  */
 import iconSrc from '@/assets/icon/listicon-32x32px.png'
 
@@ -10,7 +13,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <li class="list__item">
+  <li class="infoitem">
     <img
       :src="iconSrc"
       alt=""
@@ -18,14 +21,14 @@ const props = defineProps<{
       loading="lazy"
       width="32"
       height="32"
-      class="list__icon"
+      class="infoitem__icon"
     />
-    <span class="list__text">{{ listinfo }}</span>
+    <span class="infoitem__text">{{ listinfo }}</span>
   </li>
 </template>
 
 <style scoped lang="scss">
-.list__item {
+.infoitem {
   display: flex;
   align-items: start;
   gap: 0.5rem;
@@ -39,7 +42,7 @@ const props = defineProps<{
     margin-bottom: 0.75rem;
   }
 
-  .list__icon {
+  &__icon {
     width: fn-rem(24);
     height: fn-rem(24);
 
@@ -54,7 +57,7 @@ const props = defineProps<{
     }
   }
 
-  .list__text {
+  &__text {
     font-size: fn-rem(15);
 
     @include mix-media(mobile) {
