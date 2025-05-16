@@ -37,10 +37,6 @@ _The SCSS structure and utility setup are suggested defaults and open for discus
 
 ---
 
-Självklart! Här är en mer komplett och engelskspråkig version, anpassad för en gruppdagbok:
-
----
-
 ### 📅 2025-05-09 – Component Setup & Page Responsibilities
 
 - We divided the main client pages according to the project requirements.
@@ -74,14 +70,25 @@ Självklart! Här är en mer komplett och engelskspråkig version, anpassad för
 
 ### 📅 2025-05-14 – Final Refinements & Deployment Setup
 
-- Jonatan implemented the admin panel for books:
+- Jonatan implemented the admin panel for books and exported db collections:
 
   - Created a password-protected admin view for managing books
   - Displayed all books in a table format
   - Built a form to create new books, covering all MongoDB fields
   - Exported and imported sample book data to the database for testing
+  - Exported MongoDB collections and imported them into /db folder
 
 - Therese is finalizing the admin panel for users:
   - Completed login functionality for both users and admin
   - Created a password-protected admin view to manage users
   - Displays all users in a table format.
+
+### 📅 2025-05-16 – Project conclusion
+
+Overall, the project went well, and we are satisfied with both the final result and the collaboration within our group.
+
+- The development of the API progressed smoothly and was completed quickly without major issues.
+- The frontend development also went well, though it came with some challenges. As a team, we supported each other throughout the process and ensured that responsibilities were shared fairly.
+- Towards the end of the project, progress slowed slightly due to the lack of a predefined route structure for the website, which led to some uncertainty in implementation. In hindsight, planning our route layout earlier would have improved efficiency in the final stages.
+
+Despite this, the experience was positive and productive, and we gained valuable insights into both backend and frontend development, as well as teamwork and project coordination.
