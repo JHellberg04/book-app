@@ -1,17 +1,8 @@
-<!-- src/views/RegisterView.vue -->
-
+<!-- views/RegisterUser.vue -->
 <script setup lang="ts">
 /**
- * RegisterView.vue
- *
- * View for user registration:
- * - Displays a heading and subheading
- * - Renders the RegisterForm component for creating a new user
- * - Includes a call-to-action (CTA) to navigate to the login page
- *
- * @view
+ * RegisterUser - Page view for user registration.
  */
-
 import RegisterForm from '@/components/auth/RegisterForm.vue'
 import LoginCTA from '@/components/organism/ButtonCta.vue'
 </script>

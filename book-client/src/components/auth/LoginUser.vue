@@ -1,17 +1,8 @@
-<!-- src/views/LoginView.vue -->
-
+<!-- views/LoginUservue -->
 <script setup lang="ts">
 /**
- * LoginView.vue
- *
- * View for user login:
- * - Shows title and description
- * - Renders LoginForm for credentials input
- * - Includes a CTA to navigate to the register page
- *
- * @view
+ * LoginUser - Page view for user login.
  */
-
 import LoginForm from '@/components/auth/LoginForm.vue'
 import RegisterCTA from '@/components/organism/ButtonCta.vue'
 </script>

@@ -1,48 +1,30 @@
-<!-- src/components/auth/LoginForm.vue -->
-
+<!-- components/auth/LoginForm.vue -->
 <script setup lang="ts">
 /**
- * LoginForm.vue
- *
- * A login form for user authentication.
- * - Uses reactive state for form data
- * - Validates inputs with custom rules
- * - Uses a login composable to handle API interaction
- * - Displays validation and success messages
- *
- * @component
+ * LoginForm - Form for user login with client-side validation.
  */
-
 import { reactive } from 'vue'
-
-// === Logic ===
 import { validateUsername, validatePassword } from '@/composables/authValidation'
-import { useLogin } from '@/composables/useLogin'
-
-// === UI Components ===
+import { useLogin } from '@/composables/UseLogin'
 import BaseInput from '@/components/atoms/BaseInput.vue'
 import BaseButton from '@/components/atoms/BaseAction.vue'
 
-// === Reactive form data ===
 const formData = reactive({
   username: '',
   password: '',
 })
 
-// === Login logic ===
 const { error, success, loading, loginWithCredentials } = useLogin()
 
 /**
- * Handles form submission:
- * - Validates input
- * - Calls login composable with credentials
+ * Submit form by validating fields and logging in via composable.
  */
 async function onSubmit() {
   const userError = validateUsername(formData.username)
   const passError = validatePassword(formData.password)
 
   if (userError || passError) {
-    console.warn(' Validation failed:', userError || passError)
+    console.warn('Validation failed:', userError || passError)
     alert(userError || passError)
     return
   }

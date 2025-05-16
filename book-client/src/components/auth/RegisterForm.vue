@@ -1,41 +1,23 @@
-<!-- src/components/auth/RegisterForm.vue -->
+<!-- components/auth/RegisterForm.vue -->
 <script setup lang="ts">
 /**
- * RegisterForm.vue
- *
- * A simplified registration form for creating new user accounts.
- * - Uses reactive state to bind form inputs
- * - Validates username and password with imported rules
- * - Handles registration through the `useRegister` composable
- * - Displays real-time error and success messages
- *
- * @component
+ * RegisterForm - Form for registering a new user with validation.
  */
-
 import { reactive } from 'vue'
-
-// === Validation & Registration Logic ===
 import { validateUsername, validatePassword } from '@/composables/authValidation'
 import { useRegister } from '@/composables/useRegister'
-
-// === UI Components ===
 import BaseInput from '@/components/atoms/BaseInput.vue'
 import BaseButton from '@/components/atoms/BaseAction.vue'
 
-// === Reactive form data ===
 const formData = reactive({
   username: '',
   password: '',
 })
 
-// === Registration logic ===
 const { error, success, loading, registerWithCredentials } = useRegister()
 
 /**
- * Handles form submission:
- * - Validates input fields
- * - If valid, calls registration composable
- * - Displays error messages on validation failure
+ * Submit form by validating input and registering via composable.
  */
 async function onSubmit() {
   const userError = validateUsername(formData.username)
@@ -43,7 +25,7 @@ async function onSubmit() {
 
   if (userError || passError) {
     console.warn('Validation failed:', userError || passError)
-    alert(userError || passError) // TEMP: Replace with UI feedback component if needed
+    alert(userError || passError)
     return
   }
 
