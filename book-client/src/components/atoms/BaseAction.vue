@@ -1,23 +1,18 @@
+<!-- components/atoms/BaseAction.vue -->
 <script setup lang="ts">
+/**
+ * ActionButton - Renders a button, anchor, or router-link.
+ * Props:
+ * - `as`: defines the tag type ('button', 'a', or 'router-link')
+ * - `type`: button type if rendered as <button>
+ * - `href`: external URL if rendered as <a>
+ * - `to`: internal route if rendered as <router-link>
+ * - `label`: text inside the button
+ * - `variant`: styling variant (primary or secondary)
+ * - `disabled`: disabled state (only for button)
+ */
 import { RouterLink, type RouteLocationRaw } from 'vue-router'
 
-/**
- * ActionButton.vue
- *
- * A flexible action component that can render as:
- * - <button> (default)
- * - <a> for external links
- * - <RouterLink> for internal navigation
- *
- * Props:
- * - as: which tag to render ('button' | 'a' | 'router-link')
- * - type: button type, applies only when as === 'button'
- * - href: external URL, applies only when as === 'a'
- * - to: internal route path, applies only when as === 'router-link'
- * - label: text inside the button
- * - variant: optional style ('primary' | 'secondary')
- * - disabled: disables button (only for native <button>)
- */
 const props = defineProps<{
   as?: 'button' | 'a' | 'router-link'
   type?: 'button' | 'submit' | 'reset'
@@ -48,7 +43,6 @@ const isRouterLink = props.as === 'router-link'
 </template>
 
 <style scoped lang="scss">
-// === Animation ===
 @keyframes shrink {
   0% {
     transform: scale(1);
@@ -61,9 +55,7 @@ const isRouterLink = props.as === 'router-link'
   }
 }
 
-// === Base Button ===
 .action {
-  // Layout
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -76,20 +68,17 @@ const isRouterLink = props.as === 'router-link'
   cursor: pointer;
   text-decoration: none;
 
-  // Typography
   font-family: var(--font-secondary);
   font-weight: var(--font-semibold);
   font-size: fn-rem(20);
   letter-spacing: 0.05rem;
   text-transform: uppercase;
 
-  // Transitions
   transition:
     transform 0.2s ease,
     filter 0.2s ease,
     background-color 0.2s ease;
 
-  // Inner span
   span {
     display: flex;
     align-items: center;
@@ -99,7 +88,6 @@ const isRouterLink = props.as === 'router-link'
     transition: transform 0.2s ease;
   }
 
-  // Interaction states
   &:hover,
   &:focus {
     transform: scale(1.1);
@@ -124,7 +112,6 @@ const isRouterLink = props.as === 'router-link'
     color: var(--color-black);
   }
 
-  // Variants
   &.primary {
     background-color: var(--color-action-primary);
     color: var(--color-text-dark);
@@ -154,4 +141,3 @@ const isRouterLink = props.as === 'router-link'
   }
 }
 </style>
-p

@@ -1,15 +1,12 @@
+<!-- components/atoms/BaseInput.vue -->
 <script setup lang="ts">
+/**
+ * FormInput - Reusable form input with optional validation and helper info.
+ * Emits:
+ * - update:modelValue — when the user types
+ */
 import { ref } from 'vue'
 
-/**
- * === Props ===
- * - id, name: used for input and label association
- * - modelValue: bound value via v-model
- * - info: optional help text shown on focus
- * - validate: optional validation function returning an error message or null
- * - type: input type (e.g. text, email, password, number, date, etc.)
- * - min, max, step: for numeric/date inputs
- */
 const props = defineProps<{
   id: string
   name: string
@@ -44,7 +41,7 @@ const onFocus = () => {
 }
 
 const onInput = (e: Event) => {
-  const value = (e.target as HTMLInputElement).value
+  const value = (e.target as HTMLInputElement | HTMLTextAreaElement).value
   emit('update:modelValue', value)
 
   if (props.validate) {

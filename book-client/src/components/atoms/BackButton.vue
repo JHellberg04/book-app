@@ -1,9 +1,16 @@
+<!-- components/atoms/BackButton.vue -->
 <script setup lang="ts">
-// No props needed for now, but you can emit a custom event
+/**
+ * BackButton - Navigates back in history when clicked.
+ */
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const goBack = () => router.back()
 </script>
 
 <template>
-  <button @click="$emit('click')" class="back-button">⬅ Back</button>
+  <button @click="goBack" class="back-button">⬅ Back</button>
 </template>
 
 <style scoped lang="scss">
