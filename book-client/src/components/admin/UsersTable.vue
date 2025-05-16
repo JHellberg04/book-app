@@ -1,20 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import BaseTable from './BaseTable.vue'
 import type { IUser } from '@/types/IUser'
 const API_URL = import.meta.env.VITE_API_URL
 
-/**
- * Reactive array of users retrieved from the backend API.
- * Each user object should match the IUser interface.
- */
 const users = ref<IUser[]>([])
 
-/**
- * Fetches all users from the backend.
- * Populates the `users` list with formatted user data.
- * Handles fetch errors by logging to the console.
- */
 const fetchUsers = async () => {
   try {
     const res = await fetch(API_URL + '/users')
@@ -26,6 +17,14 @@ const fetchUsers = async () => {
 }
 
 onMounted(fetchUsers)
+
+// 🔐 Replace real passwords with asterisks
+const maskedUsers = computed(() =>
+  users.value.map(user => ({
+    ...user,
+    password: '******',
+  }))
+)
 
 /**
  * Table column configuration for BaseTable.
