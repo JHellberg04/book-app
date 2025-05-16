@@ -1,10 +1,10 @@
-<template>
-  <button @click="$emit('click')" class="back-button">⬅ Back</button>
-</template>
-
 <script setup lang="ts">
 // No props needed for now, but you can emit a custom event
 </script>
+
+<template>
+  <button @click="$emit('click')" class="back-button">⬅ Back</button>
+</template>
 
 <style scoped lang="scss">
 .back-button {

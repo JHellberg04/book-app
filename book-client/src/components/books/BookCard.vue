@@ -1,3 +1,22 @@
+<script setup lang="ts">
+import { defineProps } from 'vue'
+
+interface Book {
+  _id: string
+  title: string
+  author: string
+  published_year: number
+  genres: string[]
+  image: string
+  averageRating: number
+  reviews: Array<any>
+}
+
+const props = defineProps<{
+  book: Book
+}>()
+</script>
+
 <template>
   <article class="book-card">
     <img :src="book.image" :alt="'Book cover for ' + book.title" />
@@ -35,25 +54,6 @@
     </div>
   </article>
 </template>
-
-<script setup lang="ts">
-import { defineProps } from 'vue'
-
-interface Book {
-  _id: string
-  title: string
-  author: string
-  published_year: number
-  genres: string[]
-  image: string
-  averageRating: number
-  reviews: Array<any>
-}
-
-const props = defineProps<{
-  book: Book
-}>()
-</script>
 
 <style scoped lang="scss">
 @use '@abstracts/mixins/flex-center' as *;

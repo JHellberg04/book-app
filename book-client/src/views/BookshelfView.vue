@@ -1,17 +1,3 @@
-<template>
-  <section class="bookshelf">
-    <BackButton @click="goBack" />
-    <h1>Bookshelf</h1>
-
-    <div v-if="loading">Loading books...</div>
-    <div v-else-if="books.length === 0">Bookshelf is empty.</div>
-
-    <div v-else class="books-grid">
-      <BookCard v-for="book in books" :key="book._id" :book="book" />
-    </div>
-  </section>
-</template>
-
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import BookCard from '@/components/books/BookCard.vue'
@@ -58,6 +44,20 @@ onMounted(async () => {
   }
 })
 </script>
+
+<template>
+  <section class="bookshelf">
+    <BackButton @click="goBack" />
+    <h1>Bookshelf</h1>
+
+    <div v-if="loading">Loading books...</div>
+    <div v-else-if="books.length === 0">Bookshelf is empty.</div>
+
+    <div v-else class="books-grid">
+      <BookCard v-for="book in books" :key="book._id" :book="book" />
+    </div>
+  </section>
+</template>
 
 <style scoped lang="scss">
 .back-button {

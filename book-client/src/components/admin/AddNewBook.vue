@@ -1,3 +1,57 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import BaseInput from '@/components/atoms/BaseInput.vue'
+
+const router = useRouter()
+const API_URL = import.meta.env.VITE_API_URL
+
+const form = ref({
+  title: '',
+  description: '',
+  author: '',
+  genres: '',
+  image: '',
+  published_year: '',
+})
+
+const submitForm = async () => {
+  try {
+    const genresArray = form.value.genres.split(',').map((genre) => genre.trim())
+    const payload = { ...form.value, genres: genresArray, published_year: Number(form.value.published_year) }
+
+    const response = await fetch(`${API_URL}/books`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(payload),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Failed to add book: ${response.statusText}`)
+    }
+
+    alert('Book added successfully!')
+    form.value = {
+      title: '',
+      description: '',
+      author: '',
+      genres: '',
+      image: '',
+      published_year: '',
+    }
+
+    // Redirect to admin books list
+    router.push({ name: 'admin_books' })
+  } catch (error) {
+    console.error('Error adding book:', error)
+    alert('Failed to add book. Please try again.')
+  }
+}
+</script>
+
 <template>
   <section class="add-new-book">
     <h2>Add a New Book</h2>
@@ -56,59 +110,7 @@
   </section>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import BaseInput from '@/components/atoms/BaseInput.vue'
 
-const router = useRouter()
-const API_URL = import.meta.env.VITE_API_URL
-
-const form = ref({
-  title: '',
-  description: '',
-  author: '',
-  genres: '',
-  image: '',
-  published_year: '',
-})
-
-const submitForm = async () => {
-  try {
-    const genresArray = form.value.genres.split(',').map((genre) => genre.trim())
-    const payload = { ...form.value, genres: genresArray, published_year: Number(form.value.published_year) }
-
-    const response = await fetch(`${API_URL}/books`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(payload),
-    })
-
-    if (!response.ok) {
-      throw new Error(`Failed to add book: ${response.statusText}`)
-    }
-
-    alert('Book added successfully!')
-    form.value = {
-      title: '',
-      description: '',
-      author: '',
-      genres: '',
-      image: '',
-      published_year: '',
-    }
-
-    // Redirect to admin books list
-    router.push({ name: 'admin_books' })
-  } catch (error) {
-    console.error('Error adding book:', error)
-    alert('Failed to add book. Please try again.')
-  }
-}
-</script>
 
 <style scoped lang="scss">
 .add-new-book {
