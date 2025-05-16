@@ -4,7 +4,7 @@
  * RegisterUser - Page view for user registration.
  */
 import RegisterForm from '@/components/auth/RegisterForm.vue'
-import LoginCTA from '@/components/organism/ButtonCta.vue'
+import LoginCTA from '@/components/global/ButtonCta.vue'
 </script>
 
 <template>

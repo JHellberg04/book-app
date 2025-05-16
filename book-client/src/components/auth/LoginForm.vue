@@ -5,9 +5,9 @@
  */
 import { reactive } from 'vue'
 import { validateUsername, validatePassword } from '@/composables/authValidation'
-import { useLogin } from '@/composables/UseLogin'
+import { useLogin } from '@/composables/useLogin'
 import BaseInput from '@/components/global/BaseInput.vue'
-import BaseButton from '@/components/atoms/BaseAction.vue'
+import BaseButton from '@/components/global/BaseAction.vue'
 
 const formData = reactive({
   username: '',
