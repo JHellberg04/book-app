@@ -20,10 +20,10 @@ onMounted(fetchUsers)
 
 // 🔐 Replace real passwords with asterisks
 const maskedUsers = computed(() =>
-  users.value.map(user => ({
+  users.value.map((user) => ({
     ...user,
     password: '******',
-  }))
+  })),
 )
 
 /**

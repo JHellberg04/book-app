@@ -18,7 +18,11 @@ const form = ref({
 const submitForm = async () => {
   try {
     const genresArray = form.value.genres.split(',').map((genre) => genre.trim())
-    const payload = { ...form.value, genres: genresArray, published_year: Number(form.value.published_year) }
+    const payload = {
+      ...form.value,
+      genres: genresArray,
+      published_year: Number(form.value.published_year),
+    }
 
     const response = await fetch(`${API_URL}/books`, {
       method: 'POST',
@@ -109,8 +113,6 @@ const submitForm = async () => {
     </form>
   </section>
 </template>
-
-
 
 <style scoped lang="scss">
 .add-new-book {
