@@ -1,7 +1,6 @@
-<!-- components/fixtures/header/AtomAuthIcon.vue -->
 <script setup lang="ts">
 /**
- * AuthIcon - Shows login or account button depending on auth state.
+ * AuthButton - Shows login or account button depending on auth state.
  */
 import { computed } from 'vue'
 import { useAuthStore } from '@/stores/auth'
@@ -13,11 +12,11 @@ const isLoggedIn = computed(() => auth.isLoggedIn)
 <template>
   <router-link
     :to="isLoggedIn ? { name: 'user' } : { name: 'login' }"
-    class="auth-button"
+    class="authbutton"
     :aria-label="isLoggedIn ? 'Go to account' : 'Log in'"
   >
-    <span class="material-symbols-outlined auth-button__icon">person</span>
-    <span class="auth-button__text">
+    <span class="material-symbols-outlined authbutton__icon">person</span>
+    <span class="authbutton__text">
       {{ isLoggedIn ? 'Account' : 'Log in' }}
     </span>
   </router-link>
@@ -36,7 +35,7 @@ const isLoggedIn = computed(() => auth.isLoggedIn)
   }
 }
 
-.auth-button {
+.authbutton {
   @include mix-flex-center(column);
   min-width: 48px;
   min-height: 48px;
@@ -74,48 +73,48 @@ const isLoggedIn = computed(() => auth.isLoggedIn)
       font-size: fn-rem(16);
     }
   }
-}
 
-.auth-button:focus-visible {
-  outline-offset: 0.2rem;
-  outline: 1px solid var(--color-nav-light);
-  background-color: var(--color-nav-light);
-  color: var(--color-nav-dark);
+  &:focus-visible {
+    outline-offset: 0.2rem;
+    outline: 1px solid var(--color-nav-light);
+    background-color: var(--color-nav-light);
+    color: var(--color-nav-dark);
 
-  & .auth-button__icon {
-    transform: scale(1.1);
+    & .authbutton__icon {
+      transform: scale(1.1);
+    }
+
+    & .authbutton__text {
+      font-weight: var(--font-weight-semibold);
+      transform: scale(1.1);
+    }
   }
 
-  & .auth-button__text {
-    font-weight: var(--font-weight-semibold);
-    transform: scale(1.1);
-  }
-}
-
-.auth-button:active {
-  animation: shrink 120ms ease-in-out;
-
-  & .auth-button__icon,
-  & .auth-button__text {
+  &:active {
     animation: shrink 120ms ease-in-out;
-  }
-}
 
-.auth-button:hover {
-  background-color: var(--color-nav-light);
-  color: var(--color-nav-dark);
-
-  & .auth-button__icon {
-    transform: scale(1.1);
+    & .authbutton__icon,
+    & .authbutton__text {
+      animation: shrink 120ms ease-in-out;
+    }
   }
 
-  & .auth-button__text {
-    font-weight: var(--font-weight-semibold);
-    transform: scale(1.1);
-  }
-}
+  &:hover {
+    background-color: var(--color-nav-light);
+    color: var(--color-nav-dark);
 
-.auth-button:disabled {
-  display: none;
+    & .authbutton__icon {
+      transform: scale(1.1);
+    }
+
+    & .authbutton__text {
+      font-weight: var(--font-weight-semibold);
+      transform: scale(1.1);
+    }
+  }
+
+  &:disabled {
+    display: none;
+  }
 }
 </style>
