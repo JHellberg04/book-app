@@ -1,13 +1,8 @@
-<!-- src/components/atoms/AtomAuthIcon.vue -->
+<!-- components/fixtures/header/AtomAuthIcon.vue -->
 <script setup lang="ts">
 /**
- * AtomAuthIcon.vue
- *
- * Displays an authentication button:
- * - If not logged in: shows a "Log in" button
- * - If logged in: shows a "Go to account" button
+ * AuthIcon - Shows login or account button depending on auth state.
  */
-
 import { computed } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 

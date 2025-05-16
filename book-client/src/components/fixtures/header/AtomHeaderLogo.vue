@@ -1,8 +1,7 @@
-<!-- src/components/atoms/AtomHeaderLogo.vue -->
+<!-- components/fixtures/header/AtomHeaderLogo.vue -->
 <script setup lang="ts">
 /**
- * AtomHeaderLogo
- * Displays the small site logo with a router link to the homepage.
+ * HeaderLogo - Small logo that links to homepage.
  */
 import lightLogo from '@/assets/logotype/logotype-small-dark.svg'
 </script>

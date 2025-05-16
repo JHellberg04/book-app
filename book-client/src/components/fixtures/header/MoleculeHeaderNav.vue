@@ -1,12 +1,8 @@
-<!-- src/components/molecules/MoleculeHeaderNav.vue -->
+<!-- components/fixtures/header/MoleculeHeaderNav.vue -->
 <script setup lang="ts">
 /**
- * MoleculeHeaderNav
- * Shows navigation links conditionally based on user auth state.
- * - Only visible if user is logged in
- * - Logout button triggers useLogout composable
+ * HeaderNav - Navigation shown when user is logged in.
  */
-
 import { computed } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useLogout } from '@/composables/UseLogout'

@@ -1,14 +1,8 @@
-<!-- components/atoms/AtomNavLink.vue -->
+<!-- components/fixtures/header/AtomNavLink.vue -->
 <script setup lang="ts">
 /**
- * AtomNavLink
- * A reusable navigation link with optional icon and accessible label.
- * Props:
- * - `to`: route destination (string path or named route)
- * - `label`: visible label and aria-label
- * - `icon`: optional icon (not used here, but prepared for future use)
+ * NavLink - Reusable navigation link with accessible label.
  */
-
 import { RouterLink, type RouteLocationRaw } from 'vue-router'
 
 defineProps<{

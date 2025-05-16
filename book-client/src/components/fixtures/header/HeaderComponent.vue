@@ -1,3 +1,5 @@
+<!--//components/fixtures/header/headerComponent-->
+
 <script setup lang="ts">
 /**
  * AppHeader

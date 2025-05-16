@@ -1,9 +1,8 @@
+<!-- components/fixtures/header/TemplateHeaderContent.vue -->
 <script setup lang="ts">
 /**
- * TemplateHeaderContent
- * Layout wrapper that combines the logo and main navigation for the header.
+ * HeaderContent - Layout for header, includes logo and nav.
  */
-
 import HeaderLogo from '@/components/fixtures/header/AtomHeaderLogo.vue'
 import HeaderNav from '@/components/fixtures/header/OrganismHeaderNav.vue'
 </script>

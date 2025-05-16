@@ -1,11 +1,8 @@
+<!-- components/fixtures/header/OrganismHeader.vue -->
 <script setup lang="ts">
 /**
- * OrganismHeader
- * Combines auth icon and navigation for the header.
- * - Includes AtomAuthIcon (log in / account)
- * - Includes MoleculeHeaderNav (nav links for logged-in users)
+ * Header - Top-level header combining auth and nav.
  */
-
 import AuthButton from '@/components/fixtures/header/AtomAuthIcon.vue'
 import HeaderNav from '@/components/fixtures/header/MoleculeHeaderNav.vue'
 </script>
