@@ -52,26 +52,27 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="bookshelf">
-    <BackButton @click="goBack" />
-    <h1>Bookshelf</h1>
+  <section class="books">
+    <BackButton class="books__return" @click="goBack" />
+    <h2 class="books__title">Bookshelf</h2>
 
-    <div v-if="loading">Loading books...</div>
-    <div v-else-if="books.length === 0">Bookshelf is empty.</div>
+    <!-- Hanterar alla tre tillstånd i samma nivå -->
+    <div v-if="loading" class="books__status" aria-live="polite">Loading books...</div>
 
-    <div v-else class="books-grid">
-      <BookCard v-for="book in books" :key="book._id" :book="book" />
+    <div v-else-if="books.length === 0" class="books__status" aria-live="polite">
+      Bookshelf is empty.
+    </div>
+
+    <div v-else class="books__grid">
+      <BookCard class="books__book" v-for="book in books" :key="book._id" :book="book" />
     </div>
   </section>
 </template>
 
 <style scoped lang="scss">
-.back-button {
-  margin-right: auto;
-}
-
-.bookshelf {
+.books {
   width: 95%;
+  @include mix-flex-center(column);
 
   @include mix-media(laptop) {
     max-width: 85%;
@@ -81,9 +82,11 @@ onMounted(async () => {
     max-width: 90%;
   }
 
-  @include mix-flex-center(column);
+  &__return {
+    margin-right: auto;
+  }
 
-  h1 {
+  &__title {
     text-transform: uppercase;
     text-align: center;
     font-size: fn-rem(36);
@@ -101,7 +104,13 @@ onMounted(async () => {
     }
   }
 
-  .books-grid {
+  &__status {
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  &__grid {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -115,7 +124,6 @@ onMounted(async () => {
     }
 
     @include mix-media(desktop) {
-      display: grid;
       grid-template-columns: repeat(3, 1fr);
     }
   }

@@ -1,4 +1,3 @@
-<!-- components/reviews/BookInfo.vue -->
 <script setup lang="ts">
 /**
  * BookInfo - Shows book metadata and average rating.
@@ -16,7 +15,7 @@ const { title, author, published_year, rating, description } = defineProps<{
 
 <template>
   <div class="info">
-    <h1 class="info__title">{{ title }}</h1>
+    <h2 class="info__title">{{ title }}</h2>
     <p class="info__author-published">
       <span>Author: {{ author }}</span>
       <span>Published: {{ published_year }}</span>

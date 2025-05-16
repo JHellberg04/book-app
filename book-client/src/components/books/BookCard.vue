@@ -19,35 +19,41 @@ const props = defineProps<{
 
 <template>
   <article class="book-card">
-    <img :src="book.image" :alt="'Book cover for ' + book.title" />
+    <img class="book-card__image" :src="book.image" :alt="'Book cover for ' + book.title" />
 
-    <div class="book-info-container">
-      <div class="book-info">
-        <h2 class="book-title">{{ book.title }}</h2>
-        <p class="book-year">{{ book.published_year }}</p>
-        <p class="book-author">By {{ book.author }}</p>
-        <p class="book-genres">
-          <span v-for="(genre, index) in book.genres" :key="genre" class="genre">
+    <div class="book-card__content">
+      <div class="book-card__info">
+        <h2 class="book-card__title">{{ book.title }}</h2>
+        <p class="book-card__year">{{ book.published_year }}</p>
+        <p class="book-card__author">By {{ book.author }}</p>
+
+        <p class="book-card__genres">
+          <span v-for="(genre, index) in book.genres" :key="genre" class="book-card__genre">
             {{ genre }}<span v-if="index < book.genres.length - 1">, </span>
           </span>
         </p>
-        <div class="book-rating">
+
+        <div class="book-card__rating">
           <span
             v-for="i in 5"
             :key="i"
-            class="star"
+            class="book-card__star"
             :class="{ filled: i <= Math.floor(book.averageRating) }"
           >
             ★
           </span>
-          <span v-if="book.reviews.length === 1" class="review-amount">
-            - {{ book.reviews.length }} review
+          <span class="book-card__reviews">
+            - {{ book.reviews.length }} {{ book.reviews.length === 1 ? 'review' : 'reviews' }}
           </span>
-          <span v-else class="review-amount"> - {{ book.reviews.length }} reviews </span>
         </div>
       </div>
-      <div class="link-container">
-        <router-link :to="{ name: 'book-review', params: { id: book._id } }" class="book-link">
+
+      <div class="book-card__footer">
+        <router-link
+          class="book-card__link"
+          :to="{ name: 'book-review', params: { id: book._id } }"
+          :aria-label="`Read more about ${book.title}`"
+        >
           READ MORE
         </router-link>
       </div>
@@ -67,7 +73,7 @@ const props = defineProps<{
   font-family: var(--font-secondary);
   padding-bottom: 1rem;
 
-  img {
+  &__image {
     max-width: fn-rem(103);
     max-height: fn-rem(150);
     height: auto;
@@ -75,72 +81,122 @@ const props = defineProps<{
     margin-block: auto;
   }
 
-  .book-info-container {
+  &__content {
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: space-between;
+  }
 
-    .book-info {
-      .book-title {
-        font-size: fn-rem(20);
-        font-weight: bold;
-      }
-
-      .book-year,
-      .book-genres {
-        font-style: italic;
-      }
-
-      .book-genres {
-        font-weight: 550;
-      }
+  &__info {
+    &__title {
+      font-size: fn-rem(20);
+      font-weight: bold;
     }
 
-    .book-rating {
-      display: flex;
-      gap: 2px;
-      font-size: 1.5rem;
-      flex-direction: row;
-      align-items: center;
-
-      .star {
-        color: var(--color-ratingstar-empty);
-
-        &.filled {
-          color: var(--color-ratingstar-filled);
-        }
-
-        &.half {
-          color: linear-gradient(
-            to right,
-            var(--color-ratingstar-filled),
-            var(--color-ratingstar-empty)
-          );
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-      }
-
-      .review-amount {
-        font-size: 1rem;
-        text-align: center;
-        font-style: italic;
-      }
+    &__year,
+    &__genres {
+      font-style: italic;
     }
 
-    .link-container {
-      @include mix-flex-center(column);
+    &__genres {
+      font-weight: 550;
+    }
+  }
 
-      .book-link {
-        font-size: fn-rem(18);
-        text-decoration: underline;
-        text-underline-offset: fn-rem(4);
-        @include mix-flex-center(column);
-        width: 10ch;
-        line-height: 1;
-        padding-block: 1rem;
-      }
+  &__title {
+    font-size: fn-rem(20);
+    font-weight: bold;
+  }
+
+  &__year,
+  &__genres {
+    font-style: italic;
+  }
+
+  &__genre {
+    font-weight: 550;
+  }
+
+  &__rating {
+    display: flex;
+    gap: 2px;
+    font-size: 1.5rem;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__star {
+    color: var(--color-ratingstar-empty);
+
+    &.filled {
+      color: var(--color-ratingstar-filled);
+    }
+
+    &.half {
+      color: linear-gradient(
+        to right,
+        var(--color-ratingstar-filled),
+        var(--color-ratingstar-empty)
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  &__reviews {
+    font-size: 1rem;
+    text-align: center;
+    font-style: italic;
+  }
+
+  &__footer {
+    @include mix-flex-center(column);
+  }
+
+  .book-card__link {
+    font-size: fn-rem(18);
+    text-decoration: underline;
+    text-underline-offset: fn-rem(4);
+    @include mix-flex-center(column);
+    min-width: 10ch;
+    padding: 0 0.25rem;
+    line-height: 1;
+    padding-block: 1rem;
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      outline 0.2s ease;
+
+    // Hover (muspekare)
+    &:hover {
+      transform: scale(1.05);
+      border-radius: 0.25rem;
+      text-decoration: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-action-primary-focus);
+      transform: scale(1.05);
+      border-radius: 0.25rem;
+      text-decoration: none;
+    }
+
+    // Aktiv (klick)
+    &:active {
+      animation: shrink 120ms ease-in-out;
+    }
+  }
+
+  @keyframes shrink {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.95);
+    }
+    100% {
+      transform: scale(1);
     }
   }
 }

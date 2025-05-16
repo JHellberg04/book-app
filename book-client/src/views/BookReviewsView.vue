@@ -47,7 +47,7 @@ onMounted(async () => {
 
 <template>
   <div class="reviewpage">
-    <div v-if="loading">Laddar...</div>
+    <div v-if="loading">Loading...</div>
 
     <div class="reviewpage__header">
       <div class="reviewpage__header-inner">
@@ -76,9 +76,7 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .reviewpage {
-  display: flex;
-  flex-direction: column;
-  gap: fn-rem(32);
+  @include mix-flex-center(column);
   width: 100%;
 
   &__header {
@@ -106,15 +104,12 @@ onMounted(async () => {
   }
 
   &__genre {
-    font-weight: 500;
-    margin: auto 0;
+    font-weight: var(--font-weight-semibold);
+    margin-top: 2rem;
   }
 
   &__book {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    @include mix-flex-center(column);
     padding: fn-rem(48);
     max-width: fn-rem(1100);
     width: 100%;
@@ -146,7 +141,7 @@ onMounted(async () => {
     max-width: fn-rem(1100);
     width: 100%;
     margin: 0 auto;
-    padding: fn-rem(48) fn-rem(16);
+    padding: fn-rem(32) fn-rem(16);
 
     @include mix-media(desktop) {
       display: grid;
