@@ -1,19 +1,10 @@
-<!-- src/views/LoginView.vue -->
-
+<!-- views/LoginUservue -->
 <script setup lang="ts">
 /**
- * LoginView.vue
- *
- * View for user login:
- * - Shows title and description
- * - Renders LoginForm for credentials input
- * - Includes a CTA to navigate to the register page
- *
- * @view
+ * LoginUser - Page view for user login.
  */
-
 import LoginForm from '@/components/auth/LoginForm.vue'
-import RegisterCTA from '@/components/organism/ButtonCta.vue'
+import ButtonCta from '../organism/ButtonCta.vue';
 </script>
 
 <template>
@@ -30,7 +21,7 @@ import RegisterCTA from '@/components/organism/ButtonCta.vue'
     </div>
 
     <!-- CTA link to register page -->
-    <RegisterCTA
+    <ButtonCta
       class="login__cta"
       heading="Don’t have an account?"
       to="/account/register"

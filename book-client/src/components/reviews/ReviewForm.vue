@@ -1,21 +1,26 @@
+<!-- components/reviews/ReviewForm.vue -->
 <script setup lang="ts">
+/**
+ * ReviewForm - Form for submitting a new review.
+ */
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import BaseInput from '@/components/atoms/BaseInput.vue'
-import BaseAction from '@/components/atoms/BaseAction.vue'
+import { useApi } from '@/composables/useApi'
+import BaseInput from '@/components/global/BaseInput.vue'
+import BaseAction from '@/components/global/BaseAction.vue'
 import StarRating from '@/components/reviews/StarRating.vue'
+
+const { API_URL } = useApi()
 
 const props = defineProps<{
   bookId: string
 }>()
 
-const API_URL = import.meta.env.VITE_API_URL
-
 const name = ref('')
 const content = ref('')
-const router = useRouter()
 const rating = ref(0)
 const hoverRating = ref(0)
+const router = useRouter()
 
 const setRating = (n: number) => {
   rating.value = n
@@ -29,6 +34,9 @@ const clearHover = () => {
   hoverRating.value = 0
 }
 
+/**
+ * Submit review and reload page on success.
+ */
 const submitReview = async () => {
   const review = {
     name: name.value,
@@ -47,7 +55,6 @@ const submitReview = async () => {
     name.value = ''
     content.value = ''
     rating.value = 0
-
     router.go(0)
   } catch (error) {
     console.error('Error:', error)

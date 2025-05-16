@@ -1,12 +1,12 @@
-<!-- components/atoms/AtomNavLink.vue -->
+<!-- components/global/NavLink.vue -->
 <script setup lang="ts">
 /**
- * AtomNavLink
- * A reusable navigation link with optional icon and accessible label.
+ * NavLink.vue
+ *
+ * A reusable navigation link with an accessible label.
  * Props:
- * - `to`: route destination (string path or named route)
- * - `label`: visible label and aria-label
- * - `icon`: optional icon (not used here, but prepared for future use)
+ * - `to`: Route destination (name/path).
+ * - `label`: Link text and ARIA label.
  */
 
 import { RouterLink, type RouteLocationRaw } from 'vue-router'
@@ -14,12 +14,10 @@ import { RouterLink, type RouteLocationRaw } from 'vue-router'
 defineProps<{
   to: RouteLocationRaw
   label: string
-  icon?: string
 }>()
 </script>
 
 <template>
-  <!-- Navigation link with accessibility label -->
   <RouterLink :to="to" class="navlink" :aria-label="label">
     <span class="navlink__label">{{ label }}</span>
   </RouterLink>
@@ -62,7 +60,7 @@ defineProps<{
   color: var(--color-header-link-dark);
   animation: shrink 120ms ease-in-out;
 
-  & .navlink__label {
+  .navlink__label {
     animation: shrink 120ms ease-in-out;
     font-weight: var(--font-weight-semibold);
   }
@@ -74,7 +72,7 @@ defineProps<{
   background-color: var(--color-nav-light);
   color: var(--color-nav-dark);
 
-  & .navlink__label {
+  .navlink__label {
     font-weight: var(--font-weight-semibold);
     transform: scale(1.1);
   }
@@ -84,7 +82,7 @@ defineProps<{
   background-color: var(--color-nav-light);
   color: var(--color-nav-dark);
 
-  & .navlink__label {
+  .navlink__label {
     font-weight: var(--font-weight-semibold);
     transform: scale(1.1);
   }

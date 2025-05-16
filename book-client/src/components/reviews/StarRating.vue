@@ -1,4 +1,8 @@
+<!-- components/reviews/StarRating.vue -->
 <script setup lang="ts">
+/**
+ * StarRating - Interactive or static star-based rating component.
+ */
 import { ref } from 'vue'
 
 const props = defineProps<{
@@ -26,7 +30,12 @@ const setRating = (value: number) => {
 </script>
 
 <template>
-  <div class="starrating" :class="{ interactive: interactive }">
+  <div
+    class="starrating"
+    :class="{ interactive: interactive }"
+    :role="interactive ? 'radiogroup' : undefined"
+    aria-label="Rating"
+  >
     <span
       v-for="n in 5"
       :key="n"
@@ -35,10 +44,15 @@ const setRating = (value: number) => {
         filled: n <= Math.floor(hoverRating || rating),
         half: n > Math.floor(hoverRating || rating) && n - 0.5 <= (hoverRating || rating),
       }"
+      :role="interactive ? 'radio' : undefined"
+      :aria-checked="interactive ? rating === n : undefined"
+      :tabindex="interactive ? 0 : -1"
+      :aria-label="`${n} out of 5 stars`"
       @click="setRating(n)"
       @mouseover="setHover(n)"
       @mouseleave="clearHover"
-      :aria-label="`${n} out of 5 stars`"
+      @keydown.enter.prevent="setRating(n)"
+      @keydown.space.prevent="setRating(n)"
     >
       ★
     </span>

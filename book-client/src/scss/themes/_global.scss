@@ -15,11 +15,13 @@
 
   // === Backgrounds ===
   --color-background: #{$color-seashellpeach}; // Default page background
+  --color-background-darker: #{$color-pearlblush}; // Secondary background
   --color-surface: #{$color-soapstone}; // Component surfaces
   --color-surface-dark: #{$color-mineshaft}; // Dark surfaces (e.g. dark mode)
 
   // === Header ===
   --color-header-bg: #{$color-millbrook}; // Header background
+  --color-nav-bg: #{$color-muesli}; // Headernav background:
   --color-header-text: #{$color-soapstone}; // Header text
 
   // === Nav ===

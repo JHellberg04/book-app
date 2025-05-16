@@ -1,10 +1,17 @@
-<script setup lang="ts"></script>
+<!-- src/views/UserView.vue -->
+<script setup lang="ts">
+/**
+ * UserView.vue
+ *
+ * Placeholder view for user-specific content.
+ */
+</script>
 
 <template>
   <section class="userview">
-    <h1>User account</h1>
-    <h2>Welcome back!</h2>
-    <p>This page is under construction</p>
+    <h2 class="userview__title">User account</h2>
+    <h3 class="userview__welcome">Welcome back!</h3>
+    <p class="userview__message">This page is under construction</p>
   </section>
 </template>
 
@@ -15,17 +22,17 @@
   min-height: 100dvh;
   padding: 2rem;
 
-  h1 {
+  &__title {
     @include mix-visually-hidden();
   }
 
-  h2 {
+  &__welcome {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 1rem;
   }
 
-  p {
+  &__message {
     text-align: center;
     font-size: 1.5rem;
     margin-bottom: 1rem;

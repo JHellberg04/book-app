@@ -1,10 +1,13 @@
+<!-- components/reviews/BookHeader.vue -->
 <script setup lang="ts">
+/**
+ * BookHeader - Displays the book cover and title.
+ */
 const props = defineProps<{
   image: string
   title: string
 }>()
 </script>
-
 <template>
   <div class="bookheader">
     <img :src="image" :alt="`Cover of the book ${title}`" class="bookheader__cover" />

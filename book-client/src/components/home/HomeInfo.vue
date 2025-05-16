@@ -1,5 +1,10 @@
+<!-- components/home/HomeInfo.vue -->
 <script setup lang="ts">
-import ListItem from '@/components/home/MoleculeListItem.vue'
+/**
+ * HomeInfo - Lists features/benefits on the home page.
+ * Used in HomeView.
+ */
+import InfoItem from '@/components/home/InfoItem.vue'
 
 const listData = [
   'Build your virtual bookshelf',
@@ -10,22 +15,20 @@ const listData = [
 </script>
 
 <template>
-  <article class="homeinfo">
-    <h2 class="homeinfo__title">About Peach Pages</h2>
-
-    <p class="homeinfo__text">
+  <div class="info">
+    <p class="info__text">
       Explore bookshelves, rate stories, and discover new reads through a cozy review community.
     </p>
-    <ul class="homeinfo__list">
-      <ListItem v-for="(item, index) in listData" :key="index" :listinfo="item" />
+
+    <ul class="info__list" role="list">
+      <InfoItem v-for="(item, index) in listData" :key="index" :listinfo="item" />
     </ul>
-  </article>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.homeinfo {
-  @include mix-flex-center(column);
-  gap: 1rem;
+.info {
+  @include mix-flex-center(column, 1rem);
   max-width: fn-rem(320);
   padding: 0.5rem;
 
@@ -39,10 +42,6 @@ const listData = [
     padding: 1.5rem;
   }
 
-  &__title {
-    @include mix-visually-hidden();
-  }
-
   &__text {
     font-size: fn-rem(17);
     padding-bottom: 0.5rem;
@@ -52,14 +51,6 @@ const listData = [
     }
 
     @include mix-media(tablet) {
-      font-size: fn-rem(19);
-    }
-
-    @include mix-media(laptop) {
-      font-size: fn-rem(19);
-    }
-
-    @include mix-media(desktop) {
       font-size: fn-rem(19);
     }
   }

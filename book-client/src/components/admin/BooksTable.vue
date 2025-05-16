@@ -1,7 +1,11 @@
+<!-- components/admin/BooksTable.vue -->
 <script setup lang="ts">
+/**
+ * BooksTable - Fetches and displays all books in a table.
+ */
 import { ref, onMounted, computed } from 'vue'
-import BaseTable from './BaseTable.vue'
-const API_URL = import.meta.env.VITE_API_URL
+import { useApi } from '@/composables/useApi'
+import BaseTable from '@/components/admin/BaseTable.vue'
 
 interface Book {
   _id: string
@@ -11,11 +15,15 @@ interface Book {
   created_at: string
 }
 
+const { API_URL } = useApi()
 const books = ref<Book[]>([])
 
+/**
+ * Fetch books from the API and populate the books ref.
+ */
 const fetchBooks = async () => {
   try {
-    const res = await fetch(API_URL + '/books')
+    const res = await fetch(`${API_URL}/books`)
     const raw = await res.json()
     books.value = raw
   } catch (err) {
@@ -26,13 +34,15 @@ const fetchBooks = async () => {
 onMounted(fetchBooks)
 
 const columns = [
-  { label: 'Title', key: 'title' },
-  { label: 'Author', key: 'author' },
+  { label: 'Title', key: 'title', breakable: true },
+  { label: 'Author', key: 'author', breakable: true },
   { label: 'Genres', key: 'genres', breakable: true },
   { label: 'Created at', key: 'createdAt' },
 ]
 
-// Optionally, format genres as a comma-separated string for display
+/**
+ * Format genres for display if they are arrays.
+ */
 const formattedBooks = computed(() =>
   books.value.map((book) => ({
     ...book,

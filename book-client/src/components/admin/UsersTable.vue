@@ -1,14 +1,22 @@
+<!-- components/admin/UsersTable.vue -->
 <script setup lang="ts">
+/**
+ * UsersTable - Fetches and displays user accounts in a table.
+ */
 import { ref, onMounted, computed } from 'vue'
-import BaseTable from './BaseTable.vue'
+import { useApi } from '@/composables/useApi'
+import BaseTable from '@/components/admin/BaseTable.vue'
 import type { IUser } from '@/types/IUser'
-const API_URL = import.meta.env.VITE_API_URL
 
+const { API_URL } = useApi()
 const users = ref<IUser[]>([])
 
+/**
+ * Fetch users from the API and populate the users ref.
+ */
 const fetchUsers = async () => {
   try {
-    const res = await fetch(API_URL + '/users')
+    const res = await fetch(`${API_URL}/users`)
     const raw = await res.json()
     users.value = raw
   } catch (err) {
@@ -18,25 +26,22 @@ const fetchUsers = async () => {
 
 onMounted(fetchUsers)
 
-// 🔐 Replace real passwords with asterisks
-const maskedUsers = computed(() =>
-  users.value.map(user => ({
-    ...user,
-    password: '******',
-  }))
-)
-
-/**
- * Table column configuration for BaseTable.
- * Each column includes a label (for the table header)
- * and a key (used to access the user property).
- */
 const columns = [
   { label: 'Username', key: 'username' },
   { label: 'Password', key: 'password', breakable: true },
   { label: 'Role', key: 'role' },
   { label: 'Created', key: 'created_at' },
 ]
+
+/**
+ * Mask passwords for display.
+ */
+const maskedUsers = computed(() =>
+  users.value.map((user) => ({
+    ...user,
+    password: '******',
+  })),
+)
 </script>
 
 <template>

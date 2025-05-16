@@ -1,15 +1,12 @@
+<!-- components/admin/BaseTable.vue -->
 <script setup lang="ts">
 /**
- * Props for BaseTable component
+ * BaseTable - Generic reusable table for listing data with dynamic columns.
  *
- * @prop {Array<{ label: string, key: string, breakable?: boolean }>} columns
- *        Table columns with label (shown in header) and key (used to access item data)
- * @prop {Array<any>} items
- *        The rows of data to display in the table
- * @prop {string} rowKey
- *        Unique key in each item used as :key for rows (e.g., "id")
+ * @prop columns - Defines column headers and keys
+ * @prop items - Array of data rows to render
+ * @prop rowKey - Property to use for :key in rows (e.g. 'id')
  */
-
 defineProps<{
   columns: { label: string; key: string; breakable?: boolean }[]
   items: any[]

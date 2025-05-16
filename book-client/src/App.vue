@@ -1,18 +1,18 @@
 <script setup lang="ts">
 /**
  * App.vue
+ *
  * Root component of the application.
- * - Renders the global Header
- * - Wraps routed views in <main>
- * - Placeholder <footer> (can be replaced with global component)
+ * - Renders <AppHeader /> globally
+ * - Wraps routed views in a <main> tag
+ * - Includes placeholder <footer>
  */
 import { RouterView } from 'vue-router'
-import HeaderComponent from '@/components/fixtures/header/HeaderComponent.vue'
+import AppHeader from '@/components/layout/AppHeader.vue'
 </script>
 
 <template>
-  <!-- Global site header -->
-  <HeaderComponent />
+  <AppHeader />
 
   <!-- Routed content -->
   <main class="main">
@@ -33,9 +33,10 @@ html {
 }
 
 .main {
+  height: 2000px;
   width: 100%;
   height: 100%;
-  max-width: fn-rem(1440);
+  max-width: 1440px;
   margin: 0;
   padding: 0;
 }

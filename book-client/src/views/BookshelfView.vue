@@ -1,31 +1,25 @@
-<template>
-  <section class="bookshelf">
-    <BackButton @click="goBack" />
-    <h1>Bookshelf</h1>
-
-    <div v-if="loading">Loading books...</div>
-    <div v-else-if="books.length === 0">Bookshelf is empty.</div>
-
-    <div v-else class="books-grid">
-      <BookCard v-for="book in books" :key="book._id" :book="book" />
-    </div>
-  </section>
-</template>
-
+<!-- src/views/BookshelfView.vue -->
 <script setup lang="ts">
+/**
+ * BookshelfView.vue
+ *
+ * Displays all books as cards with optional navigation.
+ */
 import { ref, onMounted } from 'vue'
+import { useApi } from '@/composables/useApi'
+
 import BookCard from '@/components/books/BookCard.vue'
-import BackButton from '@/components/atoms/BackButton.vue'
+import BackButton from '@/components/global/BackButton.vue'
 import { useRouter } from 'vue-router'
 
-const API_URL = import.meta.env.VITE_API_URL
+const { API_URL } = useApi()
 const router = useRouter()
 
 const goBack = () => {
   if (window.history.length > 1) {
     router.back()
   } else {
-    router.push({ name: 'home' }) // Fallback using named route
+    router.push({ name: 'home' })
   }
 }
 
@@ -59,13 +53,27 @@ onMounted(async () => {
 })
 </script>
 
-<style scoped lang="scss">
-.back-button {
-  margin-right: auto;
-}
+<template>
+  <section class="books" role="region" aria-labelledby="bookshelf-title">
+    <BackButton class="books__return" @click="goBack" />
+    <h2 id="bookshelf-title" class="books__title">Bookshelf</h2>
 
-.bookshelf {
+    <div v-if="loading" class="books__status" aria-live="polite">Loading books...</div>
+
+    <div v-else-if="books.length === 0" class="books__status" aria-live="polite">
+      Bookshelf is empty.
+    </div>
+
+    <div v-else class="books__grid">
+      <BookCard class="books__book" v-for="book in books" :key="book._id" :book="book" />
+    </div>
+  </section>
+</template>
+
+<style scoped lang="scss">
+.books {
   width: 95%;
+  @include mix-flex-center(column);
 
   @include mix-media(laptop) {
     max-width: 85%;
@@ -75,15 +83,17 @@ onMounted(async () => {
     max-width: 90%;
   }
 
-  @include mix-flex-center(column);
+  &__return {
+    margin-right: auto;
+  }
 
-  h1 {
+  &__title {
     text-transform: uppercase;
     text-align: center;
     font-size: fn-rem(36);
-    margin-bottom: 1rem;
+    margin-bottom: fn-rem(16);
     border-bottom: fn-rem(2) solid var(--color-action-primary);
-    padding-bottom: 1.5rem;
+    padding-bottom: fn-rem(24);
     width: 100%;
 
     @include mix-media(laptop) {
@@ -95,21 +105,27 @@ onMounted(async () => {
     }
   }
 
-  .books-grid {
+  &__status {
+    font-style: italic;
+    text-align: center;
+    margin-bottom: fn-rem(16);
+  }
+
+  &__grid {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: fn-rem(16);
     width: 100%;
     max-width: fn-rem(600);
 
     @include mix-media(laptop) {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      gap: fn-rem(24);
       max-width: 100%;
     }
 
     @include mix-media(desktop) {
-      display: grid;
       grid-template-columns: repeat(3, 1fr);
     }
   }
