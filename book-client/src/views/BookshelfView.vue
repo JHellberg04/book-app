@@ -52,11 +52,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="books">
+  <section class="books" role="region" aria-labelledby="bookshelf-title">
     <BackButton class="books__return" @click="goBack" />
-    <h2 class="books__title">Bookshelf</h2>
+    <h2 id="bookshelf-title" class="books__title">Bookshelf</h2>
 
-    <!-- Hanterar alla tre tillstånd i samma nivå -->
     <div v-if="loading" class="books__status" aria-live="polite">Loading books...</div>
 
     <div v-else-if="books.length === 0" class="books__status" aria-live="polite">
@@ -90,9 +89,9 @@ onMounted(async () => {
     text-transform: uppercase;
     text-align: center;
     font-size: fn-rem(36);
-    margin-bottom: 1rem;
+    margin-bottom: fn-rem(16);
     border-bottom: fn-rem(2) solid var(--color-action-primary);
-    padding-bottom: 1.5rem;
+    padding-bottom: fn-rem(24);
     width: 100%;
 
     @include mix-media(laptop) {
@@ -107,19 +106,20 @@ onMounted(async () => {
   &__status {
     font-style: italic;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: fn-rem(16);
   }
 
   &__grid {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: fn-rem(16);
     width: 100%;
     max-width: fn-rem(600);
 
     @include mix-media(laptop) {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      gap: fn-rem(24);
       max-width: 100%;
     }
 

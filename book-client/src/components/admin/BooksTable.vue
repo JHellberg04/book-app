@@ -34,8 +34,8 @@ const fetchBooks = async () => {
 onMounted(fetchBooks)
 
 const columns = [
-  { label: 'Title', key: 'title' },
-  { label: 'Author', key: 'author' },
+  { label: 'Title', key: 'title', breakable: true },
+  { label: 'Author', key: 'author', breakable: true },
   { label: 'Genres', key: 'genres', breakable: true },
   { label: 'Created at', key: 'createdAt' },
 ]
