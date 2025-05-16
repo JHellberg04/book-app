@@ -1,4 +1,10 @@
+<!-- src/views/BookshelfView.vue -->
 <script setup lang="ts">
+/**
+ * BookshelfView.vue
+ *
+ * Displays all books as cards with optional navigation.
+ */
 import { ref, onMounted } from 'vue'
 import BookCard from '@/components/books/BookCard.vue'
 import BackButton from '@/components/atoms/BackButton.vue'
@@ -11,7 +17,7 @@ const goBack = () => {
   if (window.history.length > 1) {
     router.back()
   } else {
-    router.push({ name: 'home' }) // Fallback using named route
+    router.push({ name: 'home' })
   }
 }
 

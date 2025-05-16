@@ -1,15 +1,19 @@
+<!-- src/views/ReviewPage.vue -->
 <script setup lang="ts">
+/**
+ * ReviewPage.vue
+ *
+ * Displays a book with metadata and allows submitting/viewing reviews.
+ */
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-// Components
 import BookHeader from '@/components/reviews/BookHeader.vue'
 import BookInfo from '@/components/reviews/BookInfo.vue'
 import ReviewForm from '@/components/reviews/ReviewForm.vue'
 import ReviewList from '@/components/reviews/ReviewList.vue'
 import BackButton from '@/components/atoms/BackButton.vue'
 
-// Route and API
 const route = useRoute()
 const bookId = route.params.id
 const API_URL = import.meta.env.VITE_API_URL

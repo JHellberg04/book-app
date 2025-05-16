@@ -1,4 +1,11 @@
-<script setup lang="ts"></script>
+<!-- src/views/UserView.vue -->
+<script setup lang="ts">
+/**
+ * UserView.vue
+ *
+ * Placeholder view for user-specific content.
+ */
+</script>
 
 <template>
   <section class="userview">

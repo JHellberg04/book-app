@@ -1,4 +1,11 @@
+<!-- src/views/HomeView.vue -->
 <script setup lang="ts">
+/**
+ * HomeView.vue
+ *
+ * Landing page for the application.
+ * Displays logo, value props and CTA.
+ */
 import HomeCTA from '@/components/organism/ButtonCta.vue'
 import AtomHeroLogo from '@/components/home/AtomHeroLogo.vue'
 import OrganismHomeInfo from '@/components/home/OragnismHomeInfo.vue'

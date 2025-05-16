@@ -1,4 +1,10 @@
+<!-- src/views/AdminView.vue -->
 <script setup lang="ts">
+/**
+ * AdminView.vue
+ *
+ * Displays admin dashboard with book/user management tools.
+ */
 import AddNewBook from '@/components/admin/AddNewBook.vue'
 import BooksTable from '@/components/admin/BooksTable.vue'
 import UsersTable from '@/components/admin/UsersTable.vue'

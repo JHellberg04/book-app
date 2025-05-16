@@ -1,6 +1,13 @@
-<script setup lang="ts"></script>
+<!-- src/views/AccountView.vue -->
+<script setup lang="ts">
+/**
+ * AccountView.vue
+ *
+ * Placeholder wrapper for authenticated user routes.
+ * Renders child routes using <router-view>.
+ */
+</script>
 
-<!-- TODO: Placeholder view for account. Will be expanded or replaced based on design decisions. -->
 <template>
   <section class="account">
     <router-view />
