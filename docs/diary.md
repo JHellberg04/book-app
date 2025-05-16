@@ -68,6 +68,8 @@ _The SCSS structure and utility setup are suggested defaults and open for discus
 
 ## **Plan** : upload db exports and try setup on monday may 12th, 2025
 
+---
+
 ### 📅 2025-05-14 – Final Refinements & Deployment Setup
 
 - Jonatan implemented the admin panel for books and exported db collections:
@@ -82,6 +84,8 @@ _The SCSS structure and utility setup are suggested defaults and open for discus
   - Completed login functionality for both users and admin
   - Created a password-protected admin view to manage users
   - Displays all users in a table format.
+
+---
 
 ### 📅 2025-05-16 – Project conclusion
 
