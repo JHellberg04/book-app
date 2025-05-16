@@ -47,7 +47,7 @@ const altText =
     width: 100%;
     height: auto;
     min-width: fn-rem(250);
-    max-width: fn-rem(550);
+    max-width: fn-rem(450);
     padding: 1rem;
   }
 

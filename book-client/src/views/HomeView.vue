@@ -7,15 +7,15 @@
  * Displays logo, value props and CTA.
  */
 import ButtonCTA from '@/components/organism/ButtonCta.vue'
-import AtomHeroLogo from '@/components/home/AtomHeroLogo.vue'
-import OrganismHomeInfo from '@/components/home/OragnismHomeInfo.vue'
+import BrandLogo from '@/components/global/BrandLogo.vue'
+import HomeInfo from '@/components/home/HomeInfo.vue'
 </script>
 
 <template>
   <section class="home">
     <h1 class="home__title">Welcome to Peach Pages</h1>
-    <AtomHeroLogo class="home__logo" />
-    <OrganismHomeInfo class="home__info" />
+    <BrandLogo class="home__logo" variant="hero" />
+    <HomeInfo class="home__info" />
     <ButtonCTA
       class="home__cta"
       heading="Ready to start building your shelf?"

@@ -4,7 +4,7 @@
  * HomeInfo - Lists features/benefits on the home page.
  * Used in HomeView.
  */
-import ListItem from '@/components/home/ListItem.vue'
+import InfoItem from '@/components/home/InfoItem.vue'
 
 const listData = [
   'Build your virtual bookshelf',
@@ -21,7 +21,7 @@ const listData = [
     </p>
 
     <ul class="info__list" role="list">
-      <ListItem v-for="(item, index) in listData" :key="index" :listinfo="item" />
+      <InfoItem v-for="(item, index) in listData" :key="index" :listinfo="item" />
     </ul>
   </div>
 </template>
