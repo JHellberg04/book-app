@@ -6,11 +6,13 @@
  * Displays all books as cards with optional navigation.
  */
 import { ref, onMounted } from 'vue'
+import { useApi } from '@/composables/useApi'
+
 import BookCard from '@/components/books/BookCard.vue'
-import BackButton from '@/components/atoms/BackButton.vue'
+import BackButton from '@/components/global/BackButton.vue'
 import { useRouter } from 'vue-router'
 
-const API_URL = import.meta.env.VITE_API_URL
+const { API_URL } = useApi()
 const router = useRouter()
 
 const goBack = () => {

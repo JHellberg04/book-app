@@ -6,8 +6,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useApi } from '@/composables/useApi'
-import BaseInput from '@/components/atoms/BaseInput.vue'
-import BaseAction from '@/components/atoms/BaseAction.vue'
+import BaseInput from '@/components/global/BaseInput.vue'
+import BaseAction from '@/components/global/BaseAction.vue'
 import StarRating from '@/components/reviews/StarRating.vue'
 
 const { API_URL } = useApi()

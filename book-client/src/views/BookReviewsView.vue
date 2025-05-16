@@ -12,7 +12,7 @@ import BookHeader from '@/components/reviews/BookHeader.vue'
 import BookInfo from '@/components/reviews/BookInfo.vue'
 import ReviewForm from '@/components/reviews/ReviewForm.vue'
 import ReviewList from '@/components/reviews/ReviewList.vue'
-import BackButton from '@/components/atoms/BackButton.vue'
+import BackButton from '@/components/global/BackButton.vue'
 
 const route = useRoute()
 const bookId = route.params.id
@@ -46,20 +46,17 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="reviewpage" role="main" aria-labelledby="reviewpage-heading">
-    <h2 id="reviewpage-heading" class="visually-hidden">Book review page</h2>
+  <div class="reviewpage">
+    <div v-if="loading">Loading...</div>
 
-    <div v-if="loading" class="reviewpage__loading">Loading...</div>
-
-    <header class="reviewpage__header">
+    <div class="reviewpage__header">
       <div class="reviewpage__header-inner">
         <BackButton @click="$router.push('/bookshelf')" />
         <p class="reviewpage__genre">{{ book.genres?.join(', ') || 'Genre not available' }}</p>
       </div>
-    </header>
+    </div>
 
-    <section v-if="book.title" class="reviewpage__book" aria-labelledby="bookinfo-heading">
-      <h3 id="bookinfo-heading" class="visually-hidden">Book information</h3>
+    <div v-if="book.title" class="reviewpage__book">
       <BookHeader :image="book.image" :title="book.title" :genres="book.genres" />
       <BookInfo
         :title="book.title"
@@ -68,26 +65,19 @@ onMounted(async () => {
         :rating="book.averageRating ?? 0"
         :description="book.description"
       />
-    </section>
+    </div>
 
-    <section v-if="book._id" class="reviewpage__review" aria-labelledby="bookreview-heading">
-      <h3 id="bookreview-heading" class="visually-hidden">Reader reviews and form</h3>
+    <div v-if="book._id" class="reviewpage__review">
       <ReviewForm :bookId="book._id" />
       <ReviewList :bookId="book._id" />
-    </section>
-  </section>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
 .reviewpage {
   @include mix-flex-center(column);
   width: 100%;
-  max-width: 1100px;
-
-  &__loading {
-    text-align: center;
-    font-style: italic;
-  }
 
   &__header {
     display: flex;
@@ -153,6 +143,21 @@ onMounted(async () => {
     margin: 0 auto;
     padding: fn-rem(32) fn-rem(16);
 
+    @include mix-media(desktop) {
+      display: grid;
+      grid-template-columns: repeat(14, 1fr);
+      gap: fn-rem(48);
+      align-items: start;
+
+      > :first-child {
+        grid-column: 2 / span 4;
+      }
+
+      > :nth-child(2) {
+        grid-column: 7 / span 6;
+      }
+    }
+
     @include mix-media(laptop) {
       display: grid;
       grid-template-columns: repeat(14, 1fr);
@@ -167,10 +172,6 @@ onMounted(async () => {
         grid-column: 7 / span 6;
       }
     }
-  }
-
-  .visually-hidden {
-    @include mix-visually-hidden();
   }
 }
 </style>

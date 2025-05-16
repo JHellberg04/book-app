@@ -54,7 +54,6 @@ const { title, author, published_year, rating, description } = defineProps<{
   &__author-published {
     font-size: fn-rem(14.4);
     margin-bottom: fn-rem(16);
-    color: var(--color-black);
 
     span {
       display: block;

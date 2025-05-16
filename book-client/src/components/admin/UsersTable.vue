@@ -5,7 +5,7 @@
  */
 import { ref, onMounted, computed } from 'vue'
 import { useApi } from '@/composables/useApi'
-import BaseTable from './BaseTable.vue'
+import BaseTable from '@/components/admin/BaseTable.vue'
 import type { IUser } from '@/types/IUser'
 
 const { API_URL } = useApi()

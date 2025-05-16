@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseAction from '@/components/atoms/BaseAction.vue'
+import BaseAction from '@/components/global/BaseAction.vue'
 import type { RouteLocationRaw } from 'vue-router'
 
 const props = defineProps<{

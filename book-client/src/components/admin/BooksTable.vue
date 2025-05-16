@@ -5,7 +5,7 @@
  */
 import { ref, onMounted, computed } from 'vue'
 import { useApi } from '@/composables/useApi'
-import BaseTable from './BaseTable.vue'
+import BaseTable from '@/components/admin/BaseTable.vue'
 
 interface Book {
   _id: string
