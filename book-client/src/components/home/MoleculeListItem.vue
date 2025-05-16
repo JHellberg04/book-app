@@ -1,4 +1,8 @@
+<!-- components/home/MoleculeListItem.vue -->
 <script setup lang="ts">
+/**
+ * ListItem - Displays a single item in a list.
+ */
 import AtomList from '@/components/home/AtomListIcon.vue'
 
 const props = defineProps<{

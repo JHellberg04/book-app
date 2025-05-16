@@ -1,4 +1,8 @@
+<!-- components/home/AtomListIcon.vue -->
 <script setup lang="ts">
+/**
+ * ListIcon - Imports a list icon asset.
+ */
 import iconSrc from '@/assets/icon/listicon-32x32px.png'
 </script>
 

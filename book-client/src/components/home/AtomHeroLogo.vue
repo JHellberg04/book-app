@@ -1,4 +1,8 @@
+<!-- components/home/AtomHeroLogo.vue -->
 <script setup lang="ts">
+/**
+ * HeroLogo - Imports and renders the large dark logo.
+ */
 import HeroLogo from '@/assets/logotype/logotype-large-dark.svg'
 </script>
 

@@ -1,4 +1,8 @@
+<!-- components/home/OrganismHomeInfo.vue -->
 <script setup lang="ts">
+/**
+ * HomeInfo - Displays a list of benefits/features on the home page.
+ */
 import ListItem from '@/components/home/MoleculeListItem.vue'
 
 const listData = [
