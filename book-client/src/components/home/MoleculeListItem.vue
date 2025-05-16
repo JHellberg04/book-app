@@ -25,7 +25,7 @@ const props = defineProps<{
   }
 
   @include mix-media(tablet) {
-    margin-bottom: 0.75;
+    margin-bottom: 0.75rem;
   }
 
   &__text {

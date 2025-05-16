@@ -1,9 +1,9 @@
+<!-- src/components/molecules/MoleculeHeaderNav.vue -->
 <script setup lang="ts">
 /**
  * MoleculeHeaderNav
  * Shows navigation links conditionally based on user auth state.
  * - Only visible if user is logged in
- * - Admin users see the "Users" link
  * - Logout button triggers useLogout composable
  */
 
@@ -14,7 +14,6 @@ import NavLink from './AtomNavLink.vue'
 
 const auth = useAuthStore()
 const isLoggedIn = computed(() => auth.isLoggedIn)
-const isAdmin = computed(() => auth.isAdmin)
 
 const { handleLogout, loading } = useLogout()
 </script>
@@ -22,16 +21,8 @@ const { handleLogout, loading } = useLogout()
 <template>
   <!-- Only show this nav if user is logged in -->
   <div v-if="isLoggedIn" class="pagenav">
-    <!-- Admin-only link -->
-    <NavLink v-if="isAdmin" class="pagenav__link" to="/account/admin/users" label="Users" />
-
-    <!-- All logged-in users -->
-    <NavLink
-      class="pagenav__link"
-      :to="`/bookshelf/bookreview/682076ca38fc6ba7a9b29c19`"
-      label="Reviews"
-    />
-    <NavLink class="pagenav__link" to="/bookshelf" label="Books" />
+    <!-- Books link -->
+    <NavLink class="pagenav__link" :to="{ name: 'books' }" label="Books" />
 
     <!-- Logout button -->
     <button class="pagenav__link" @click="handleLogout" :disabled="loading">Log out</button>

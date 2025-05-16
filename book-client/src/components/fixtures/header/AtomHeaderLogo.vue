@@ -1,3 +1,4 @@
+<!-- src/components/atoms/AtomHeaderLogo.vue -->
 <script setup lang="ts">
 /**
  * AtomHeaderLogo
@@ -9,8 +10,8 @@ import lightLogo from '@/assets/logotype/logotype-small-dark.svg'
 <template>
   <!-- Clickable logo that routes to the homepage -->
   <div class="logo">
-    <RouterLink class="logo__link" to="/" aria-label="Gå till startsidan">
-      <img :src="lightLogo" alt="Peach pages text with an open book" class="logo__link-img" />
+    <RouterLink class="logo__link" :to="{ name: 'home' }" aria-label="Go to homepage">
+      <img :src="lightLogo" alt="Peach Pages text with an open book" class="logo__link-img" />
     </RouterLink>
   </div>
 </template>
@@ -56,6 +57,7 @@ import lightLogo from '@/assets/logotype/logotype-small-dark.svg'
       animation: shrink 120ms ease-in-out;
     }
   }
+
   &__link-img {
     width: 100%;
     height: auto;

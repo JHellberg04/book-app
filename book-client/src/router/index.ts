@@ -1,50 +1,60 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '@/stores/auth.js'
+import { useAuthStore } from '@/stores/auth'
 import HomeView from '@/views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // Public route: Home page
     {
       path: '/',
       name: 'home',
       component: HomeView,
     },
-    // Account-related routes (login, register, logout, admin)
     {
       path: '/account',
       component: () => import('@/views/AccountView.vue'),
       children: [
         {
+          path: '',
+          redirect: 'login',
+        },
+        {
           path: 'login',
+          name: 'login',
           component: () => import('@/components/auth/LoginUser.vue'),
         },
         {
           path: 'register',
+          name: 'register',
           component: () => import('@/components/auth/RegisterUser.vue'),
         },
         {
           path: 'logout',
+          name: 'logout',
           component: () => import('@/components/auth/LogoutUser.vue'),
-          meta: { requiresAuth: true }, // Protected route: Only for logged in users
-        },
-        {
-          path: 'admin/users',
-          component: () => import('@/components/admin/AdminUsers.vue'),
-          meta: { requiresAuth: true, requiresAdmin: true }, // Admin only
+          meta: { requiresAuth: true },
         },
       ],
     },
-    // Public route: Book list
     {
-      path: '/bookshelf',
-      name: 'bookshelf',
+      path: '/admin',
+      name: 'admin',
+      component: () => import('@/views/AdminView.vue'),
+      meta: { requiresAuth: true, requiresAdmin: true },
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: () => import('@/views/UserView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/books',
+      name: 'books',
       component: () => import('@/views/BookshelfView.vue'),
     },
-    // Route: Book review page for a specific book
     {
-      path: '/bookshelf/bookreview/:id',
+      path: '/books/:id',
       name: 'book-review',
       component: () => import('@/views/BookReviewsView.vue'),
       props: true,
@@ -53,16 +63,18 @@ const router = createRouter({
   linkActiveClass: 'active',
 })
 
-// Navigation guard to protect routes based on login and admin status
+// Navigation guard
 router.beforeEach((to, from, next) => {
   const auth = useAuthStore()
 
   if (to.meta.requiresAuth && !auth.isLoggedIn) {
+    window.alert('You must be logged in to access this page.')
     return next('/account/login')
   }
 
   if (to.meta.requiresAdmin && !auth.isAdmin) {
-    return next('/account')
+    window.alert('You do not have permission to access that page.')
+    return next(from.fullPath)
   }
 
   next()

@@ -4,15 +4,15 @@
  * AtomNavLink
  * A reusable navigation link with optional icon and accessible label.
  * Props:
- * - `to`: path to route to
+ * - `to`: route destination (string path or named route)
  * - `label`: visible label and aria-label
  * - `icon`: optional icon (not used here, but prepared for future use)
  */
 
-import { RouterLink } from 'vue-router'
+import { RouterLink, type RouteLocationRaw } from 'vue-router'
 
 defineProps<{
-  to: string
+  to: RouteLocationRaw
   label: string
   icon?: string
 }>()
@@ -88,9 +88,5 @@ defineProps<{
     font-weight: var(--font-weight-semibold);
     transform: scale(1.1);
   }
-}
-
-.auth-button:disabled {
-  @display:none;
 }
 </style>

@@ -1,30 +1,27 @@
-<!-- AtomAuthIcon.vue -->
+<!-- src/components/atoms/AtomAuthIcon.vue -->
 <script setup lang="ts">
 /**
- * This component displays either:
- * - a login button if user is not logged in
- * - an account link if the user is authenticated
+ * AtomAuthIcon.vue
+ *
+ * Displays an authentication button:
+ * - If not logged in: shows a "Log in" button
+ * - If logged in: shows a "Go to account" button
  */
 
-import { useAuthStore } from '@/stores/auth'
 import { computed } from 'vue'
+import { useAuthStore } from '@/stores/auth'
 
-// Access auth state from store
 const auth = useAuthStore()
 const isLoggedIn = computed(() => auth.isLoggedIn)
 </script>
 
 <template>
-  <!-- Router link updates dynamically based on login state -->
   <router-link
-    :to="isLoggedIn ? '/account' : '/account/login'"
+    :to="isLoggedIn ? { name: 'user' } : { name: 'login' }"
     class="auth-button"
-    :aria-label="isLoggedIn ? 'Gå till konto' : 'Logga in'"
+    :aria-label="isLoggedIn ? 'Go to account' : 'Log in'"
   >
-    <!-- Icon representing user/account -->
     <span class="material-symbols-outlined auth-button__icon">person</span>
-
-    <!-- Button text changes based on login state -->
     <span class="auth-button__text">
       {{ isLoggedIn ? 'Account' : 'Log in' }}
     </span>

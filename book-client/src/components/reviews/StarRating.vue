@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps<{
   rating: number
@@ -26,7 +26,7 @@ const setRating = (value: number) => {
 </script>
 
 <template>
-  <div class="starrating">
+  <div class="starrating" :class="{ interactive: interactive }">
     <span
       v-for="n in 5"
       :key="n"
@@ -51,25 +51,23 @@ const setRating = (value: number) => {
   gap: fn-rem(5);
   font-size: fn-rem(24);
   justify-content: center;
-  cursor: default;
 
   &__star {
     color: var(--color-ratingstar-empty);
     transition: color 0.2s;
-    cursor: inherit;
+  }
 
-    &.filled {
-      color: var(--color-ratingstar-filled);
-    }
+  &.interactive &__star {
+    cursor: pointer;
 
     &:hover {
       filter: brightness(1.2);
     }
   }
 
-  // If interactive mode, enable pointer cursor
-  :deep(.starrating__star) {
-    cursor: pointer;
+  .filled {
+    color: var(--color-ratingstar-filled);
   }
 }
 </style>
+s

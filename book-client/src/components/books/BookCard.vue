@@ -18,18 +18,19 @@
             :key="i"
             class="star"
             :class="{ filled: i <= Math.floor(book.averageRating) }"
-            >★</span
           >
+            ★
+          </span>
           <span v-if="book.reviews.length === 1" class="review-amount">
-            - {{ book.reviews.length }} review</span
-          >
-          <span v-else class="review-amount"> - {{ book.reviews.length }} reviews</span>
+            - {{ book.reviews.length }} review
+          </span>
+          <span v-else class="review-amount"> - {{ book.reviews.length }} reviews </span>
         </div>
       </div>
       <div class="link-container">
-        <router-link :to="`/bookshelf/bookreview/${book._id}`" class="book-link"
-          >READ MORE</router-link
-        >
+        <router-link :to="{ name: 'book-review', params: { id: book._id } }" class="book-link">
+          READ MORE
+        </router-link>
       </div>
     </div>
   </article>
@@ -100,7 +101,6 @@ const props = defineProps<{
       display: flex;
       gap: 2px;
       font-size: 1.5rem;
-      display: flex;
       flex-direction: row;
       align-items: center;
 

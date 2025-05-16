@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import HomeCTA from '@/components/organism/ButtonCta.vue'
 import AtomHeroLogo from '@/components/home/AtomHeroLogo.vue'
-import OragnismHomeInfo from '@/components/home/OragnismHomeInfo.vue'
+import OrganismHomeInfo from '@/components/home/OragnismHomeInfo.vue'
 </script>
 
 <template>
   <section class="home">
     <h1 class="home__title">Welcome to Peach Pages</h1>
     <AtomHeroLogo />
-    <OragnismHomeInfo />
+    <OrganismHomeInfo />
     <HomeCTA
       heading="Ready to start building your shelf?"
-      to="/account/register"
+      :to="{ name: 'register' }"
       label="Create Account"
     />
   </section>

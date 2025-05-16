@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import BaseTable from './BaseTable.vue'
+const API_URL = import.meta.env.VITE_API_URL
 
 interface Book {
   _id: string
@@ -14,7 +15,7 @@ const books = ref<Book[]>([])
 
 const fetchBooks = async () => {
   try {
-    const res = await fetch('http://localhost:3000/books')
+    const res = await fetch(API_URL + '/books')
     const raw = await res.json()
     books.value = raw
   } catch (err) {
@@ -41,14 +42,21 @@ const formattedBooks = computed(() =>
 </script>
 
 <template>
-  <div class="booktable">
+  <section class="booktable">
+    <h2>Manage books</h2>
     <BaseTable :columns="columns" :items="formattedBooks" rowKey="_id" />
-  </div>
+  </section>
 </template>
 
 <style scoped lang="scss">
 .booktable {
   min-width: 300px;
   margin: 0 auto;
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
 }
 </style>

@@ -1,34 +1,37 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-// Import components
+// Components
 import BookHeader from '@/components/reviews/BookHeader.vue'
 import BookInfo from '@/components/reviews/BookInfo.vue'
 import ReviewForm from '@/components/reviews/ReviewForm.vue'
 import ReviewList from '@/components/reviews/ReviewList.vue'
 import BackButton from '@/components/atoms/BackButton.vue'
 
-// Get the route parameters
+// Route and API
 const route = useRoute()
 const bookId = route.params.id
+const API_URL = import.meta.env.VITE_API_URL
 
 const book = ref({
   _id: '',
   title: '',
   author: '',
-  genre: '',
+  genres: [] as string[],
   image: '',
   description: '',
   rating: 0,
+  published_year: 0,
+  averageRating: 0,
 })
 
 const loading = ref(true)
 
 onMounted(async () => {
   try {
-    const res = await fetch(`http://localhost:3000/books/${bookId}`)
-    if (!res.ok) throw new Error('Boken kunde inte hämtas')
+    const res = await fetch(`${API_URL}/books/${bookId}`)
+    if (!res.ok) throw new Error('Book could not be fetched')
     book.value = await res.json()
   } catch (error) {
     console.error('Error:', error)

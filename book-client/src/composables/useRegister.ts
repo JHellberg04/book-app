@@ -1,6 +1,7 @@
 // @/composables/useRegister.ts
 
 import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -10,25 +11,17 @@ const API_URL = import.meta.env.VITE_API_URL
  * Handles user registration using a reactive state object.
  * - Sends POST request to `${VITE_API_URL}/auth/register`
  * - Tracks loading, error, and success state
- *
- * @returns Reactive state and registration function
+ * - On success: alerts and redirects to login page
  */
 export function useRegister() {
+  const router = useRouter()
+
   const state = reactive({
     error: '',
     success: false,
     loading: false,
   })
 
-  /**
-   * registerWithCredentials
-   *
-   * Sends username and password to the registration endpoint.
-   * Updates the reactive state based on the result.
-   *
-   * @param username - The desired username (must be validated before calling)
-   * @param password - The desired password (must be validated before calling)
-   */
   async function registerWithCredentials(username: string, password: string) {
     state.error = ''
     state.success = false
@@ -40,9 +33,9 @@ export function useRegister() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       })
-      console.log('➡️ Sending to API:', { username, password }) // ⚠️ DEBUG ONLY
 
       const data = await res.json()
+      console.log('➡️ Sending to API:', { username, password }) // ⚠️ DEBUG ONLY
 
       if (res.status === 409) {
         state.error = data?.error || 'Username already exists.'
@@ -54,6 +47,10 @@ export function useRegister() {
       }
 
       state.success = true
+
+      // ✅ Show success alert and redirect after short delay
+      alert('🎉 Successfully registered! Redirecting to login...')
+      router.push({ name: 'login' })
     } catch (error: unknown) {
       if (typeof error === 'string') {
         state.error = error

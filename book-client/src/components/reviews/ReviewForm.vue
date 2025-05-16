@@ -9,6 +9,8 @@ const props = defineProps<{
   bookId: string
 }>()
 
+const API_URL = import.meta.env.VITE_API_URL
+
 const name = ref('')
 const content = ref('')
 const router = useRouter()
@@ -36,7 +38,7 @@ const submitReview = async () => {
   }
 
   try {
-    await fetch('http://localhost:3000/reviews', {
+    await fetch(`${API_URL}/reviews`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(review),
