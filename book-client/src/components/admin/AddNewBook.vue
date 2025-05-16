@@ -1,10 +1,15 @@
+<!-- components/admin/AddNewBook.vue -->
 <script setup lang="ts">
+/**
+ * AddNewBook - Form to submit a new book to the database.
+ */
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useApi } from '@/composables/useApi'
 import BaseInput from '@/components/atoms/BaseInput.vue'
 
+const { API_URL } = useApi()
 const router = useRouter()
-const API_URL = import.meta.env.VITE_API_URL
 
 const form = ref({
   title: '',
@@ -15,6 +20,9 @@ const form = ref({
   published_year: '',
 })
 
+/**
+ * Handles form submission by sending POST request to API.
+ */
 const submitForm = async () => {
   try {
     const genresArray = form.value.genres.split(',').map((genre) => genre.trim())
@@ -47,7 +55,6 @@ const submitForm = async () => {
       published_year: '',
     }
 
-    // Redirect to admin books list
     router.push({ name: 'admin_books' })
   } catch (error) {
     console.error('Error adding book:', error)
